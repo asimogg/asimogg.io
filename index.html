@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Automations That Do Real Work</title>
+  <meta name="description" content="I design, build and ship AI automations that run inside real businesses. Not demos — production.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/archivo-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="entrance">
+<!--
+THESIS: One builder, one promise — AI automations that run in production inside real businesses. Refuses the AI-hype landing (glow, gradients, fake proof); the page converts by being as plain and precise as the work.
+OWN-WORLD: True black ground (#0A0A09), warm ivory type (Archivo, expanded display), one signal-orange accent (#FF6B2C) reserved for action and marks. Hairline warm borders; row lists, no cards; the reference's design-tool selection frame marks the key word.
+STORY: Visitor lands, reads one sentence, understands the offer, and either fills the form beside it or scrolls two short sections of specifics before returning to it.
+FIRST VIEWPORT: Split hero — left: display headline with framed key word, subline, CTA; right: inquiry form card on a lifted surface. Topbar: mark left, EN/TR toggle right.
+FORM: User-pinned layout (reference screenshot + black + restrained); concept tournament skipped by brief pin. Seed: none.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+-->
+
+  <header class="topbar">
+    <a class="mark" href="#" aria-label="Home">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+        <path d="M13 2v22M2 13h22M5.2 5.2l15.6 15.6M20.8 5.2 5.2 20.8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+    </a>
+    <div class="topbar-right">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" class="lang-btn" data-set-lang="en" aria-pressed="true">EN</button>
+        <button type="button" class="lang-btn" data-set-lang="tr" aria-pressed="false">TR</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="hero-copy">
+        <h1 class="display">
+          <span class="en">AI automations that actually <span class="framed">do the work</span>.</span>
+          <span class="tr">Gerçekten <span class="framed">iş yapan</span> yapay zekâ otomasyonları.</span>
+        </h1>
+        <p class="sub">
+          <span class="en">Quotes, follow-ups, reports, order flows — I design, build and ship AI automations that run inside real businesses. Not demos. Production.</span>
+          <span class="tr">Teklif, müşteri takibi, raporlama, sipariş akışları — gerçek işletmelerin içinde çalışan yapay zekâ otomasyonlarını tasarlıyor, kuruyor ve devreye alıyorum. Demo değil; sahada, üretimde.</span>
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#inquiry">
+            <span class="en">Start a project</span>
+            <span class="tr">Proje başlat</span>
+          </a>
+          <a class="quiet-link" href="#services">
+            <span class="en">See what gets automated</span>
+            <span class="tr">Neler otomatikleşiyor, bak</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="form-panel" id="inquiry">
+        <h2 class="form-title">
+          <span class="en">Start a project</span>
+          <span class="tr">Proje başlat</span>
+        </h2>
+        <!-- Formspree: replace YOUR_FORM_ID with your real endpoint id from formspree.io -->
+        <form id="inquiry-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+          <div class="field-row">
+            <div class="field">
+              <label for="f-name"><span class="en">Name</span><span class="tr">Ad Soyad</span> <span class="req" aria-hidden="true">*</span></label>
+              <input id="f-name" name="name" type="text" required autocomplete="name" placeholder="Your full name" data-ph-en="Your full name" data-ph-tr="Adınız soyadınız">
+            </div>
+            <div class="field">
+              <label for="f-email"><span class="en">Email</span><span class="tr">E-posta</span> <span class="req" aria-hidden="true">*</span></label>
+              <input id="f-email" name="email" type="email" required autocomplete="email" placeholder="you@company.com" data-ph-en="you@company.com" data-ph-tr="siz@sirket.com">
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-area"><span class="en">Where does the manual work live?</span><span class="tr">Manuel iş en çok nerede?</span> <span class="req" aria-hidden="true">*</span></label>
+            <div class="select-wrap">
+              <select id="f-area" name="area" required>
+                <option value="" disabled selected data-en="Select one" data-tr="Birini seç">Select one</option>
+                <option value="sales-quoting" data-en="Sales &amp; quoting" data-tr="Satış ve teklif">Sales &amp; quoting</option>
+                <option value="operations-orders" data-en="Operations &amp; orders" data-tr="Operasyon ve sipariş">Operations &amp; orders</option>
+                <option value="support-followup" data-en="Customer support &amp; follow-up" data-tr="Müşteri desteği ve takip">Customer support &amp; follow-up</option>
+                <option value="reporting-data" data-en="Reporting &amp; data" data-tr="Raporlama ve veri">Reporting &amp; data</option>
+                <option value="not-sure" data-en="Not sure yet" data-tr="Henüz emin değilim">Not sure yet</option>
+              </select>
+              <svg class="select-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+                <path d="M1 1.5 6 6.5 11 1.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-message"><span class="en">What eats your team's time?</span><span class="tr">Ekibinizin zamanını ne yiyor?</span></label>
+            <textarea id="f-message" name="message" rows="5" placeholder="A few lines is enough." data-ph-en="A few lines is enough." data-ph-tr="Birkaç satır yeter."></textarea>
+          </div>
+          <input type="hidden" name="_language" value="en">
+          <button class="btn btn-primary btn-submit" type="submit">
+            <span class="btn-label">
+              <span class="en">Send inquiry</span>
+              <span class="tr">Talebi gönder</span>
+            </span>
+            <span class="btn-busy" aria-hidden="true">
+              <span class="en">Sending…</span>
+              <span class="tr">Gönderiliyor…</span>
+            </span>
+          </button>
+          <p class="form-status" role="status" aria-live="polite"></p>
+          <p class="form-note">
+            <span class="en">You'll get a reply from a person, not a bot.</span>
+            <span class="tr">Cevabı bot değil, insan yazar.</span>
+          </p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ WHAT GETS AUTOMATED ============ -->
+    <section class="section" id="services">
+      <h2 class="section-heading">
+        <span class="en">What gets automated</span>
+        <span class="tr">Neler otomatikleşiyor</span>
+      </h2>
+      <ul class="rows">
+        <li class="row">
+          <h3><span class="en">Quote &amp; document automation</span><span class="tr">Teklif ve doküman otomasyonu</span></h3>
+          <p><span class="en">Incoming requests become priced quotes, contracts and invoices — without a human copy-pasting between windows.</span><span class="tr">Gelen talepler; pencereler arasında kopyala-yapıştır yapan biri olmadan fiyatlı teklife, sözleşmeye ve faturaya dönüşür.</span></p>
+        </li>
+        <li class="row">
+          <h3><span class="en">Follow-up agents</span><span class="tr">Takip ajanları</span></h3>
+          <p><span class="en">Leads, unpaid invoices and idle customers get followed up on time, every time — in your tone, not a template's.</span><span class="tr">Potansiyel müşteriler, açık faturalar ve sessizleşen hesaplar zamanında takip edilir — şablon diliyle değil, sizin dilinizle.</span></p>
+        </li>
+        <li class="row">
+          <h3><span class="en">Reporting pipelines</span><span class="tr">Raporlama hatları</span></h3>
+          <p><span class="en">Data scattered across Excel, ERP and e-commerce lands on one live view every morning, before anyone asks for it.</span><span class="tr">Excel'e, ERP'ye ve e-ticarete dağılmış veri, kimse istemeden her sabah tek bir canlı ekranda toplanır.</span></p>
+        </li>
+        <li class="row">
+          <h3><span class="en">Internal AI assistants</span><span class="tr">Şirket içi yapay zekâ asistanları</span></h3>
+          <p><span class="en">Your procedures, price lists and history — answerable in plain language by everyone on the team.</span><span class="tr">Prosedürleriniz, fiyat listeleriniz ve geçmişiniz — ekipteki herkesin düz cümlelerle sorup cevap alabildiği bir kaynak olur.</span></p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ============ PROCESS ============ -->
+    <section class="section" id="process">
+      <h2 class="section-heading">
+        <span class="en">How a project runs</span>
+        <span class="tr">Bir proje nasıl ilerler</span>
+      </h2>
+      <ol class="steps">
+        <li class="step">
+          <h3><span class="en">Map</span><span class="tr">Keşif</span></h3>
+          <p><span class="en">One working session to find the process where automation pays back first.</span><span class="tr">Otomasyonun kendini en önce geri ödeyeceği süreci bulmak için tek bir çalışma oturumu.</span></p>
+        </li>
+        <li class="step">
+          <h3><span class="en">Build</span><span class="tr">Kurulum</span></h3>
+          <p><span class="en">A working automation on your real data, tested with the people who will use it.</span><span class="tr">Gerçek verinizle çalışan, onu kullanacak insanlarla test edilmiş bir otomasyon.</span></p>
+        </li>
+        <li class="step">
+          <h3><span class="en">Run</span><span class="tr">Devreye alma</span></h3>
+          <p><span class="en">Shipped into daily use, monitored, and improved as your business changes.</span><span class="tr">Günlük kullanıma alınır, izlenir ve işiniz değiştikçe geliştirilir.</span></p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ============ CLOSE ============ -->
+    <section class="section close">
+      <h2 class="display display-close">
+        <span class="en">Tell me where the manual work is.</span>
+        <span class="tr">Manuel iş nerede, anlatın.</span>
+      </h2>
+      <a class="btn btn-primary" href="#inquiry">
+        <span class="en">Start a project</span>
+        <span class="tr">Proje başlat</span>
+      </a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>
+      <span class="en">© <span data-year></span> — AI automations for real businesses.</span>
+      <span class="tr">© <span data-year></span> — Gerçek işletmeler için yapay zekâ otomasyonları.</span>
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
