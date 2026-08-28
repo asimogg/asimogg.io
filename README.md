@@ -10,14 +10,9 @@ Single-page, bilingual (EN/TR) static landing site. No build step, no backend.
 - `fonts/` — self-hosted Archivo variable font
 - `favicon.svg`
 
-## Setup: connect the form (required)
+## Form
 
-The inquiry form posts to Formspree. Until connected, submissions show a "form isn't connected yet" message.
-
-1. Create a free form at [formspree.io](https://formspree.io) (it forwards submissions to your email).
-2. Copy the form's endpoint ID (looks like `xkgwabcd`).
-3. In `index.html`, replace `YOUR_FORM_ID` in the form's `action` attribute:
-   `action="https://formspree.io/f/xkgwabcd"`
+The inquiry form posts to Formspree (endpoint `https://formspree.io/f/mkjnwzrp`) via fetch in `script.js`; submissions are forwarded to the account email.
 
 ## Deploy to Hostinger (from GitHub)
 
