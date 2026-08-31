@@ -111,11 +111,6 @@
       return;
     }
 
-    if (form.action.indexOf("YOUR_FORM_ID") !== -1) {
-      say("error", "unconfigured");
-      return;
-    }
-
     submitBtn.dataset.busy = "true";
     submitBtn.disabled = true;
 
