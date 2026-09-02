@@ -238,6 +238,19 @@ html[data-lang="tr"] .en { display: none; }
   background-repeat: no-repeat;
 }
 
+/* watercolor brush highlight behind the key phrase in the subline */
+.brush {
+  color: var(--ink);
+  padding: 0.08em 0.38em 0.12em;
+  margin: 0 -0.1em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 60' preserveAspectRatio='none'%3E%3Cfilter id='w' x='-5%25' y='-15%25' width='110%25' height='130%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.035 0.11' numOctaves='2' seed='7'/%3E%3CfeDisplacementMap in='SourceGraphic' scale='7'/%3E%3C/filter%3E%3Cg filter='url(%23w)' fill='%23ff6b2c'%3E%3Cpath d='M6 15 C50 4 130 3 292 9 L296 47 C210 57 90 55 8 51 Z' opacity='.55'/%3E%3Cpath d='M12 21 C70 12 160 10 287 17 L289 42 C200 51 80 49 14 45 Z' opacity='.75'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
+}
+
 .sub {
   margin-top: 1.75rem;
   max-width: 34rem;
