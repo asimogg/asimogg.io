@@ -34,7 +34,7 @@
 
     // masterclass deck link follows the language
     var mc = document.getElementById("masterclass-link");
-    if (mc) mc.href = lang === "tr" ? "masterclass-tr.html?v=3" : "masterclass.html?v=3";
+    if (mc) mc.href = lang === "tr" ? "masterclass-tr.html?v=5" : "masterclass.html?v=5";
 
     // document title + hidden form field
     document.title =
@@ -57,7 +57,7 @@
   // language toggle shows content statically instead of replaying it
   setTimeout(function () {
     document.body.classList.remove("entrance");
-  }, 2000);
+  }, 2400);
 
   /* ---------- footer year ---------- */
   document.querySelectorAll("[data-year]").forEach(function (el) {

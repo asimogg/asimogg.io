@@ -50,10 +50,10 @@ em{color:var(--orange);font-style:italic}
 .kicker.blue{color:var(--blue)} .kicker.green{color:var(--green)} .kicker.gray{color:var(--midgray)}
 
 #bar{position:fixed;top:0;left:0;height:3px;background:var(--orange);width:0;z-index:60;transition:width .3s}
-#hud{position:fixed;bottom:2.2vh;right:2.6vw;z-index:60;display:flex;gap:1.1rem;align-items:center;
-  font-family:var(--m);font-size:.72rem;color:var(--midgray)}
+#hud{position:fixed;bottom:2.2vh;left:0;right:0;z-index:60;display:flex;gap:1rem;align-items:center;justify-content:center;
+  font-family:var(--m);font-size:.95rem;color:var(--midgray)}
 #hud b{color:var(--light);font-weight:500}
-#hud .chip{border:1px solid #3a3a35;border-radius:99px;padding:.25rem .6rem;cursor:pointer}
+#hud .chip{border:1px solid #3a3a35;border-radius:99px;padding:.55rem 1.1rem;cursor:pointer;background:rgba(20,20,19,.85)}
 #hud .chip:hover{border-color:var(--orange);color:var(--orange)}
 #sect{position:fixed;bottom:2.2vh;left:2.6vw;z-index:60;font-family:var(--h);font-size:.72rem;
   letter-spacing:.14em;text-transform:uppercase;color:#55554f}
@@ -155,13 +155,16 @@ td.hl{color:var(--orange)} td.hlb{color:var(--blue)} td.hlg{color:var(--green)}
   table{font-size:.78rem}
   th,td{padding:.45rem .45rem}
   #sect{display:none}
-  #hud{left:0;right:0;justify-content:center;gap:.7rem;padding:.6rem 0 .4rem;
+  #hud{gap:.45rem;font-size:.72rem;padding:.6rem .5rem .4rem;
     background:linear-gradient(transparent,rgba(20,20,19,.92) 40%)}
+  #hud .chip{padding:.45rem .75rem;white-space:nowrap}
+  #hud .chip.arr{font-size:1.05rem;padding:.45rem 1rem}
+  #timer{display:none}
   .big-quote{max-width:none}
 }
 
 /* nav arrows + home shortcut */
-#hud .chip.arr{color:var(--orange);border-color:var(--orange);font-weight:600;padding:.25rem .85rem}
+#hud .chip.arr{color:var(--orange);border-color:var(--orange);font-weight:700;font-size:1.25rem;line-height:1;padding:.55rem 1.3rem}
 #hud .chip.arr:hover{background:rgba(217,119,87,.14)}
 #home{position:fixed;top:2.2vh;left:2.6vw;z-index:60;display:flex;align-items:center;gap:.45rem;
   color:var(--orange);font-family:var(--h);font-size:.74rem;font-weight:600;letter-spacing:.08em;
