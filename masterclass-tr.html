@@ -140,6 +140,25 @@ td.hl{color:var(--orange)} td.hlb{color:var(--blue)} td.hlg{color:var(--green)}
 /* timer */
 #timer{font-family:var(--m);font-size:.72rem}
 #timer.run{color:var(--green)}
+
+/* ---------- phone ---------- */
+@media (max-width:700px){
+  html,body{overflow:auto}
+  .slide{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;
+    justify-content:flex-start;padding:9vh 6vw 7.5rem}
+  .grid2,.grid3,.grid4,.grid5{grid-template-columns:1fr !important;gap:1rem}
+  .flow{flex-direction:column}
+  .flow .arrow{transform:rotate(90deg);justify-content:center;font-size:1rem;margin:-.2rem 0}
+  .layer{flex-direction:column;align-items:flex-start;gap:.35rem}
+  .layer .tag{min-width:0}
+  pre{font-size:.72rem}
+  table{font-size:.78rem}
+  th,td{padding:.45rem .45rem}
+  #sect{display:none}
+  #hud{left:0;right:0;justify-content:center;gap:.7rem;padding:.6rem 0 .4rem;
+    background:linear-gradient(transparent,rgba(20,20,19,.92) 40%)}
+  .big-quote{max-width:none}
+}
 </style>
 </head>
 <body>
