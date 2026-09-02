@@ -57,7 +57,7 @@
   // language toggle shows content statically instead of replaying it
   setTimeout(function () {
     document.body.classList.remove("entrance");
-  }, 1600);
+  }, 2000);
 
   /* ---------- footer year ---------- */
   document.querySelectorAll("[data-year]").forEach(function (el) {
