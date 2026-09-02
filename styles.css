@@ -204,43 +204,17 @@ html[data-lang="tr"] .en { display: none; }
   text-wrap: balance;
 }
 
-/* the reference's design-tool selection frame, drawn around the key words */
+/* white watercolor brush stroke behind the headline key words */
 .framed {
-  position: relative;
   display: inline-block;
-  padding: 0.06em 0.18em 0.08em;
+  padding: 0.14em 0.34em 0.16em;
+  margin: -0.12em -0.2em;
+  transform: rotate(-1.1deg);
   color: var(--accent);
-  /* solid white brush filling exactly the frame rectangle; edges only slightly hand-painted */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 60' preserveAspectRatio='none'%3E%3Cfilter id='w' x='-4%25' y='-10%25' width='108%25' height='120%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03 0.09' numOctaves='2' seed='11'/%3E%3CfeDisplacementMap in='SourceGraphic' scale='4'/%3E%3C/filter%3E%3Cpath filter='url(%23w)' fill='%23ffffff' d='M1 2 C60 0 200 0 299 1 L299 58 C220 60 80 60 1 59 Z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 60' preserveAspectRatio='none'%3E%3Cfilter id='w' x='-8%25' y='-25%25' width='116%25' height='150%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03 0.09' numOctaves='3' seed='11'/%3E%3CfeDisplacementMap in='SourceGraphic' scale='12'/%3E%3C/filter%3E%3Cg filter='url(%23w)' fill='%23ffffff'%3E%3Cpath d='M4 12 C40 2 120 0 292 6 L298 44 C220 58 100 57 6 52 Z' opacity='.5'/%3E%3Cpath d='M10 20 C70 9 160 7 288 15 L292 43 C205 54 85 52 12 47 Z' opacity='.7'/%3E%3Cpath d='M20 26 C80 20 170 18 280 24 L276 38 C190 44 90 43 22 40 Z' opacity='.6'/%3E%3C/g%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position: left center;
-}
-
-.framed::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border: 1.5px solid rgba(255, 107, 44, 0.55);
-  pointer-events: none;
-  transform-origin: left center;
-}
-
-.framed::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(var(--accent), var(--accent)) top left / 7px 1.5px,
-    linear-gradient(var(--accent), var(--accent)) top left / 1.5px 7px,
-    linear-gradient(var(--accent), var(--accent)) top right / 7px 1.5px,
-    linear-gradient(var(--accent), var(--accent)) top right / 1.5px 7px,
-    linear-gradient(var(--accent), var(--accent)) bottom left / 7px 1.5px,
-    linear-gradient(var(--accent), var(--accent)) bottom left / 1.5px 7px,
-    linear-gradient(var(--accent), var(--accent)) bottom right / 7px 1.5px,
-    linear-gradient(var(--accent), var(--accent)) bottom right / 1.5px 7px;
-  background-repeat: no-repeat;
 }
 
 /* watercolor brush highlight behind the key phrase in the subline */
@@ -658,11 +632,6 @@ select:invalid {
     animation: brush-in 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s both;
   }
 
-  .entrance .framed::before,
-  .entrance .framed::after {
-    animation: frame-in 0.6s var(--ease-out) 0.9s both;
-  }
-
   .entrance .brush {
     animation: brush-in 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.9s both;
   }
@@ -685,17 +654,6 @@ select:invalid {
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes frame-in {
-  from {
-    opacity: 0;
-    transform: scaleX(0.4);
-  }
-  to {
-    opacity: 1;
-    transform: scaleX(1);
   }
 }
 
