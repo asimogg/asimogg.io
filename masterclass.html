@@ -159,10 +159,20 @@ td.hl{color:var(--orange)} td.hlb{color:var(--blue)} td.hlg{color:var(--green)}
     background:linear-gradient(transparent,rgba(20,20,19,.92) 40%)}
   .big-quote{max-width:none}
 }
+
+/* nav arrows + home shortcut */
+#hud .chip.arr{color:var(--orange);border-color:var(--orange);font-weight:600;padding:.25rem .85rem}
+#hud .chip.arr:hover{background:rgba(217,119,87,.14)}
+#home{position:fixed;top:2.2vh;left:2.6vw;z-index:60;display:flex;align-items:center;gap:.45rem;
+  color:var(--orange);font-family:var(--h);font-size:.74rem;font-weight:600;letter-spacing:.08em;
+  text-decoration:none;border:1px solid #3a3a35;border-radius:99px;padding:.3rem .8rem}
+#home:hover{border-color:var(--orange)}
+@media (max-width:700px){#home{top:1.4vh}}
 </style>
 </head>
 <body>
 <div id="bar"></div>
+<a id="home" href="index.html">&#10033; asimogg.io</a>
 <div id="stage">
 <!-- ========== 0 · OPENING ========== -->
 
@@ -969,6 +979,8 @@ Comparison table + <span class="v">3 risky claims</span>
 </div>
 <div id="sect"></div>
 <div id="hud">
+  <span class="chip arr" onclick="go(i-1)" aria-label="Previous slide">&#8592;</span>
+  <span class="chip arr" onclick="go(i+1)" aria-label="Next slide">&#8594;</span>
   <span id="timer" class="chip" onclick="tog()">⏱ 00:00</span>
   <span class="chip" onclick="ovT()">☰ map</span>
   <span class="chip" onclick="nT()">N notes</span>
@@ -1014,7 +1026,7 @@ document.addEventListener('keydown',e=>{
   if(e.key==='Escape')document.getElementById('ov').classList.remove('on');
 });
 document.addEventListener('click',e=>{
-  if(e.target.closest('#hud')||e.target.closest('#ov')||e.target.closest('#notes'))return;
+  if(e.target.closest('#hud')||e.target.closest('#ov')||e.target.closest('#notes')||e.target.closest('#home'))return;
   if(e.clientX>window.innerWidth*.55)go(i+1);else go(i-1);
 });
 
