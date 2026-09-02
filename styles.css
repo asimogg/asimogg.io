@@ -211,7 +211,7 @@ html[data-lang="tr"] .en { display: none; }
   margin: -0.12em -0.2em;
   transform: rotate(-1.1deg);
   color: var(--accent);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 60' preserveAspectRatio='none'%3E%3Cfilter id='w' x='-8%25' y='-25%25' width='116%25' height='150%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03 0.09' numOctaves='3' seed='11'/%3E%3CfeDisplacementMap in='SourceGraphic' scale='12'/%3E%3C/filter%3E%3Cg filter='url(%23w)' fill='%23ffffff'%3E%3Cpath d='M4 12 C40 2 120 0 292 6 L298 44 C220 58 100 57 6 52 Z' opacity='.5'/%3E%3Cpath d='M10 20 C70 9 160 7 288 15 L292 43 C205 54 85 52 12 47 Z' opacity='.7'/%3E%3Cpath d='M20 26 C80 20 170 18 280 24 L276 38 C190 44 90 43 22 40 Z' opacity='.6'/%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 60' preserveAspectRatio='none'%3E%3Cfilter id='w' x='-8%25' y='-25%25' width='116%25' height='150%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03 0.09' numOctaves='3' seed='11'/%3E%3CfeDisplacementMap in='SourceGraphic' scale='7'/%3E%3C/filter%3E%3Cg filter='url(%23w)' fill='%23ffffff'%3E%3Cpath d='M4 12 C40 2 120 0 292 6 L298 44 C220 58 100 57 6 52 Z' opacity='.4'/%3E%3Cpath d='M6 14 C50 5 130 3 290 8 L296 43 C215 56 95 55 8 50 Z' opacity='.85'/%3E%3Cpath d='M9 17 C60 8 150 6 288 11 L293 41 C205 53 85 52 11 47 Z' opacity='1'/%3E%3C/g%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position: left center;
