@@ -34,7 +34,7 @@
 
     // masterclass deck link follows the language
     var mc = document.getElementById("masterclass-link");
-    if (mc) mc.href = lang === "tr" ? "masterclass-tr.html?v=2" : "masterclass.html?v=2";
+    if (mc) mc.href = lang === "tr" ? "masterclass-tr.html?v=3" : "masterclass.html?v=3";
 
     // document title + hidden form field
     document.title =

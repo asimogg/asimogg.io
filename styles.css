@@ -505,25 +505,25 @@ select:invalid {
   max-width: 42rem;
 }
 
-/* measured proof band inside the services section */
-.trust {
-  margin-top: clamp(3rem, 8vh, 5rem);
+/* distilled information: heading left, statement right */
+.distilled {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 1rem 3rem;
+  align-items: start;
 }
 
-.trust-heading {
-  font-variation-settings: "wdth" 118;
-  font-weight: 630;
-  font-size: clamp(1.375rem, 2.2vw, 1.75rem);
-  letter-spacing: -0.015em;
+.distilled .section-heading {
+  margin-bottom: 0;
 }
 
-.trust-intro {
-  margin-top: 0.6rem;
+.distilled-text {
   color: var(--ink-muted);
-  max-width: 44rem;
+  font-size: clamp(1.0625rem, 1.4vw, 1.1875rem);
+  max-width: 42rem;
 }
 
-.trust .quiet-link {
+.distilled .quiet-link {
   display: inline-block;
   margin-top: 1.1rem;
 }
@@ -678,7 +678,8 @@ select:invalid {
     gap: 0.4rem;
   }
 
-  .steps {
+  .steps,
+  .distilled {
     grid-template-columns: 1fr;
   }
 
@@ -701,6 +702,11 @@ select:invalid {
 
   .hero-actions .btn {
     width: 100%;
+  }
+
+  .proof-num {
+    font-size: 1.45rem;
+    white-space: normal;
   }
 
   .display {
