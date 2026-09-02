@@ -1,5 +1,5 @@
 <?php
-// Inquiry form handler — delivers submissions to hello@asimogg.io.
+// Inquiry form handler — delivers submissions to hello@asimogg.io (+ CC asimize@gmail.com).
 // Same-origin POST only; returns JSON consumed by script.js.
 
 header('Content-Type: application/json; charset=utf-8');
@@ -47,6 +47,7 @@ $body = "Yeni form gönderimi / New inquiry\n"
 
 $headers = [
     'From: asimogg.io form <form@asimogg.io>',
+    'Cc: asimize@gmail.com',
     'Reply-To: ' . preg_replace('/[\r\n]/', '', $email),
     'MIME-Version: 1.0',
     'Content-Type: text/plain; charset=UTF-8',

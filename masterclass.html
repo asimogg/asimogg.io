@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>An Entrepreneur's AI Handbook — Workshop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --dark:#141413; --dark2:#1c1c1a; --dark3:#262623;
+  --light:#faf9f5; --midgray:#b0aea5; --lightgray:#e8e6dc;
+  --orange:#d97757; --blue:#6a9bcc; --green:#788c5d;
+  --h:'Poppins',Arial,Helvetica,sans-serif;
+  --b:'Lora',Georgia,serif;
+  --m:'JetBrains Mono','SF Mono',Consolas,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--light);
+  font-family:var(--b);-webkit-font-smoothing:antialiased}
+#stage{position:relative;width:100vw;height:100vh}
+
+.slide{
+  position:absolute;inset:0;display:none;
+  padding:5.5vh 7vw 9vh;
+  flex-direction:column;justify-content:center;
+  animation:fade .35s ease;
+}
+.slide.active{display:flex}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ---------- typography ---------- */
+h1{font-family:var(--h);font-weight:600;font-size:clamp(2.2rem,5.2vw,4.4rem);
+   line-height:1.05;letter-spacing:-.02em}
+h2{font-family:var(--h);font-weight:600;font-size:clamp(1.7rem,3.4vw,2.9rem);
+   line-height:1.12;letter-spacing:-.015em;margin-bottom:.7em}
+h3{font-family:var(--h);font-weight:500;font-size:clamp(1rem,1.5vw,1.35rem);line-height:1.25}
+p,li{font-size:clamp(.95rem,1.28vw,1.22rem);line-height:1.55;color:var(--lightgray)}
+.lead{font-size:clamp(1.1rem,1.75vw,1.6rem);line-height:1.45;color:var(--light);max-width:52ch}
+.dim{color:var(--midgray)}
+.tiny{font-size:clamp(.72rem,.92vw,.9rem);line-height:1.45;color:var(--midgray)}
+strong,b{color:var(--light);font-weight:600}
+em{color:var(--orange);font-style:italic}
+.mono{font-family:var(--m);font-size:.86em}
+
+/* ---------- chrome ---------- */
+.kicker{font-family:var(--h);font-size:clamp(.65rem,.85vw,.82rem);font-weight:600;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:1.1em}
+.kicker.blue{color:var(--blue)} .kicker.green{color:var(--green)} .kicker.gray{color:var(--midgray)}
+
+#bar{position:fixed;top:0;left:0;height:3px;background:var(--orange);width:0;z-index:60;transition:width .3s}
+#hud{position:fixed;bottom:2.2vh;right:2.6vw;z-index:60;display:flex;gap:1.1rem;align-items:center;
+  font-family:var(--m);font-size:.72rem;color:var(--midgray)}
+#hud b{color:var(--light);font-weight:500}
+#hud .chip{border:1px solid #3a3a35;border-radius:99px;padding:.25rem .6rem;cursor:pointer}
+#hud .chip:hover{border-color:var(--orange);color:var(--orange)}
+#sect{position:fixed;bottom:2.2vh;left:2.6vw;z-index:60;font-family:var(--h);font-size:.72rem;
+  letter-spacing:.14em;text-transform:uppercase;color:#55554f}
+
+/* ---------- layout helpers ---------- */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:2.2rem}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem}
+.grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:.9rem}
+.rows{display:flex;flex-direction:column;gap:1rem}
+.row{display:flex;gap:1.2rem;align-items:flex-start}
+
+.card{background:var(--dark2);border:1px solid #2e2e2a;border-radius:14px;padding:1.3rem 1.4rem}
+.card.o{border-left:3px solid var(--orange)}
+.card.b{border-left:3px solid var(--blue)}
+.card.g{border-left:3px solid var(--green)}
+.card.r{border-left:3px solid #c04a3a}
+.card h3{margin-bottom:.5rem}
+.card p{font-size:clamp(.82rem,1.02vw,1rem);line-height:1.5}
+
+.num{font-family:var(--h);font-weight:700;font-size:clamp(1.9rem,3.4vw,3.1rem);
+  line-height:1;color:var(--orange);letter-spacing:-.03em}
+.num.b{color:var(--blue)} .num.g{color:var(--green)} .num.w{color:var(--light)}
+
+.pill{display:inline-block;font-family:var(--m);font-size:.7rem;padding:.2rem .55rem;
+  border-radius:5px;background:#2b2b27;color:var(--midgray);margin:.15rem .25rem .15rem 0}
+.pill.o{background:rgba(217,119,87,.16);color:var(--orange)}
+.pill.b{background:rgba(106,155,204,.16);color:var(--blue)}
+.pill.g{background:rgba(120,140,93,.18);color:var(--green)}
+
+ul.clean{list-style:none;display:flex;flex-direction:column;gap:.65rem}
+ul.clean li{padding-left:1.5rem;position:relative}
+ul.clean li:before{content:"→";position:absolute;left:0;color:var(--orange);font-family:var(--h)}
+ul.clean.b li:before{color:var(--blue)} ul.clean.g li:before{color:var(--green)}
+
+pre{background:#0d0d0c;border:1px solid #2e2e2a;border-radius:10px;padding:1rem 1.1rem;
+  font-family:var(--m);font-size:clamp(.66rem,.85vw,.84rem);line-height:1.6;color:#d4d2c8;
+  overflow:auto;white-space:pre-wrap}
+pre .c{color:#6b6a63} pre .k{color:var(--orange)} pre .s{color:var(--green)} pre .v{color:var(--blue)}
+
+table{width:100%;border-collapse:collapse;font-size:clamp(.78rem,1vw,.98rem)}
+th{font-family:var(--h);font-weight:600;text-align:left;color:var(--midgray);
+  font-size:.72em;letter-spacing:.12em;text-transform:uppercase;padding:.55rem .7rem;
+  border-bottom:1px solid #35352f}
+td{padding:.62rem .7rem;border-bottom:1px solid #232320;color:var(--lightgray);vertical-align:top}
+td.hl{color:var(--orange)} td.hlb{color:var(--blue)} td.hlg{color:var(--green)}
+
+.flow{display:flex;align-items:stretch;gap:.6rem;flex-wrap:wrap}
+.flow .step{flex:1;min-width:120px;background:var(--dark2);border:1px solid #2e2e2a;
+  border-radius:12px;padding:.9rem .9rem;position:relative}
+.flow .step .n{font-family:var(--m);font-size:.66rem;color:var(--orange);display:block;margin-bottom:.35rem}
+.flow .arrow{display:flex;align-items:center;color:#44443f;font-size:1.3rem}
+
+.stack{display:flex;flex-direction:column;gap:.45rem}
+.layer{display:flex;align-items:center;gap:1rem;background:var(--dark2);
+  border:1px solid #2e2e2a;border-radius:10px;padding:.75rem 1.1rem}
+.layer .tag{font-family:var(--m);font-size:.7rem;min-width:92px;color:var(--orange)}
+.layer .desc{font-size:clamp(.8rem,1vw,.98rem);color:var(--lightgray)}
+.layer.b .tag{color:var(--blue)} .layer.g .tag{color:var(--green)} .layer.gr .tag{color:var(--midgray)}
+
+.big-quote{font-family:var(--h);font-weight:500;font-size:clamp(1.6rem,3.6vw,3.2rem);
+  line-height:1.15;letter-spacing:-.02em;max-width:20ch}
+
+/* speaker notes */
+#notes{position:fixed;left:0;right:0;bottom:0;max-height:38vh;overflow:auto;
+  background:#0a0a09;border-top:2px solid var(--orange);padding:1.1rem 2.6vw 3.6vh;
+  z-index:55;display:none;font-size:.86rem;line-height:1.55;color:var(--lightgray)}
+#notes.on{display:block}
+#notes h4{font-family:var(--h);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--orange);margin-bottom:.5rem}
+#notes ul{margin-left:1.1rem}
+#notes li{font-size:.86rem;line-height:1.5;margin-bottom:.2rem}
+
+/* overview */
+#ov{position:fixed;inset:0;background:rgba(10,10,9,.97);z-index:70;display:none;
+  padding:4vh 4vw;overflow:auto}
+#ov.on{display:block}
+#ov .g{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.7rem}
+#ov .t{background:var(--dark2);border:1px solid #2e2e2a;border-radius:8px;padding:.7rem;
+  cursor:pointer;font-size:.72rem;line-height:1.3;color:var(--midgray);font-family:var(--h)}
+#ov .t:hover{border-color:var(--orange);color:var(--light)}
+#ov .t span{display:block;font-family:var(--m);font-size:.62rem;color:var(--orange);margin-bottom:.3rem}
+
+/* timer */
+#timer{font-family:var(--m);font-size:.72rem}
+#timer.run{color:var(--green)}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<div id="stage">
+<!-- ========== 0 · OPENING ========== -->
+
+<section class="slide" data-sect="Opening · 10 min" data-note="<ul><li>Have this slide on screen as people walk in. Wait 5 silent seconds before speaking.</li><li>Today's one-sentence promise: 'Everyone leaves with a working MCP connection and a skill they wrote themselves.'</li><li>Rule: laptops OPEN. This is a workshop, not a seminar.</li></ul>">
+  <div class="kicker">Internal Training Workshop</div>
+  <h1>An Entrepreneur's<br><em>AI Handbook</em></h1>
+  <p class="lead" style="margin-top:1.6rem">Turning Claude from a chat box<br>into a <strong>company operating layer</strong>.</p>
+  <div style="margin-top:2.4rem;display:flex;gap:2.5rem;flex-wrap:wrap">
+    <div><div class="tiny dim">DURATION</div><div class="mono" style="color:var(--light)">120 minutes · 3 labs</div></div>
+    <div><div class="tiny dim">LEVEL</div><div class="mono" style="color:var(--light)">Beginner → Practitioner</div></div>
+    <div><div class="tiny dim">REQUIRED</div><div class="mono" style="color:var(--light)">Laptop + Claude account</div></div>
+  </div>
+  <p class="tiny" style="margin-top:2.6rem">← → navigate · <span class="mono">N</span> notes · <span class="mono">O</span> map · <span class="mono">T</span> timer</p>
+</section>
+
+<section class="slide" data-sect="Opening · 10 min" data-note="<ul><li>Stop here and actually show it: the HTML file, the production command.</li><li>The point isn't showing off — the message is 'everyone in this room can do this'.</li><li>Add: 'I didn't design slides. I wrote a brief. That's the difference.'</li></ul>">
+  <div class="kicker gray">Before we start</div>
+  <h2>I did not make this deck.</h2>
+  <div class="grid3">
+    <div class="card o"><div class="num">1</div><h3 style="margin-top:.5rem">brief</h3><p class="dim">A single request. Audience, duration, format, goal.</p></div>
+    <div class="card b"><div class="num b">~20</div><h3 style="margin-top:.5rem">minutes</h3><p class="dim">Research, structure, design, code and verification included.</p></div>
+    <div class="card g"><div class="num g">36</div><h3 style="margin-top:.5rem">slides + lab guide</h3><p class="dim">With speaker notes, a timer and exercise cards.</p></div>
+  </div>
+  <p class="lead" style="margin-top:2rem">What you'll learn today is <em>how to write that brief</em> — and how to build the machine behind it.</p>
+</section>
+
+<section class="slide" data-sect="Opening · 10 min" data-note="<ul><li>Actually make them raise hands. Write the count on the board — ask again at the end.</li><li>Most hands will be at levels 1 and 2. Nothing to be ashamed of; it's the starting point.</li><li>Emphasis: 'If you stay at Level 1, AI doesn't save you time — it just slows down Google.'</li></ul>">
+  <div class="kicker">Raise your hand</div>
+  <h2>How do you use Claude today?</h2>
+  <div class="stack">
+    <div class="layer gr"><span class="tag">LEVEL 0</span><span class="desc">Never opened it / a few times a month.</span></div>
+    <div class="layer gr"><span class="tag">LEVEL 1</span><span class="desc">I ask questions and read the answers. <span class="dim">— i.e. an expensive search engine.</span></span></div>
+    <div class="layer"><span class="tag">LEVEL 2</span><span class="desc">I have it write text: translations, summaries, email drafts.</span></div>
+    <div class="layer b"><span class="tag">LEVEL 3</span><span class="desc">I give it files, have it analyze them, get output files back.</span></div>
+    <div class="layer g"><span class="tag">LEVEL 4</span><span class="desc">I've built a setup connected to my systems, running by my rules, finishing work end to end.</span></div>
+  </div>
+  <p class="lead" style="margin-top:1.8rem">Today's goal: <em>move everyone to Level 3</em> and show the door to Level 4.</p>
+</section>
+
+<section class="slide" data-sect="Opening · 10 min" data-note="<ul><li>Run through the agenda fast — 60 seconds. Let people see the timings and trust the plan.</li><li>Lab time is sacred. If the talking runs long, cut the talking, not the labs.</li></ul>">
+  <div class="kicker gray">Agenda</div>
+  <h2>120 minutes, six parts</h2>
+  <table>
+    <tr><th>#</th><th>Part</th><th>What you get</th><th>Time</th></tr>
+    <tr><td class="hl mono">01</td><td><strong>Mental model</strong></td><td>The real difference between an agent and a chatbot</td><td class="mono">15'</td></tr>
+    <tr><td class="hl mono">02</td><td><strong>Anatomy</strong></td><td>Skills, MCP, context — when to use which</td><td class="mono">20'</td></tr>
+    <tr><td class="hl mono">03</td><td><strong>Running the company</strong></td><td>6 functions, 6 real workflows</td><td class="mono">20'</td></tr>
+    <tr><td class="hlb mono">04</td><td><strong>LAB</strong></td><td>Your own MCP + your own skill + a chain</td><td class="mono">40'</td></tr>
+    <tr><td class="hl mono">05</td><td><strong>Limits</strong></td><td>Where it blows up, what you never delegate</td><td class="mono">15'</td></tr>
+    <tr><td class="hl mono">06</td><td><strong>30-day plan</strong></td><td>What you'll do Monday morning</td><td class="mono">10'</td></tr>
+  </table>
+</section>
+
+<!-- ========== 1 · MENTAL MODEL ========== -->
+
+<section class="slide" data-sect="01 · Mental model" data-note="<ul><li>This slide is the backbone of the workshop. Don't rush it.</li><li>Give a concrete example: 'Summarize the competitor's TDS' = chatbot. 'Find the competitor's TDS, download it, compare it with ours, put the differences in a table, open a task in Asana' = agent.</li><li>Key sentence: the difference isn't intelligence, it's the LOOP.</li></ul>">
+  <div class="kicker">01 · Mental model</div>
+  <h2>A chatbot answers. An agent <em>finishes work</em>.</h2>
+  <div class="grid2">
+    <div>
+      <h3 class="dim" style="margin-bottom:.8rem">CHATBOT — one shot</h3>
+      <div class="flow">
+        <div class="step"><span class="n">01</span>You ask</div>
+        <div class="arrow">→</div>
+        <div class="step"><span class="n">02</span>It writes</div>
+        <div class="arrow">→</div>
+        <div class="step"><span class="n">03</span>You execute</div>
+      </div>
+      <p class="tiny" style="margin-top:1rem">All the labor is still yours. Gain: writing time.</p>
+    </div>
+    <div>
+      <h3 style="margin-bottom:.8rem;color:var(--orange)">AGENT — closed loop</h3>
+      <div class="flow">
+        <div class="step"><span class="n">01</span>You give a goal</div>
+        <div class="arrow">→</div>
+        <div class="step"><span class="n">02</span>It plans</div>
+        <div class="arrow">→</div>
+        <div class="step"><span class="n">03</span>It uses tools</div>
+      </div>
+      <div class="flow" style="margin-top:.6rem">
+        <div class="step"><span class="n">04</span>It sees the result</div>
+        <div class="arrow">→</div>
+        <div class="step"><span class="n">05</span>It corrects, repeats</div>
+        <div class="arrow">→</div>
+        <div class="step"><span class="n">06</span>It delivers the output</div>
+      </div>
+      <p class="tiny" style="margin-top:1rem">The labor is its own. Gain: <strong>the work itself.</strong></p>
+    </div>
+  </div>
+  <p class="lead" style="margin-top:2rem">The difference isn't the model's intelligence — it's access to the <em>observe-and-correct loop</em>.</p>
+</section>
+
+<section class="slide" data-sect="01 · Mental model" data-note="<ul><li>You'll use this metaphor all day. Land it firmly.</li><li>The most-skipped layer is CONTEXT. 'Smart but knows nothing about your company' is useless.</li><li>Ask: 'What do you give a new hire on day one?' — answer: access, procedures, context. Same thing.</li></ul>">
+  <div class="kicker">01 · Mental model</div>
+  <h2>Five layers: <em>hiring an AI employee</em></h2>
+  <div class="stack">
+    <div class="layer"><span class="tag">MODEL</span><span class="desc"><strong>Raw intelligence.</strong> Reasons, writes, produces code. Same for everyone. <em>Not</em> a competitive advantage.</span></div>
+    <div class="layer b"><span class="tag">CONTEXT</span><span class="desc"><strong>Memory and background.</strong> Your company, your product, your past decisions, your jargon. → This is where the real difference lives.</span></div>
+    <div class="layer g"><span class="tag">TOOLS</span><span class="desc"><strong>Hands.</strong> Reads/writes files, runs code, searches the web, drives a browser.</span></div>
+    <div class="layer"><span class="tag">SKILLS</span><span class="desc"><strong>Training / SOPs.</strong> "This is how we do this job at our company." Repeatable expertise.</span></div>
+    <div class="layer b"><span class="tag">MCP</span><span class="desc"><strong>Access badge.</strong> Asana, Gmail, Drive, databases, Obsidian — connections to live systems.</span></div>
+  </div>
+  <p class="lead" style="margin-top:1.8rem">If you only use the MODEL, you've hired a genius and asked questions <em>without ever giving them a desk</em>.</p>
+</section>
+
+<section class="slide" data-sect="01 · Mental model" data-note="<ul><li>The two most confused concepts. Put them side by side, lock it in one sentence.</li><li>SKILL = knowledge/procedure (static, you write it). MCP = access (live, someone else provides it).</li><li>Example: consulting-deck-style is a skill. Asana is an MCP. Together = 'pull projects from Asana, turn them into a Simon-Kucher-style deck.'</li></ul>">
+  <div class="kicker">01 · Mental model</div>
+  <h2>Skill or MCP?</h2>
+  <div class="grid2">
+    <div class="card o">
+      <div class="kicker" style="margin-bottom:.6rem">SKILL</div>
+      <h3>Your company's procedure</h3>
+      <p class="dim" style="margin:.6rem 0 1rem">A folder + a <span class="mono">SKILL.md</span> file. Inside: when it activates, how it works, which template it uses.</p>
+      <ul class="clean">
+        <li><strong>You write it.</strong> Institutional knowledge is embedded here.</li>
+        <li>Static — it's instruction, not data.</li>
+        <li>Shareable: write once, whole team uses it.</li>
+      </ul>
+      <div style="margin-top:1rem"><span class="pill o">consulting-deck-style</span><span class="pill o">academic-shield</span><span class="pill o">lens-research</span></div>
+    </div>
+    <div class="card b">
+      <div class="kicker blue" style="margin-bottom:.6rem">MCP</div>
+      <h3>An access badge to your systems</h3>
+      <p class="dim" style="margin:.6rem 0 1rem">Model Context Protocol. <em>USB-C</em> for software: connect once, and Claude reads/writes in that system.</p>
+      <ul class="clean b">
+        <li><strong>Someone else provides it</strong>, you connect it.</li>
+        <li>Live — real data in real time.</li>
+        <li>Also grants write access. Requires care.</li>
+      </ul>
+      <div style="margin-top:1rem"><span class="pill b">Asana</span><span class="pill b">Gmail</span><span class="pill b">Google Drive</span><span class="pill b">Obsidian</span><span class="pill b">Chrome</span></div>
+    </div>
+  </div>
+  <p class="lead" style="margin-top:1.6rem">A skill knows <strong>what to do</strong>. An MCP knows <strong>where to reach</strong>. The power is at the intersection.</p>
+</section>
+
+<section class="slide" data-sect="01 · Mental model" data-note="<ul><li>Show your own setup here — live. Open the skill list on screen.</li><li>Message: 'This isn't a fantasy, this is my working setup.'</li><li>Warn: don't try to build this on day one. It's six months of accumulation. Start with a single skill.</li></ul>">
+  <div class="kicker green">01 · Mental model · live example</div>
+  <h2>Not one agent — <em>an organization</em></h2>
+  <div style="display:flex;justify-content:center;margin:.5rem 0 1.4rem">
+    <div class="card o" style="text-align:center;min-width:260px">
+      <div class="kicker" style="margin-bottom:.3rem">ORCHESTRATOR</div>
+      <h3 style="font-size:1.4rem">ASIMO — CEO layer</h3>
+      <p class="tiny" style="margin-top:.4rem">Doesn't execute. Breaks the question apart, calls the right specialist, synthesizes the answers, <strong>pushes back.</strong></p>
+    </div>
+  </div>
+  <div class="grid3" style="gap:.9rem">
+    <div class="card b"><h3>R&amp;D</h3><p class="tiny">Chemistry, formulation, patents, REACH, EU projects</p></div>
+    <div class="card b"><h3>Marketing</h3><p class="tiny">Market sizing, competitors, positioning, trade fairs</p></div>
+    <div class="card b"><h3>Sales</h3><p class="tiny">Pilot customers, objection maps, spec-in strategy</p></div>
+    <div class="card g"><h3>Finance</h3><p class="tiny">ROI, NPV, payback, capex justification</p></div>
+    <div class="card g"><h3>HR</h3><p class="tiny">Capacity, competency gaps, training design</p></div>
+    <div class="card g"><h3>Strategy</h3><p class="tiny">3–5 year horizon, technology roadmap, scenarios</p></div>
+  </div>
+  <p class="tiny" style="margin-top:1.3rem">Every box is a skill file. They all use the same model — the difference comes from <strong>context and rules</strong>.</p>
+</section>
+
+<section class="slide" data-sect="01 · Mental model" data-note="<ul><li>The most practical takeaway of the workshop. Have them photograph it.</li><li>Golden rule: start from the top, work down. People always start at the bottom and drown.</li><li>Have them repeat out loud: 'If you'll do it fewer than 3 times, don't write a skill.'</li></ul>">
+  <div class="kicker">01 · Mental model</div>
+  <h2>Decision tree: when to use what?</h2>
+  <div class="rows">
+    <div class="card" style="border-left:3px solid #55554f"><div class="row"><div style="min-width:130px" class="mono dim">ONE-OFF</div><div><strong>Just write a good prompt.</strong> <span class="dim">An email, a summary, a translation. Build no infrastructure. 70% of work ends here.</span></div></div></div>
+    <div class="card o"><div class="row"><div style="min-width:130px" class="mono" style="color:var(--orange)">REPEATED + RULED</div><div><strong>Write a skill.</strong> <span class="dim">If you do it 3+ times a month and there's a "this is how we do it here" part. E.g.: TDS review, quote format.</span></div></div></div>
+    <div class="card b"><div class="row"><div style="min-width:130px" class="mono" style="color:var(--blue)">NEEDS LIVE DATA</div><div><strong>Connect an MCP.</strong> <span class="dim">When the answer depends on current data in your systems. E.g.: "which projects slipped this week?"</span></div></div></div>
+    <div class="card g"><div class="row"><div style="min-width:130px" class="mono" style="color:var(--green)">MULTI-STEP</div><div><strong>Build an agent / subagents.</strong> <span class="dim">10+ steps, multiple sources, parallel research. E.g.: competitor landscape report.</span></div></div></div>
+    <div class="card r"><div class="row"><div style="min-width:130px" class="mono" style="color:#c04a3a">IRREVERSIBLE</div><div><strong>Human approval required.</strong> <span class="dim">Outgoing email, customer pricing, formulation changes, signatures. Do not automate.</span></div></div></div>
+  </div>
+</section>
+
+<!-- ========== 2 · ANATOMY ========== -->
+
+<section class="slide" data-sect="02 · Anatomy" data-note="<ul><li>Open a real SKILL.md on screen. Show its simplicity — get a 'that's it?'</li><li>The most critical line: description. It decides whether the skill triggers at all.</li><li>Bad description = the skill never runs. People spend hours on content and skip this.</li></ul>">
+  <div class="kicker">02 · Anatomy</div>
+  <h2>What does a skill look like?</h2>
+  <div class="grid2" style="grid-template-columns:1.25fr 1fr;gap:1.8rem">
+    <pre><span class="c">--- (frontmatter: metadata)</span>
+<span class="k">name</span>: tds-review
+<span class="k">description</span>: <span class="s">Reviews competitor or own</span>
+  <span class="s">TDS/SDS documents against our company</span>
+  <span class="s">standard. Trigger: "check this TDS",</span>
+  <span class="s">"review data sheet", "competitor product</span>
+  <span class="s">analysis", or when a TDS .pdf is uploaded.</span>
+<span class="c">---</span>
+
+<span class="k"># TDS Review Procedure</span>
+
+<span class="k">## Always check</span>
+1. Binder type and ratio
+2. Claimed EN 12004 / EN 1504 class
+3. Open time, slip resistance
+4. <span class="v">Consistency of claims vs test reports</span>
+
+<span class="k">## Output format</span>
+Comparison table + <span class="v">3 risky claims</span>
++ difference vs our product → <span class="v">one page</span>
+
+<span class="k">## Never do</span>
+- Invent test data. If missing, write "NO DATA".</pre>
+    <div>
+      <ul class="clean">
+        <li><strong>One folder, one markdown file.</strong> No code, no installation.</li>
+        <li><span class="mono">description</span> = the trigger. <em>This</em> decides when it activates. Spend the most effort here.</li>
+        <li>The body = your procedure. Writing down the "this is how we do it" in your head.</li>
+        <li>You can add templates, checklists, example files alongside.</li>
+      </ul>
+      <div class="card r" style="margin-top:1.3rem">
+        <h3 style="color:#e08272">Critical</h3>
+        <p class="tiny" style="margin-top:.4rem">A skill's value isn't in its length — it's in containing <strong>institutional knowledge</strong> that exists nowhere else. If you write generic knowledge, the skill is pointless — the model already knows it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-sect="02 · Anatomy" data-note="<ul><li>Show this table before the lab — so people don't write bad skills.</li><li>Emphasize: phrases like 'be creative' carry zero information. Cut them.</li><li>The good-skill test: could a new hire do the job with this file alone?</li></ul>">
+  <div class="kicker">02 · Anatomy</div>
+  <h2>Good skill / bad skill</h2>
+  <table>
+    <tr><th style="width:22%"></th><th style="width:39%">BAD</th><th style="width:39%">GOOD</th></tr>
+    <tr><td class="dim">Trigger</td><td>"Use for document-related work."</td><td class="hl">"When a TDS/SDS PDF is uploaded, or on 'review data sheet', 'competitor product analysis'."</td></tr>
+    <tr><td class="dim">Content</td><td>"Do a professional, detailed analysis."</td><td class="hl">"Tabulate these 7 parameters. Cross-check the EN 12004 class claim against the test report."</td></tr>
+    <tr><td class="dim">Output</td><td>"Produce a nice report."</td><td class="hl">"One page. Decision sentence on top. 3 risky claims below. Source references mandatory."</td></tr>
+    <tr><td class="dim">Limits</td><td><span class="dim">(none)</span></td><td class="hl">"If data is missing, don't invent it — write 'NO DATA'. No price commentary — route to Sales."</td></tr>
+    <tr><td class="dim">Length</td><td>4 pages of general principles</td><td class="hl">Half a page of knowledge nobody but you has</td></tr>
+  </table>
+  <p class="lead" style="margin-top:1.8rem">The test: if you gave this file to <em>someone starting today</em>, could they do the job right?</p>
+</section>
+
+<section class="slide" data-sect="02 · Anatomy" data-note="<ul><li>Do it live on screen: connect an MCP, ask a question, get the answer. 90 seconds.</li><li>Warning: read which permissions you grant on the OAuth screen. Break the 'accept all' reflex.</li><li>The start-read-only message lands here — repeated in the lab.</li></ul>">
+  <div class="kicker blue">02 · Anatomy</div>
+  <h2>Connecting an MCP: three steps</h2>
+  <div class="flow" style="margin-bottom:1.6rem">
+    <div class="step"><span class="n">STEP 01</span><strong>Pick the connector</strong><p class="tiny" style="margin-top:.4rem">Settings → Connectors. Asana, Gmail, Drive are ready. For internal systems you can write your own MCP.</p></div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">STEP 02</span><strong>Authorize</strong><p class="tiny" style="margin-top:.4rem">The OAuth screen. <strong>Read the permissions.</strong> Start read-only where possible.</p></div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">STEP 03</span><strong>Test it</strong><p class="tiny" style="margin-top:.4rem">Ask a verifiable question: "List the tasks assigned to me this week." Compare the answer with reality.</p></div>
+  </div>
+  <div class="grid2">
+    <div class="card b"><h3>The right first question</h3><p class="dim" style="margin-top:.4rem">Ask something you <strong>already know the answer to</strong>. Trust is only built through verification.</p></div>
+    <div class="card r"><h3 style="color:#e08272">Common mistake</h3><p class="dim" style="margin-top:.4rem">Granting write access immediately and saying "fix everything". If an MCP makes a mistake, it makes it <em>in real data</em>.</p></div>
+  </div>
+</section>
+
+<section class="slide" data-sect="02 · Anatomy" data-note="<ul><li>Show your own connected MCPs on screen.</li><li>Ask: 'Which system, if connected, would save you the most time?' — note the answers, use them in the lab.</li><li>For enterprise: SAP/ERP, LIMS, document management. These need custom MCPs — a conversation with IT.</li></ul>">
+  <div class="kicker blue">02 · Anatomy</div>
+  <h2>What do we have today?</h2>
+  <div class="grid4">
+    <div class="card b"><h3>Asana</h3><p class="tiny">Projects, tasks, portfolios, assignments. The portfolio briefing comes from here.</p></div>
+    <div class="card b"><h3>Gmail</h3><p class="tiny">Search, drafts, labels. Sending is <strong>always</strong> approved by a human.</p></div>
+    <div class="card b"><h3>Google Drive</h3><p class="tiny">Reading, searching, creating, sharing documents.</p></div>
+    <div class="card b"><h3>Obsidian / files</h3><p class="tiny">Institutional memory. Every conversation gets archived and searchable.</p></div>
+    <div class="card g"><h3>Chrome</h3><p class="tiny">Browser driving — login-gated portals, competitor sites.</p></div>
+    <div class="card g"><h3>Web + search</h3><p class="tiny">Current information. Model memory ages; search doesn't.</p></div>
+    <div class="card g"><h3>Code / terminal</h3><p class="tiny">Data processing, computation, file generation. Where Excel ends.</p></div>
+    <div class="card"><h3 class="dim">Your own MCP</h3><p class="tiny">LIMS, ERP, document systems — if you have an internal API, it can connect.</p></div>
+  </div>
+  <p class="lead" style="margin-top:1.6rem">Question: <em>which system, if connected, would save you the most time?</em> Save your answer for the lab.</p>
+</section>
+
+<section class="slide" data-sect="02 · Anatomy" data-note="<ul><li>Context engineering = the real skill of 2026. Not prompt writing.</li><li>Emphasize point 3: 80% of bad output comes from missing context, 20% from the model.</li><li>Practical tip: when a conversation gets long, open a new one and carry the summary over. 'Dirty context' is a real problem.</li></ul>">
+  <div class="kicker">02 · Anatomy</div>
+  <h2>The real skill: <em>context engineering</em></h2>
+  <div class="grid2">
+    <ul class="clean">
+      <li><strong>Give inputs, not roles.</strong> "You are an expert" does nothing. Give the real TDS, the real number, the real email.</li>
+      <li><strong>Write the success criteria.</strong> "Make it good" isn't measurable. "One page, 5 bullets, a source for every claim" is.</li>
+      <li><strong>State the limits.</strong> Writing what it must not do matters as much as what it must do.</li>
+    </ul>
+    <ul class="clean b">
+      <li><strong>Give an example.</strong> One "good" example beats three paragraphs of explanation.</li>
+      <li><strong>Keep the context clean.</strong> The model drifts in long conversations. Start fresh, carry the summary.</li>
+      <li><strong>Plan for iteration.</strong> The first output is a draft. "Change this" is faster than rewriting from scratch.</li>
+    </ul>
+  </div>
+  <div class="card o" style="margin-top:1.6rem">
+    <p><strong>80% of bad output comes from missing context, not from model weakness.</strong> <span class="dim">When you dislike a result, your first question should be "what information didn't I provide?"</span></p>
+  </div>
+</section>
+
+<section class="slide" data-sect="02 · Anatomy" data-note="<ul><li>Actually run both prompts live on this slide. Let them see the difference.</li><li>The left is 8 words, the right is 60. Writing 60 words takes 40 seconds and saves 2 hours.</li><li>Plant the phrase 'writing a brief' — not a prompt, a brief.</li></ul>">
+  <div class="kicker">02 · Anatomy</div>
+  <h2>Don't write prompts. Write <em>briefs</em>.</h2>
+  <div class="grid2">
+    <div>
+      <div class="kicker gray" style="margin-bottom:.5rem">BEFORE</div>
+      <pre>Do a competitor analysis.</pre>
+      <p class="tiny" style="margin-top:.8rem">Output: generic, unusable. 20 minutes of fixing.</p>
+    </div>
+    <div>
+      <div class="kicker" style="margin-bottom:.5rem">AFTER</div>
+      <pre><span class="k">GOAL:</span> One page for the executive board.
+<span class="k">TOPIC:</span> Fast-setting repair mortar segment,
+       Turkey + Gulf.
+<span class="k">COMPETITORS:</span> Sika, Mapei, Weber. TDS attached.
+<span class="k">I WANT:</span>
+  - Comparison table (7 parameters)
+  - Our gap: 3 bullets
+  - A source link for every claim
+<span class="k">FORMAT:</span> One page. Decision sentence on top.
+<span class="k">DON'T:</span> Don't guess prices. If data is
+  missing, write "NO DATA".</pre>
+    </div>
+  </div>
+  <p class="lead" style="margin-top:1.4rem">Writing 60 words takes <strong>40 seconds</strong>. Fixing bad output takes <strong>2 hours.</strong></p>
+</section>
+<!-- ========== 3 · RUNNING THE COMPANY ========== -->
+
+<section class="slide" data-sect="03 · Running the company" data-note="<ul><li>Transition line: 'Theory is over. Now, one day in the life of a company.'</li><li>Show every workflow in this part live in YOUR setup. Don't read slides.</li><li>For every workflow say 'used to take X minutes / now takes Y'. Without numbers they don't believe.</li></ul>">
+  <div class="kicker green">03 · Running the company</div>
+  <h1>One day in<br><em>a company</em></h1>
+  <p class="lead" style="margin-top:1.4rem">Six functions. Six real workflows. All possible today, with these tools.</p>
+  <div class="grid3" style="margin-top:2.2rem;gap:.9rem">
+    <div class="card o"><h3>08:30 · Portfolio</h3><p class="tiny">Morning briefing</p></div>
+    <div class="card b"><h3>10:00 · R&amp;D</h3><p class="tiny">Literature + patent scan</p></div>
+    <div class="card b"><h3>13:00 · Market</h3><p class="tiny">Competitor landscape</p></div>
+    <div class="card g"><h3>15:00 · Finance</h3><p class="tiny">Business case model</p></div>
+    <div class="card g"><h3>16:30 · Delivery</h3><p class="tiny">Deck / report production</p></div>
+    <div class="card"><h3>18:00 · Memory</h3><p class="tiny">Archiving and linking</p></div>
+  </div>
+</section>
+
+<section class="slide" data-sect="03 · Running the company" data-note="<ul><li>LIVE DEMO 1. Run your own morning briefing.</li><li>Key point: this is not a report, it's a DECISION list. Not 'what happened' but 'what you should do'.</li><li>Mention you've turned it into a scheduled task — it runs by itself at 08:00 every morning.</li></ul>">
+  <div class="kicker">03 · 08:30 — Portfolio</div>
+  <h2>The morning briefing</h2>
+  <div class="flow" style="margin-bottom:1.5rem">
+    <div class="step"><span class="n">01 · MCP</span>All active projects, tasks, dates and assignments pulled from Asana</div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">02 · SKILL</span>The portfolio skill applies the rules: delay thresholds, missing TDS, capacity clashes</div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">03 · ANALYSIS</span>Not a raw list — a <strong>risk-ranked decision list</strong> is produced</div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">04 · ARCHIVE</span>Written to Obsidian as dated MD, linked to previous days</div>
+  </div>
+  <div class="grid2">
+    <div class="card r"><h3 style="color:#e08272">Done by hand</h3><p class="dim" style="margin-top:.4rem"><strong>45–60 minutes.</strong> Wandering Asana tab by tab, taking notes. And it gets skipped 2 days a week.</p></div>
+    <div class="card g"><h3>Automated</h3><p class="dim" style="margin-top:.4rem"><strong>0 minutes.</strong> The scheduled task runs at 08:00. You just <em>read and decide.</em></p></div>
+  </div>
+  <p class="tiny" style="margin-top:1.2rem">The critical design decision: the output must be <strong>"what you should do today"</strong>, not "what happened". A system that produces reports produces garbage; a system that produces decisions saves time.</p>
+</section>
+
+<section class="slide" data-sect="03 · Running the company" data-note="<ul><li>LIVE DEMO 2. Run a search with your research setup.</li><li>Critical warning: verify every reference. Never trust a citation without a DOI.</li><li>This is where R&amp;D teams lose the most time — emphasize it.</li></ul>">
+  <div class="kicker blue">03 · 10:00 — R&amp;D</div>
+  <h2>Literature + patent scan</h2>
+  <div class="grid2" style="grid-template-columns:1.1fr 1fr">
+    <div>
+      <ul class="clean b">
+        <li><strong>Input:</strong> "Shrinkage control in fast-setting cementitious repair mortars — last 5 years, patents + papers."</li>
+        <li><strong>Process:</strong> OpenAlex + Google Patents + Espacenet scanned in parallel; results deduplicated and ranked by relevance.</li>
+        <li><strong>Output:</strong> Scored list + mechanism summary + a <em>"what it means for us"</em> read + prior-art risk.</li>
+        <li><strong>Archive:</strong> Every source lands in Obsidian as a note, linked to current projects.</li>
+      </ul>
+    </div>
+    <div>
+      <div class="card r">
+        <h3 style="color:#e08272">Watch out here</h3>
+        <ul class="clean" style="margin-top:.6rem">
+          <li><strong>Verify every reference.</strong> Don't trust citations without a DOI.</li>
+          <li>The model can invent a "plausible-looking" source. The most dangerous error type — because it looks right.</li>
+          <li>Rule: <span class="mono">a link that won't open = doesn't exist.</span></li>
+        </ul>
+      </div>
+      <div class="card g" style="margin-top:1rem">
+        <h3>The real gain</h3>
+        <p class="tiny" style="margin-top:.4rem">Scan time: <strong>2 days → 20 minutes.</strong> But the real gain isn't speed — it's <em>coverage.</em> By hand you scan 15 papers; the system scans 400 and picks the 15.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-sect="03 · Running the company" data-note="<ul><li>Separate marketing and sales — most people conflate them. Marketing is the segment, sales is one deal.</li><li>Actually show this workflow's output: a competitor comparison table.</li><li>Warning: careful with competitor prices and internal-data claims. Public sources mandatory.</li></ul>">
+  <div class="kicker blue">03 · 13:00 — Market &amp; Sales</div>
+  <h2>Competitor landscape → sales argument</h2>
+  <div class="flow">
+    <div class="step"><span class="n">01</span><strong>Collect</strong><p class="tiny" style="margin-top:.35rem">Competitor TDS, websites, trade-fair material, spec texts — pulled via the browser MCP.</p></div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">02</span><strong>Compare</strong><p class="tiny" style="margin-top:.35rem">Standards-based table. Claimed performance vs test evidence, separated.</p></div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">03</span><strong>Position</strong><p class="tiny" style="margin-top:.35rem">Where we win, where we don't, which segment we take.</p></div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">04</span><strong>Arm the field</strong><p class="tiny" style="margin-top:.35rem">Objection map for the field team: "Sika is cheaper" → the answer. 1 page.</p></div>
+  </div>
+  <div class="grid2" style="margin-top:1.6rem">
+    <div class="card o"><h3>The marketing question</h3><p class="dim" style="margin-top:.4rem">"Where should we position in this segment?" → <em>segment level</em></p></div>
+    <div class="card b"><h3>The sales question</h3><p class="dim" style="margin-top:.4rem">"How do I win this customer by Tuesday?" → <em>single-deal level</em></p></div>
+  </div>
+  <p class="tiny" style="margin-top:1.1rem"><strong>Red line:</strong> Competitor prices and internal-cost claims are never guessed. No public source, no value — the cell stays empty.</p>
+</section>
+
+<section class="slide" data-sect="03 · Running the company" data-note="<ul><li>In finance, the model's strongest suit: generating scenarios. Its weakest: assuming inputs.</li><li>Rule: every assumption must be visible in the table. An invisible assumption is a lie.</li><li>No Excel needed — it runs code for real math, it doesn't guess.</li></ul>">
+  <div class="kicker green">03 · 15:00 — Finance</div>
+  <h2>The business case: <em>math, not guesses</em></h2>
+  <div class="grid2" style="grid-template-columns:1fr 1.05fr">
+    <div>
+      <h3 style="margin-bottom:.7rem">What it does</h3>
+      <ul class="clean g">
+        <li>Investment case: capex, payback period, NPV/IRR</li>
+        <li>Raw-material cost sensitivity — what happens at +10%?</li>
+        <li>Make-or-buy decisions, scenario tables</li>
+        <li><strong>Real computation.</strong> It runs code; it doesn't invent numbers.</li>
+      </ul>
+    </div>
+    <div class="card o">
+      <h3>One rule: <span style="color:var(--orange)">assumptions must be visible</span></h3>
+      <table style="margin-top:.8rem">
+        <tr><th>Assumption</th><th>Value</th><th>Source</th></tr>
+        <tr><td>Annual volume</td><td class="hl">4,500 t</td><td class="dim">Sales forecast 2026</td></tr>
+        <tr><td>Unit margin</td><td class="hl">₺ ---</td><td class="dim">Finance, to be verified</td></tr>
+        <tr><td>Line investment</td><td class="hl">€ ---</td><td class="dim">No supplier quote yet</td></tr>
+        <tr><td>Commissioning</td><td class="hl">7 months</td><td class="dim">Similar project history</td></tr>
+      </table>
+      <p class="tiny" style="margin-top:.8rem">An empty cell is <strong>honest.</strong> A filled-in invented cell blows up in the boardroom.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-sect="03 · Running the company" data-note="<ul><li>On this slide, show the deck they're watching RIGHT NOW: 'this is that output'.</li><li>Land the skill-chain concept here: one skill knows the format, another knows the content.</li><li>Say that the delivery format finishes the job — right analysis in the wrong format is unfinished work.</li></ul>">
+  <div class="kicker">03 · 16:30 — Delivery</div>
+  <h2>Making analysis <em>deliverable</em></h2>
+  <div class="grid2">
+    <div>
+      <h3 style="margin-bottom:.8rem">The skill chain</h3>
+      <div class="stack">
+        <div class="layer"><span class="tag">CONTENT</span><span class="desc">The R&amp;D / Finance skill produces the analysis</span></div>
+        <div class="layer b"><span class="tag">STYLE</span><span class="desc">consulting-deck-style → consulting logic, message titles</span></div>
+        <div class="layer g"><span class="tag">FORMAT</span><span class="desc">pptx / docx / pdf skill → a real file</span></div>
+      </div>
+      <p class="tiny" style="margin-top:1rem">Each layer is independent. You can change the format without touching the content.</p>
+    </div>
+    <div class="card o">
+      <h3>Proof: <span style="color:var(--orange)">you're looking at it</span></h3>
+      <p class="dim" style="margin-top:.6rem">This workshop is exactly that chain's output. Content + design system + single-file HTML production.</p>
+      <div style="margin-top:1rem">
+        <span class="pill o">36 slides</span><span class="pill o">speaker notes</span><span class="pill o">timer</span><span class="pill o">lab guide</span>
+      </div>
+      <p class="tiny" style="margin-top:1rem"><strong>The lesson:</strong> If your analysis is perfect but the format is wrong, the job isn't done. The delivery format is the job.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-sect="03 · Running the company" data-note="<ul><li>The least understood but most valuable slide of the workshop. Go slow.</li><li>The model forgets every conversation. Your institutional memory must live outside.</li><li>Compound-interest metaphor: in 6 months the system knows you better than you do. You only earn that by archiving.</li></ul>">
+  <div class="kicker">03 · 18:00 — Institutional memory</div>
+  <h2>Where compound interest kicks in</h2>
+  <div class="grid2" style="grid-template-columns:1fr 1fr">
+    <div>
+      <p class="lead" style="margin-bottom:1.2rem">The model <strong>forgets</strong> every conversation. That's not a flaw, it's the architecture. Memory is <em>your</em> responsibility.</p>
+      <div class="flow">
+        <div class="step"><span class="n">01</span>The conversation ends</div>
+        <div class="arrow">→</div>
+        <div class="step"><span class="n">02</span>Archived as keyworded MD</div>
+      </div>
+      <div class="flow" style="margin-top:.5rem">
+        <div class="step"><span class="n">03</span>Linked to earlier notes</div>
+        <div class="arrow">→</div>
+        <div class="step"><span class="n">04</span>Becomes a <strong>source</strong> for the next question</div>
+      </div>
+    </div>
+    <div class="card g">
+      <h3>Why this matters more than anything</h3>
+      <ul class="clean g" style="margin-top:.7rem">
+        <li><strong>Month 1:</strong> You re-explain the context of every question.</li>
+        <li><strong>Month 3:</strong> "What did we say about this formulation last quarter?" — the answer comes from the archive.</li>
+        <li><strong>Month 6:</strong> The system remembers your decision history better than you do. It shows you your inconsistencies.</li>
+      </ul>
+      <p class="tiny" style="margin-top:1rem">A team that doesn't archive starts from zero every day. <strong>This is the single highest-return habit.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 4 · LAB ========== -->
+
+<section class="slide" data-sect="04 · LAB · 40 min" data-note="<ul><li>Start the timer (T). You hold the time discipline.</li><li>Work in pairs — whoever gets stuck asks their neighbor, not you.</li><li>Finishers help others. Whoever says 'done' becomes an instructor.</li><li>Hand out the lab guide (MD file).</li></ul>">
+  <div class="kicker blue">04 · LAB</div>
+  <h1>Now <em>you</em> build</h1>
+  <p class="lead" style="margin-top:1.4rem">40 minutes. Three labs. Everyone leaves with a working setup.</p>
+  <div class="grid3" style="margin-top:2rem">
+    <div class="card b"><div class="mono tiny" style="color:var(--blue)">12 MINUTES</div><h3 style="margin-top:.4rem">LAB 1 — First MCP</h3><p class="tiny" style="margin-top:.4rem">Connect a system, ask a verifiable question.</p></div>
+    <div class="card o"><div class="mono tiny" style="color:var(--orange)">16 MINUTES</div><h3 style="margin-top:.4rem">LAB 2 — First skill</h3><p class="tiny" style="margin-top:.4rem">Distill your own procedure into 15 lines.</p></div>
+    <div class="card g"><div class="mono tiny" style="color:var(--green)">12 MINUTES</div><h3 style="margin-top:.4rem">LAB 3 — The chain</h3><p class="tiny" style="margin-top:.4rem">MCP → skill → file. One job, end to end.</p></div>
+  </div>
+  <div class="card r" style="margin-top:1.6rem">
+    <p><strong>Rule:</strong> Work in pairs. If you get stuck, ask your neighbor first. Finishers help the unfinished. <span class="dim">The goal isn't perfect output — it's <em>working</em> output.</span></p>
+  </div>
+</section>
+
+<section class="slide" data-sect="04 · LAB 1 · 12 min" data-note="<ul><li>Timer: 12 min. Warn at minute 8.</li><li>Walk around. Most common snag: the OAuth window hits the popup blocker.</li><li>Don't let them skip verification — this lab's real lesson is 'don't trust blindly'.</li></ul>">
+  <div class="kicker blue">LAB 1 · 12 minutes</div>
+  <h2>Your first MCP connection</h2>
+  <div class="grid2" style="grid-template-columns:1.15fr 1fr">
+    <div class="rows">
+      <div class="card b"><div class="row"><div class="num b" style="font-size:1.6rem;min-width:34px">1</div><div><strong>Connect.</strong> <span class="dim">Settings → Connectors → Asana (or Drive). Authorize. <em>Read the permission screen.</em></span></div></div></div>
+      <div class="card b"><div class="row"><div class="num b" style="font-size:1.6rem;min-width:34px">2</div><div><strong>Ask a question you know the answer to.</strong> <span class="dim">"List my tasks due this week."</span></div></div></div>
+      <div class="card b"><div class="row"><div class="num b" style="font-size:1.6rem;min-width:34px">3</div><div><strong>Verify.</strong> <span class="dim">Open Asana, compare. Anything missing? Anything invented?</span></div></div></div>
+      <div class="card b"><div class="row"><div class="num b" style="font-size:1.6rem;min-width:34px">4</div><div><strong>Raise the bar.</strong> <span class="dim">"Which of these tasks risk slipping, and why?" — Now you're asking for <em>analysis</em>, not listing.</span></div></div></div>
+    </div>
+    <div>
+      <div class="card"><h3>Success criterion</h3><p class="tiny" style="margin-top:.5rem">You got in 20 seconds what would take 10 minutes by hand — <strong>and you confirmed it was correct.</strong></p></div>
+      <div class="card r" style="margin-top:1rem"><h3 style="color:#e08272">Common snags</h3>
+        <ul class="clean" style="margin-top:.5rem">
+          <li>OAuth window blocked by the popup blocker</li>
+          <li>Wrong workspace selected</li>
+          <li>Your question is too broad — narrow it</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-sect="04 · LAB 2 · 16 min" data-note="<ul><li>Timer: 16 min. The hardest lab.</li><li>They'll get stuck choosing a topic. Offer a ready list: TDS review, meeting-note format, customer complaint triage, experiment report template.</li><li>Warn: 'don't write generic knowledge'. Only write the part only YOU know.</li></ul>">
+  <div class="kicker">LAB 2 · 16 minutes</div>
+  <h2>Write your own skill</h2>
+  <div class="grid2" style="grid-template-columns:1fr 1.1fr">
+    <div>
+      <h3 style="margin-bottom:.7rem">Pick: a job you do 3+ times a month</h3>
+      <div style="margin-bottom:1.2rem">
+        <span class="pill o">Meeting-note format</span><span class="pill o">TDS review</span><span class="pill o">Complaint triage</span><span class="pill o">Experiment report template</span><span class="pill o">Sample request evaluation</span><span class="pill o">Supplier quote comparison</span>
+      </div>
+      <ul class="clean">
+        <li><strong>Step 1 · 4 min</strong> — Write down how you do this job, as bullets. The checklist in your head.</li>
+        <li><strong>Step 2 · 4 min</strong> — Write the trigger phrases. Which words would you use to ask for this?</li>
+        <li><strong>Step 3 · 4 min</strong> — Add the output format and the <em>prohibitions</em>.</li>
+        <li><strong>Step 4 · 4 min</strong> — Run it. Write what you dislike back into the skill.</li>
+      </ul>
+    </div>
+    <div>
+      <pre><span class="c">---</span>
+<span class="k">name</span>: meeting-notes
+<span class="k">description</span>: <span class="s">Turns a meeting recording or raw</span>
+  <span class="s">notes into our meeting format.</span>
+  <span class="s">Trigger: "clean up the meeting notes",</span>
+  <span class="s">"extract the actions", raw notes pasted.</span>
+<span class="c">---</span>
+
+<span class="k">## Format</span>
+1. <span class="v">DECISIONS</span> — each one a single sentence
+2. <span class="v">ACTIONS</span> — who / what / when (date mandatory)
+3. <span class="v">OPEN</span> — unresolved questions
+4. <span class="v">RISKS</span> — discussed but ownerless topics
+
+<span class="k">## Rules</span>
+- Action with no owner → write <span class="v">"NO OWNER"</span>
+- Action with no date → write <span class="v">"NO DATE"</span>
+- Don't summarize the chatter. Decisions and actions only.
+- Length: never past half a page.</pre>
+      <p class="tiny" style="margin-top:.7rem">15 lines. <strong>The value isn't the length</strong> — it's the "NO OWNER" rule.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-sect="04 · LAB 3 · 12 min" data-note="<ul><li>Timer: 12 min. This lab's goal is the 'aha' — seeing the pieces connect.</li><li>Not everyone will finish; that's fine. GRASPING the chain is enough.</li><li>Ask 2–3 finishers to project their output.</li></ul>">
+  <div class="kicker green">LAB 3 · 12 minutes</div>
+  <h2>Build the chain</h2>
+  <p class="lead" style="margin-bottom:1.4rem">With a single request: <em>pull live data → process it by your rule → produce a file → archive it.</em></p>
+  <pre style="max-width:none"><span class="c"># Example brief — adapt to your own work</span>
+
+<span class="k">From Asana,</span> pull all open tasks assigned to me.
+
+<span class="k">Evaluate with my rule:</span>
+  - Due within 7 days = RED
+  - Dependency incomplete = BLOCKED
+  - Untouched for 30+ days = DEAD
+
+<span class="k">Output:</span> one page of markdown.
+  On top: the <span class="v">3 things</span> that truly must happen this week.
+  Below: the table.
+  <span class="v">No guessing</span> — don't write anything not in Asana.
+
+<span class="k">Then:</span> save this file as <span class="v">2026-08-17-portfolio.md</span></pre>
+  <div class="grid3" style="margin-top:1.4rem">
+    <div class="card b"><h3>MCP</h3><p class="tiny">Live data came in</p></div>
+    <div class="card o"><h3>Rule</h3><p class="tiny">Your logic was applied</p></div>
+    <div class="card g"><h3>Output</h3><p class="tiny">A real file, archived</p></div>
+  </div>
+</section>
+
+<section class="slide" data-sect="04 · LAB · share-out" data-note="<ul><li>Have 3–4 people project. Keep it short — 90 seconds each.</li><li>After each share, ask: 'How many hours a month does this save?' Write the number on the board.</li><li>Show the total. That's the workshop's ROI.</li></ul>">
+  <div class="kicker">04 · LAB · share-out</div>
+  <h2>What did you build?</h2>
+  <div class="grid2">
+    <div>
+      <h3 style="margin-bottom:.8rem">90 seconds each</h3>
+      <ul class="clean">
+        <li>Which job did you pick?</li>
+        <li>How long did it take by hand?</li>
+        <li>How long does it take now?</li>
+        <li>What must <strong>you</strong> still control?</li>
+      </ul>
+    </div>
+    <div class="card o">
+      <h3>Why the last question matters most</h3>
+      <p class="dim" style="margin-top:.6rem">For every job you automate, if you don't know <strong>which checkpoint you're keeping in your own hands</strong>, you haven't automated it — you've made it invisible.</p>
+      <p class="tiny" style="margin-top:.9rem">An invisible error is a slow error. You find out three months later.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 5 · LIMITS ========== -->
+
+<section class="slide" data-sect="05 · Limits" data-note="<ul><li>Tone shift. Excitement so far, seriousness now.</li><li>Without this part the workshop is irresponsible. Don't shorten it.</li><li>Say this line: 'So far I told you what it can do. Now I'll tell you where it will burn you.'</li></ul>">
+  <div class="kicker gray">05 · Limits</div>
+  <h1>Now, <em>where it burns</em></h1>
+  <p class="lead" style="margin-top:1.4rem">You've seen what it can do. This part: the five places it can burn you.</p>
+  <div class="grid5" style="margin-top:2.2rem">
+    <div class="card r"><h3>01</h3><p class="tiny">Fabrication</p></div>
+    <div class="card r"><h3>02</h3><p class="tiny">Data leakage</p></div>
+    <div class="card r"><h3>03</h3><p class="tiny">Automation debt</p></div>
+    <div class="card r"><h3>04</h3><p class="tiny">Permission creep</p></div>
+    <div class="card r"><h3>05</h3><p class="tiny">Skill atrophy</p></div>
+  </div>
+</section>
+
+<section class="slide" data-sect="05 · Limits" data-note="<ul><li>Give concrete examples: an invented DOI, a nonexistent standard number, a misremembered test method.</li><li>Have the protocol written on the board. Make it a team norm.</li><li>Message: the model isn't lying — it doesn't know it's unsure. The difference matters.</li></ul>">
+  <div class="kicker">05 · Risk 01</div>
+  <h2>Fabrication: <em>the most dangerous kind looks correct</em></h2>
+  <div class="grid2" style="grid-template-columns:1fr 1.05fr">
+    <div>
+      <h3 style="margin-bottom:.7rem">Where it happens</h3>
+      <ul class="clean">
+        <li>References, DOIs, patent numbers</li>
+        <li>Standard numbers and clause references <span class="dim">(like EN 12004-2 clause 8.3)</span></li>
+        <li>Competitor product specifications</li>
+        <li>Numeric data — especially in tables, where it looks trustworthy</li>
+        <li>Dates and regulatory status <span class="dim">(model memory ages)</span></li>
+      </ul>
+      <p class="tiny" style="margin-top:1rem">The model isn't lying. <strong>It doesn't know it's unsure.</strong> The difference matters — because it says wrong things in a convincing tone.</p>
+    </div>
+    <div class="card o">
+      <h3>Team protocol</h3>
+      <ul class="clean" style="margin-top:.7rem">
+        <li><strong>A link that won't open = doesn't exist.</strong> Delete it.</li>
+        <li><strong>Every number needs a source.</strong> Unsourced numbers stay in drafts, never go out.</li>
+        <li><strong>Standard claims → the original text.</strong> Always.</li>
+        <li><strong>Every outgoing document → a human reads it.</strong> No exceptions.</li>
+        <li>Add to your briefs: <span class="mono">"If unsure, write 'I DON'T KNOW'."</span> — it works.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-sect="05 · Limits" data-note="<ul><li>If there's an agreed corporate policy with IT/legal, state it here.</li><li>If not: say 'the action item from this workshop is writing that policy'.</li><li>Emphasize write access — read errors are cheap, write errors are expensive.</li></ul>">
+  <div class="kicker">05 · Risk 02 &amp; 04</div>
+  <h2>Data boundaries and permission creep</h2>
+  <div class="grid2">
+    <div class="card r">
+      <div class="kicker" style="color:#e08272;margin-bottom:.6rem">RED LINES</div>
+      <ul class="clean" style="margin-top:.2rem">
+        <li>Unapproved formulation details</li>
+        <li>Customer contracts, price lists</li>
+        <li>Personal data (under data-protection law)</li>
+        <li>Invention text before a patent filing</li>
+        <li>Third parties' confidential data</li>
+      </ul>
+      <p class="tiny" style="margin-top:.9rem"><strong>Rule:</strong> Until corporate policy is settled, ask "would I email this to an outside consultant?" If the answer is no, don't paste it.</p>
+    </div>
+    <div class="card b">
+      <div class="kicker blue" style="margin-bottom:.6rem">PERMISSION CREEP</div>
+      <p class="dim">MCPs also take <strong>write</strong> access. Read errors are cheap; write errors corrupt real data.</p>
+      <ul class="clean b" style="margin-top:.8rem">
+        <li>New connection → start <strong>read-only</strong></li>
+        <li>Grant write access <em>when the need is proven</em></li>
+        <li>Email sending never automatic — it drafts, you send</li>
+        <li>Bulk delete / bulk update → always with approval</li>
+        <li>Keep a record of who is connected to what</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-sect="05 · Limits" data-note="<ul><li>The most laughed-at and most needed slide. Everyone falls into this trap.</li><li>Give your own example — there's surely something you automated and never used. Be honest.</li><li>Write the threshold formula on the board.</li></ul>">
+  <div class="kicker">05 · Risk 03</div>
+  <h2>Automation debt</h2>
+  <p class="lead" style="margin-bottom:1.5rem">Spending 3 hours automating a 3-minute job — and then doing that job once a month.</p>
+  <div class="grid2" style="grid-template-columns:1fr 1.1fr">
+    <div class="card o">
+      <h3>The threshold formula</h3>
+      <p class="mono" style="margin:.9rem 0;color:var(--orange);font-size:1rem">(min × yearly frequency) &gt; setup × 3</p>
+      <p class="tiny">If it doesn't pay back the setup cost <strong>3× within the first year</strong>, don't automate it. Do it by hand.</p>
+      <table style="margin-top:1rem">
+        <tr><th>Job</th><th>Yearly</th><th>Call</th></tr>
+        <tr><td>Morning briefing</td><td>250×45min</td><td class="hlg">BUILD</td></tr>
+        <tr><td>Monthly report format</td><td>12×30min</td><td class="hlg">BUILD</td></tr>
+        <tr><td>Annual budget template</td><td>1×2h</td><td class="hl">BY HAND</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3 style="margin-bottom:.7rem">The other two hidden costs</h3>
+      <div class="card r"><h3 style="color:#e08272">Maintenance debt</h3><p class="tiny" style="margin-top:.4rem">Every flow you build is a breakable thing. An Asana field gets renamed, the flow goes silent. <strong>A system that silently runs wrong is worse than one that doesn't run.</strong></p></div>
+      <div class="card r" style="margin-top:.9rem"><h3 style="color:#e08272">Skill atrophy</h3><p class="tiny" style="margin-top:.4rem">If you never do the literature scan yourself, you <em>can't tell</em> when the system does a bad one. Do it by hand occasionally — for calibration.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-sect="05 · Limits" data-note="<ul><li>UPDATE this list together with the team. Yours may differ.</li><li>Key distinction: cognitive work gets delegated, RESPONSIBILITY doesn't.</li><li>Close with 'you sign the signature'.</li></ul>">
+  <div class="kicker">05 · Limits</div>
+  <h2>Never delegated</h2>
+  <div class="grid2">
+    <div class="rows">
+      <div class="card r"><strong>Final technical approval.</strong> <span class="dim">Formulation changes, safety declarations, standards compliance.</span></div>
+      <div class="card r"><strong>Pricing and commercial commitments.</strong> <span class="dim">Every number that goes to a customer.</span></div>
+      <div class="card r"><strong>People decisions.</strong> <span class="dim">Hiring, performance, promotion. Input, yes; decision, no.</span></div>
+    </div>
+    <div class="rows">
+      <div class="card r"><strong>Legal and regulatory declarations.</strong> <span class="dim">REACH, biocidal, CE. Drafts yes, signatures no.</span></div>
+      <div class="card r"><strong>Crisis communication.</strong> <span class="dim">Customer complaints, field problems, press.</span></div>
+      <div class="card o"><strong>Strategic direction.</strong> <span class="dim">Deciding which problem is worth solving — that's <em>your</em> job. The hardest and most valuable part.</span></div>
+    </div>
+  </div>
+  <p class="lead" style="margin-top:1.6rem">Cognitive work gets delegated. <em>Responsibility doesn't.</em> You sign the signature.</p>
+</section>
+
+<!-- ========== 6 · PLAN ========== -->
+
+<section class="slide" data-sect="06 · Plan" data-note="<ul><li>Ask everyone to place themselves — silently, to themselves.</li><li>Emphasize: the 2-to-3 jump is the highest-return step. Level 4 isn't for everyone.</li><li>The trap: jumping from Level 1 straight to 4. Everyone tries, everyone quits.</li></ul>">
+  <div class="kicker">06 · Plan</div>
+  <h2>The maturity model — <em>where do you stand?</em></h2>
+  <table>
+    <tr><th style="width:9%">Level</th><th style="width:23%">Behavior</th><th style="width:30%">Typical gain</th><th>Next step</th></tr>
+    <tr><td class="mono dim">0</td><td>Not using it</td><td class="dim">—</td><td>Finish today's lab</td></tr>
+    <tr><td class="mono dim">1</td><td>Q&amp;A</td><td class="dim">Nearly zero</td><td>Learn to write briefs</td></tr>
+    <tr><td class="mono">2</td><td>Text production</td><td>2–3 hours a week</td><td class="hl">Give files, get files</td></tr>
+    <tr><td class="mono hlb">3</td><td><strong>Files + MCP + skills</strong></td><td class="hlb">8–12 hours a week</td><td class="hlb">Build chains, archive</td></tr>
+    <tr><td class="mono hlg">4</td><td><strong>Orchestrated system</strong></td><td class="hlg">Capacity per function</td><td class="hlg">Spread to the team, standardize</td></tr>
+  </table>
+  <div class="grid2" style="margin-top:1.6rem">
+    <div class="card b"><h3>The highest-return step</h3><p class="tiny" style="margin-top:.4rem"><strong>2 → 3.</strong> This jump is bigger than all the other steps combined.</p></div>
+    <div class="card r"><h3 style="color:#e08272">The most common mistake</h3><p class="tiny" style="margin-top:.4rem"><strong>Jumping from 1 straight to 4.</strong> A complex system gets built and abandoned two weeks later.</p></div>
+  </div>
+</section>
+
+<section class="slide" data-sect="06 · Plan" data-note="<ul><li>Hand out this plan as MD. Don't make them read it off the screen.</li><li>Emphasize week 1 has ONE job. One. Not five.</li><li>Say you'll meet again on day 30 — and set the date NOW. Vague follow-up = no follow-up.</li></ul>">
+  <div class="kicker green">06 · Plan</div>
+  <h2>30 days — <em>in a single lane</em></h2>
+  <div class="grid4">
+    <div class="card o">
+      <div class="kicker" style="margin-bottom:.5rem">WEEK 1</div>
+      <h3>Habit</h3>
+      <ul class="clean" style="margin-top:.7rem">
+        <li>Do <strong>one</strong> job with Claude every day</li>
+        <li>Use the brief format</li>
+        <li>Automate nothing</li>
+      </ul>
+      <p class="tiny" style="margin-top:.8rem">Goal: build the reflex.</p>
+    </div>
+    <div class="card b">
+      <div class="kicker blue" style="margin-bottom:.5rem">WEEK 2</div>
+      <h3>Connection</h3>
+      <ul class="clean b" style="margin-top:.7rem">
+        <li>Connect one MCP — just one</li>
+        <li>Read-only access</li>
+        <li>Verify every answer</li>
+      </ul>
+      <p class="tiny" style="margin-top:.8rem">Goal: calibrate trust.</p>
+    </div>
+    <div class="card g">
+      <div class="kicker green" style="margin-bottom:.5rem">WEEK 3</div>
+      <h3>Codification</h3>
+      <ul class="clean g" style="margin-top:.7rem">
+        <li>Use the skill you wrote today</li>
+        <li>Improve one line every use</li>
+        <li>Share it with one person</li>
+      </ul>
+      <p class="tiny" style="margin-top:.8rem">Goal: externalize knowledge.</p>
+    </div>
+    <div class="card">
+      <div class="kicker gray" style="margin-bottom:.5rem">WEEK 4</div>
+      <h3>Measurement</h3>
+      <ul class="clean" style="margin-top:.7rem">
+        <li>Write down hours saved</li>
+        <li>Write down errors caught</li>
+        <li><strong>Delete</strong> what didn't work</li>
+      </ul>
+      <p class="tiny" style="margin-top:.8rem">Goal: honest accounting.</p>
+    </div>
+  </div>
+  <p class="lead" style="margin-top:1.8rem">We meet again on day 30. Let's set the date <em>now</em> — vague follow-up isn't follow-up.</p>
+</section>
+
+<section class="slide" data-sect="06 · Plan" data-note="<ul><li>Ask everyone to WRITE on paper. 60 silent seconds. Hear the pens.</li><li>Have 2–3 people read theirs aloud.</li><li>This is the workshop's one real deliverable. Everything else existed to make it possible.</li></ul>">
+  <div class="kicker">06 · Plan</div>
+  <h2>Monday morning</h2>
+  <p class="lead" style="margin-bottom:2rem">The <em>one</em> sentence you'll write on paper before you leave:</p>
+  <pre style="font-size:1.05rem;padding:1.8rem"><span class="c">The first thing I'll do Monday morning:</span>
+
+  ______________________________________________
+
+<span class="c">I've been doing this by hand, and</span>
+<span class="c">it takes</span> ______ <span class="c">minutes every time.</span>
+
+<span class="c">If I don't do it, my excuse</span>
+<span class="c">30 days from now will be:</span> ______________________</pre>
+  <p class="lead" style="margin-top:1.8rem">The last line is hard. <em>Write your excuse in advance</em> — a written excuse doesn't get used.</p>
+</section>
+
+<section class="slide" data-sect="Closing" data-note="<ul><li>Close calm. Don't wait for applause.</li><li>Final message: this wasn't tool training, it was a change in how we work.</li><li>Leave 5 min for Q&amp;A. For questions you can't answer, say 'I don't know, I'll check and get back to you' — consistent with the workshop's main theme.</li></ul>">
+  <div class="kicker">Closing</div>
+  <h1 class="big-quote">Everyone has the same model.<br><em>The difference is what you feed it.</em></h1>
+  <div class="grid3" style="margin-top:2.6rem">
+    <div class="card o"><h3>Context</h3><p class="tiny" style="margin-top:.4rem">Intelligence that doesn't know your company is useless intelligence.</p></div>
+    <div class="card b"><h3>Access</h3><p class="tiny" style="margin-top:.4rem">An agent not connected to your systems is just a chat box.</p></div>
+    <div class="card g"><h3>Judgment</h3><p class="tiny" style="margin-top:.4rem">Deciding which problem is worth solving — still your job.</p></div>
+  </div>
+  <p class="lead" style="margin-top:2.6rem">We didn't learn a tool today. <strong>We changed how we work.</strong></p>
+  <p class="tiny" style="margin-top:1.6rem">Questions · The lab guide and this deck will be shared · See you in 30 days.</p>
+</section>
+
+</div>
+<div id="sect"></div>
+<div id="hud">
+  <span id="timer" class="chip" onclick="tog()">⏱ 00:00</span>
+  <span class="chip" onclick="ovT()">☰ map</span>
+  <span class="chip" onclick="nT()">N notes</span>
+  <span><b id="cur">1</b> / <span id="tot">0</span></span>
+</div>
+<div id="notes"><h4>Speaker note</h4><div id="ntxt"></div></div>
+<div id="ov"><div class="g" id="ovg"></div></div>
+
+<script>
+const S=[...document.querySelectorAll('.slide')];
+let i=0;
+document.getElementById('tot').textContent=S.length;
+
+function go(n){
+  i=Math.max(0,Math.min(S.length-1,n));
+  S.forEach((s,k)=>s.classList.toggle('active',k===i));
+  document.getElementById('bar').style.width=((i+1)/S.length*100)+'%';
+  document.getElementById('cur').textContent=i+1;
+  document.getElementById('sect').textContent=S[i].dataset.sect||'';
+  document.getElementById('ntxt').innerHTML=S[i].dataset.note||'<p class="dim">—</p>';
+  location.hash=i+1;
+}
+function nT(){document.getElementById('notes').classList.toggle('on')}
+function ovT(){document.getElementById('ov').classList.toggle('on')}
+
+/* timer */
+let t=0,iv=null;
+function fmt(x){return String(Math.floor(x/60)).padStart(2,'0')+':'+String(x%60).padStart(2,'0')}
+function tog(){
+  const el=document.getElementById('timer');
+  if(iv){clearInterval(iv);iv=null;el.classList.remove('run')}
+  else{iv=setInterval(()=>{t++;el.textContent='⏱ '+fmt(t)},1000);el.classList.add('run')}
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();go(i+1)}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(i-1)}
+  if(e.key==='Home')go(0);
+  if(e.key==='End')go(S.length-1);
+  if(e.key==='n'||e.key==='N')nT();
+  if(e.key==='o'||e.key==='O')ovT();
+  if(e.key==='t'||e.key==='T')tog();
+  if(e.key==='Escape')document.getElementById('ov').classList.remove('on');
+});
+document.addEventListener('click',e=>{
+  if(e.target.closest('#hud')||e.target.closest('#ov')||e.target.closest('#notes'))return;
+  if(e.clientX>window.innerWidth*.55)go(i+1);else go(i-1);
+});
+
+/* overview build */
+const g=document.getElementById('ovg');
+S.forEach((s,k)=>{
+  const d=document.createElement('div');d.className='t';
+  const ttl=s.querySelector('h1,h2');
+  d.innerHTML='<span>'+(k+1)+'</span>'+(ttl?ttl.textContent.slice(0,58):'—');
+  d.onclick=()=>{go(k);ovT()};g.appendChild(d);
+});
+
+window.addEventListener('hashchange',()=>{
+  const n=parseInt(location.hash.slice(1))-1;
+  if(!isNaN(n)&&n!==i)go(n);
+});
+go(location.hash?parseInt(location.hash.slice(1))-1||0:0);
+</script>
+</body>
+</html>

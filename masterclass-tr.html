@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bir Girişimcinin AI El Kitabı — Workshop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --dark:#141413; --dark2:#1c1c1a; --dark3:#262623;
+  --light:#faf9f5; --midgray:#b0aea5; --lightgray:#e8e6dc;
+  --orange:#d97757; --blue:#6a9bcc; --green:#788c5d;
+  --h:'Poppins',Arial,Helvetica,sans-serif;
+  --b:'Lora',Georgia,serif;
+  --m:'JetBrains Mono','SF Mono',Consolas,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--light);
+  font-family:var(--b);-webkit-font-smoothing:antialiased}
+#stage{position:relative;width:100vw;height:100vh}
+
+.slide{
+  position:absolute;inset:0;display:none;
+  padding:5.5vh 7vw 9vh;
+  flex-direction:column;justify-content:center;
+  animation:fade .35s ease;
+}
+.slide.active{display:flex}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ---------- typography ---------- */
+h1{font-family:var(--h);font-weight:600;font-size:clamp(2.2rem,5.2vw,4.4rem);
+   line-height:1.05;letter-spacing:-.02em}
+h2{font-family:var(--h);font-weight:600;font-size:clamp(1.7rem,3.4vw,2.9rem);
+   line-height:1.12;letter-spacing:-.015em;margin-bottom:.7em}
+h3{font-family:var(--h);font-weight:500;font-size:clamp(1rem,1.5vw,1.35rem);line-height:1.25}
+p,li{font-size:clamp(.95rem,1.28vw,1.22rem);line-height:1.55;color:var(--lightgray)}
+.lead{font-size:clamp(1.1rem,1.75vw,1.6rem);line-height:1.45;color:var(--light);max-width:52ch}
+.dim{color:var(--midgray)}
+.tiny{font-size:clamp(.72rem,.92vw,.9rem);line-height:1.45;color:var(--midgray)}
+strong,b{color:var(--light);font-weight:600}
+em{color:var(--orange);font-style:italic}
+.mono{font-family:var(--m);font-size:.86em}
+
+/* ---------- chrome ---------- */
+.kicker{font-family:var(--h);font-size:clamp(.65rem,.85vw,.82rem);font-weight:600;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:1.1em}
+.kicker.blue{color:var(--blue)} .kicker.green{color:var(--green)} .kicker.gray{color:var(--midgray)}
+
+#bar{position:fixed;top:0;left:0;height:3px;background:var(--orange);width:0;z-index:60;transition:width .3s}
+#hud{position:fixed;bottom:2.2vh;right:2.6vw;z-index:60;display:flex;gap:1.1rem;align-items:center;
+  font-family:var(--m);font-size:.72rem;color:var(--midgray)}
+#hud b{color:var(--light);font-weight:500}
+#hud .chip{border:1px solid #3a3a35;border-radius:99px;padding:.25rem .6rem;cursor:pointer}
+#hud .chip:hover{border-color:var(--orange);color:var(--orange)}
+#sect{position:fixed;bottom:2.2vh;left:2.6vw;z-index:60;font-family:var(--h);font-size:.72rem;
+  letter-spacing:.14em;text-transform:uppercase;color:#55554f}
+
+/* ---------- layout helpers ---------- */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:2.2rem}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem}
+.grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:.9rem}
+.rows{display:flex;flex-direction:column;gap:1rem}
+.row{display:flex;gap:1.2rem;align-items:flex-start}
+
+.card{background:var(--dark2);border:1px solid #2e2e2a;border-radius:14px;padding:1.3rem 1.4rem}
+.card.o{border-left:3px solid var(--orange)}
+.card.b{border-left:3px solid var(--blue)}
+.card.g{border-left:3px solid var(--green)}
+.card.r{border-left:3px solid #c04a3a}
+.card h3{margin-bottom:.5rem}
+.card p{font-size:clamp(.82rem,1.02vw,1rem);line-height:1.5}
+
+.num{font-family:var(--h);font-weight:700;font-size:clamp(1.9rem,3.4vw,3.1rem);
+  line-height:1;color:var(--orange);letter-spacing:-.03em}
+.num.b{color:var(--blue)} .num.g{color:var(--green)} .num.w{color:var(--light)}
+
+.pill{display:inline-block;font-family:var(--m);font-size:.7rem;padding:.2rem .55rem;
+  border-radius:5px;background:#2b2b27;color:var(--midgray);margin:.15rem .25rem .15rem 0}
+.pill.o{background:rgba(217,119,87,.16);color:var(--orange)}
+.pill.b{background:rgba(106,155,204,.16);color:var(--blue)}
+.pill.g{background:rgba(120,140,93,.18);color:var(--green)}
+
+ul.clean{list-style:none;display:flex;flex-direction:column;gap:.65rem}
+ul.clean li{padding-left:1.5rem;position:relative}
+ul.clean li:before{content:"→";position:absolute;left:0;color:var(--orange);font-family:var(--h)}
+ul.clean.b li:before{color:var(--blue)} ul.clean.g li:before{color:var(--green)}
+
+pre{background:#0d0d0c;border:1px solid #2e2e2a;border-radius:10px;padding:1rem 1.1rem;
+  font-family:var(--m);font-size:clamp(.66rem,.85vw,.84rem);line-height:1.6;color:#d4d2c8;
+  overflow:auto;white-space:pre-wrap}
+pre .c{color:#6b6a63} pre .k{color:var(--orange)} pre .s{color:var(--green)} pre .v{color:var(--blue)}
+
+table{width:100%;border-collapse:collapse;font-size:clamp(.78rem,1vw,.98rem)}
+th{font-family:var(--h);font-weight:600;text-align:left;color:var(--midgray);
+  font-size:.72em;letter-spacing:.12em;text-transform:uppercase;padding:.55rem .7rem;
+  border-bottom:1px solid #35352f}
+td{padding:.62rem .7rem;border-bottom:1px solid #232320;color:var(--lightgray);vertical-align:top}
+td.hl{color:var(--orange)} td.hlb{color:var(--blue)} td.hlg{color:var(--green)}
+
+.flow{display:flex;align-items:stretch;gap:.6rem;flex-wrap:wrap}
+.flow .step{flex:1;min-width:120px;background:var(--dark2);border:1px solid #2e2e2a;
+  border-radius:12px;padding:.9rem .9rem;position:relative}
+.flow .step .n{font-family:var(--m);font-size:.66rem;color:var(--orange);display:block;margin-bottom:.35rem}
+.flow .arrow{display:flex;align-items:center;color:#44443f;font-size:1.3rem}
+
+.stack{display:flex;flex-direction:column;gap:.45rem}
+.layer{display:flex;align-items:center;gap:1rem;background:var(--dark2);
+  border:1px solid #2e2e2a;border-radius:10px;padding:.75rem 1.1rem}
+.layer .tag{font-family:var(--m);font-size:.7rem;min-width:92px;color:var(--orange)}
+.layer .desc{font-size:clamp(.8rem,1vw,.98rem);color:var(--lightgray)}
+.layer.b .tag{color:var(--blue)} .layer.g .tag{color:var(--green)} .layer.gr .tag{color:var(--midgray)}
+
+.big-quote{font-family:var(--h);font-weight:500;font-size:clamp(1.6rem,3.6vw,3.2rem);
+  line-height:1.15;letter-spacing:-.02em;max-width:20ch}
+
+/* speaker notes */
+#notes{position:fixed;left:0;right:0;bottom:0;max-height:38vh;overflow:auto;
+  background:#0a0a09;border-top:2px solid var(--orange);padding:1.1rem 2.6vw 3.6vh;
+  z-index:55;display:none;font-size:.86rem;line-height:1.55;color:var(--lightgray)}
+#notes.on{display:block}
+#notes h4{font-family:var(--h);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--orange);margin-bottom:.5rem}
+#notes ul{margin-left:1.1rem}
+#notes li{font-size:.86rem;line-height:1.5;margin-bottom:.2rem}
+
+/* overview */
+#ov{position:fixed;inset:0;background:rgba(10,10,9,.97);z-index:70;display:none;
+  padding:4vh 4vw;overflow:auto}
+#ov.on{display:block}
+#ov .g{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.7rem}
+#ov .t{background:var(--dark2);border:1px solid #2e2e2a;border-radius:8px;padding:.7rem;
+  cursor:pointer;font-size:.72rem;line-height:1.3;color:var(--midgray);font-family:var(--h)}
+#ov .t:hover{border-color:var(--orange);color:var(--light)}
+#ov .t span{display:block;font-family:var(--m);font-size:.62rem;color:var(--orange);margin-bottom:.3rem}
+
+/* timer */
+#timer{font-family:var(--m);font-size:.72rem}
+#timer.run{color:var(--green)}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<div id="stage">
+<!-- ========== 0 · AÇILIŞ ========== -->
+
+<section class="slide" data-sect="Açılış · 10 dk" data-note="<ul><li>Salona girer girmez ekranda bu slayt olsun. Konuşmadan önce 5 saniye sessiz bekle.</li><li>Bugünün tek cümlelik sözü: 'Buradan çıkarken herkesin çalışan bir MCP bağlantısı ve kendi yazdığı bir skill'i olacak.'</li><li>Kural: laptoplar AÇIK. Bu bir seminer değil, atölye.</li></ul>">
+  <div class="kicker">Kalekim · İç Eğitim Atölyesi</div>
+  <h1>Bir Girişimcinin<br><em>AI El Kitabı</em></h1>
+  <p class="lead" style="margin-top:1.6rem">Claude'u sohbet kutusu olmaktan çıkarıp<br>bir <strong>şirket işletim katmanına</strong> dönüştürmek.</p>
+  <div style="margin-top:2.4rem;display:flex;gap:2.5rem;flex-wrap:wrap">
+    <div><div class="tiny dim">SÜRE</div><div class="mono" style="color:var(--light)">120 dakika · 3 lab</div></div>
+    <div><div class="tiny dim">SEVİYE</div><div class="mono" style="color:var(--light)">Başlangıç → Uygulayıcı</div></div>
+    <div><div class="tiny dim">GEREKLİ</div><div class="mono" style="color:var(--light)">Laptop + Claude hesabı</div></div>
+  </div>
+  <p class="tiny" style="margin-top:2.6rem">← → gezinme · <span class="mono">N</span> notlar · <span class="mono">O</span> harita · <span class="mono">T</span> kronometre</p>
+</section>
+
+<section class="slide" data-sect="Açılış · 10 dk" data-note="<ul><li>Burada durup gerçekten göster: HTML dosyasını, üretim komutunu.</li><li>Amaç şov değil — 'bu odada oturan herkes bunu yapabilir' mesajı.</li><li>Ekle: 'Ben slayt tasarlamadım. Brief yazdım. Fark burada.'</li></ul>">
+  <div class="kicker gray">Başlamadan önce</div>
+  <h2>Bu sunumu ben yapmadım.</h2>
+  <div class="grid3">
+    <div class="card o"><div class="num">1</div><h3 style="margin-top:.5rem">brief</h3><p class="dim">Tek bir istek. Kitle, süre, format, amaç.</p></div>
+    <div class="card b"><div class="num b">~20</div><h3 style="margin-top:.5rem">dakika</h3><p class="dim">Araştırma, kurgu, tasarım, kod, doğrulama dahil.</p></div>
+    <div class="card g"><div class="num g">36</div><h3 style="margin-top:.5rem">slayt + lab kılavuzu</h3><p class="dim">Sunucu notları, kronometre, egzersiz kartları ile.</p></div>
+  </div>
+  <p class="lead" style="margin-top:2rem">Bugün öğreneceğiniz şey <em>bu brief'i nasıl yazacağınız</em> — ve arkasındaki makineyi nasıl kuracağınız.</p>
+</section>
+
+<section class="slide" data-sect="Açılış · 10 dk" data-note="<ul><li>Gerçekten el kaldırt. Sayıyı tahtaya yaz — atölye sonunda tekrar sor.</li><li>Çoğu el 1. ve 2. seviyede kalkacak. Bu utanılacak bir şey değil, başlangıç noktası.</li><li>Vurgu: 'Seviye 1'de kalırsanız AI size zaman kazandırmaz, sadece Google'ı yavaşlatır.'</li></ul>">
+  <div class="kicker">El kaldırın</div>
+  <h2>Claude'u bugün nasıl kullanıyorsunuz?</h2>
+  <div class="stack">
+    <div class="layer gr"><span class="tag">SEVİYE 0</span><span class="desc">Hiç açmadım / ayda birkaç kez.</span></div>
+    <div class="layer gr"><span class="tag">SEVİYE 1</span><span class="desc">Soru soruyorum, cevabı okuyorum. <span class="dim">— Yani pahalı bir arama motoru.</span></span></div>
+    <div class="layer"><span class="tag">SEVİYE 2</span><span class="desc">Metin yazdırıyorum, çeviri, özet, e-posta taslağı.</span></div>
+    <div class="layer b"><span class="tag">SEVİYE 3</span><span class="desc">Dosya veriyorum, analiz ettiriyorum, çıktı dosyası alıyorum.</span></div>
+    <div class="layer g"><span class="tag">SEVİYE 4</span><span class="desc">Sistemlerime bağlı, kendi kurallarımla çalışan, işi baştan sona bitiren bir yapı kurdum.</span></div>
+  </div>
+  <p class="lead" style="margin-top:1.8rem">Bugünün hedefi: <em>herkesi Seviye 3'e taşımak</em>, Seviye 4'ün kapısını göstermek.</p>
+</section>
+
+<section class="slide" data-sect="Açılış · 10 dk" data-note="<ul><li>Gündemi hızlı geç — 60 saniye. İnsanlar süreyi görsün, güven duysun.</li><li>Lab'lerin süresi kutsal. Anlatım uzarsa lab kısaltma, anlatımı kes.</li></ul>">
+  <div class="kicker gray">Gündem</div>
+  <h2>120 dakika, altı bölüm</h2>
+  <table>
+    <tr><th>#</th><th>Bölüm</th><th>Ne alacaksınız</th><th>Süre</th></tr>
+    <tr><td class="hl mono">01</td><td><strong>Zihin modeli</strong></td><td>Ajan ile chatbot arasındaki gerçek fark</td><td class="mono">15'</td></tr>
+    <tr><td class="hl mono">02</td><td><strong>Anatomi</strong></td><td>Skill, MCP, context — ne zaman hangisi</td><td class="mono">20'</td></tr>
+    <tr><td class="hl mono">03</td><td><strong>Şirketi yönetmek</strong></td><td>6 fonksiyon, 6 gerçek iş akışı</td><td class="mono">20'</td></tr>
+    <tr><td class="hlb mono">04</td><td><strong>LAB</strong></td><td>Kendi MCP'niz + kendi skill'iniz + zincir</td><td class="mono">40'</td></tr>
+    <tr><td class="hl mono">05</td><td><strong>Sınırlar</strong></td><td>Nerede patlar, neyi asla delege etmezsiniz</td><td class="mono">15'</td></tr>
+    <tr><td class="hl mono">06</td><td><strong>30 günlük plan</strong></td><td>Pazartesi sabahı ne yapacaksınız</td><td class="mono">10'</td></tr>
+  </table>
+</section>
+
+<!-- ========== 1 · ZİHİN MODELİ ========== -->
+
+<section class="slide" data-sect="01 · Zihin modeli" data-note="<ul><li>Bu slayt atölyenin omurgası. Aceleye getirme.</li><li>Somut örnek ver: 'Rakip TDS'ini özetle' = chatbot. 'Rakip TDS'ini bul, indir, bizimkiyle karşılaştır, farkları tabloya dök, Asana'ya görev aç' = ajan.</li><li>Kilit cümle: Fark zekada değil, DÖNGÜDE.</li></ul>">
+  <div class="kicker">01 · Zihin modeli</div>
+  <h2>Chatbot cevap verir. Ajan <em>iş bitirir</em>.</h2>
+  <div class="grid2">
+    <div>
+      <h3 class="dim" style="margin-bottom:.8rem">CHATBOT — tek atış</h3>
+      <div class="flow">
+        <div class="step"><span class="n">01</span>Sen sorarsın</div>
+        <div class="arrow">→</div>
+        <div class="step"><span class="n">02</span>O yazar</div>
+        <div class="arrow">→</div>
+        <div class="step"><span class="n">03</span>Sen uygularsın</div>
+      </div>
+      <p class="tiny" style="margin-top:1rem">Bütün emek hâlâ sende. Kazanç: yazma süresi.</p>
+    </div>
+    <div>
+      <h3 style="margin-bottom:.8rem;color:var(--orange)">AJAN — kapalı döngü</h3>
+      <div class="flow">
+        <div class="step"><span class="n">01</span>Hedef verirsin</div>
+        <div class="arrow">→</div>
+        <div class="step"><span class="n">02</span>Planlar</div>
+        <div class="arrow">→</div>
+        <div class="step"><span class="n">03</span>Araç kullanır</div>
+      </div>
+      <div class="flow" style="margin-top:.6rem">
+        <div class="step"><span class="n">04</span>Sonucu görür</div>
+        <div class="arrow">→</div>
+        <div class="step"><span class="n">05</span>Düzeltir, tekrarlar</div>
+        <div class="arrow">→</div>
+        <div class="step"><span class="n">06</span>Çıktıyı teslim eder</div>
+      </div>
+      <p class="tiny" style="margin-top:1rem">Emek onda. Kazanç: <strong>işin kendisi.</strong></p>
+    </div>
+  </div>
+  <p class="lead" style="margin-top:2rem">Aradaki fark modelin zekası değil — <em>gözlem ve düzeltme döngüsüne</em> erişimi.</p>
+</section>
+
+<section class="slide" data-sect="01 · Zihin modeli" data-note="<ul><li>Bu metaforu tüm gün kullanacaksın. Sağlam otur.</li><li>Herkesin en çok atladığı katman CONTEXT. 'Zeki ama şirketini tanımayan biri' işe yaramaz.</li><li>Soru sor: 'Yeni işe aldığınız birine ilk gün ne verirsiniz?' — cevap: erişim, prosedür, bağlam. Aynısı.</li></ul>">
+  <div class="kicker">01 · Zihin modeli</div>
+  <h2>Beş katman: <em>bir AI çalışanı işe almak</em></h2>
+  <div class="stack">
+    <div class="layer"><span class="tag">MODEL</span><span class="desc"><strong>Ham zeka.</strong> Akıl yürütür, yazar, kod üretir. Herkeste aynı. Rekabet avantajı <em>değil</em>.</span></div>
+    <div class="layer b"><span class="tag">CONTEXT</span><span class="desc"><strong>Hafıza ve bağlam.</strong> Şirketiniz, ürününüz, geçmiş kararlarınız, jargonunuz. → Asıl fark burada.</span></div>
+    <div class="layer g"><span class="tag">TOOLS</span><span class="desc"><strong>Eller.</strong> Dosya okur/yazar, kod çalıştırır, web'de arar, tarayıcı sürer.</span></div>
+    <div class="layer"><span class="tag">SKILLS</span><span class="desc"><strong>Eğitim / SOP.</strong> "Bu işi bizim şirkette şöyle yaparız." Tekrarlanabilir uzmanlık.</span></div>
+    <div class="layer b"><span class="tag">MCP</span><span class="desc"><strong>Erişim kartı.</strong> Asana, Gmail, Drive, veritabanı, Obsidian — canlı sistemlere bağlantı.</span></div>
+  </div>
+  <p class="lead" style="margin-top:1.8rem">Sadece MODEL kullanıyorsanız, dahi birini işe alıp <em>masaya oturtmadan</em> soru sormuş oluyorsunuz.</p>
+</section>
+
+<section class="slide" data-sect="01 · Zihin modeli" data-note="<ul><li>En sık karışan iki kavram. Yan yana koy, tek cümlede kilitle.</li><li>SKILL = bilgi/prosedür (statik, sen yazarsın). MCP = erişim (canlı, başkası sağlar).</li><li>Örnek: consulting-deck-style bir skill. Asana bir MCP. İkisi birlikte = 'Asana'daki projeleri çek, Simon-Kucher formatında sunuma dök.'</li></ul>">
+  <div class="kicker">01 · Zihin modeli</div>
+  <h2>Skill mi, MCP mi?</h2>
+  <div class="grid2">
+    <div class="card o">
+      <div class="kicker" style="margin-bottom:.6rem">SKILL</div>
+      <h3>Şirketinizin prosedürü</h3>
+      <p class="dim" style="margin:.6rem 0 1rem">Bir klasör + <span class="mono">SKILL.md</span> dosyası. İçinde: ne zaman devreye gireceği, nasıl çalışacağı, hangi şablonu kullanacağı.</p>
+      <ul class="clean">
+        <li><strong>Siz yazarsınız.</strong> Kurumsal bilgi buraya gömülür.</li>
+        <li>Statiktir — talimattır, veri değil.</li>
+        <li>Paylaşılabilir: bir kez yaz, tüm ekip kullansın.</li>
+      </ul>
+      <div style="margin-top:1rem"><span class="pill o">consulting-deck-style</span><span class="pill o">academic-shield</span><span class="pill o">lens-research</span></div>
+    </div>
+    <div class="card b">
+      <div class="kicker blue" style="margin-bottom:.6rem">MCP</div>
+      <h3>Sistemlerinize giriş kartı</h3>
+      <p class="dim" style="margin:.6rem 0 1rem">Model Context Protocol. Yazılımlar için <em>USB-C</em>: bir kez bağlarsınız, Claude o sistemde okuma/yazma yapar.</p>
+      <ul class="clean b">
+        <li><strong>Başkası sağlar</strong>, siz bağlarsınız.</li>
+        <li>Canlıdır — anlık gerçek veri.</li>
+        <li>Yazma yetkisi de verir. Dikkat gerektirir.</li>
+      </ul>
+      <div style="margin-top:1rem"><span class="pill b">Asana</span><span class="pill b">Gmail</span><span class="pill b">Google Drive</span><span class="pill b">Obsidian</span><span class="pill b">Chrome</span></div>
+    </div>
+  </div>
+  <p class="lead" style="margin-top:1.6rem">Skill <strong>ne yapacağını</strong> bilir. MCP <strong>nereye ulaşacağını</strong> bilir. Güç, ikisinin kesişiminde.</p>
+</section>
+
+<section class="slide" data-sect="01 · Zihin modeli" data-note="<ul><li>Burada kendi kurduğun sistemi göster — canlı. Skill listesini ekranda aç.</li><li>Mesaj: 'Bu bir hayal değil, bu benim çalışan kurulumum.'</li><li>Uyarı ver: bunu ilk gün kurmaya çalışmayın. Bu 6 ayın birikimi. Tek skill ile başlayın.</li></ul>">
+  <div class="kicker green">01 · Zihin modeli · canlı örnek</div>
+  <h2>Tek ajan değil — <em>bir organizasyon</em></h2>
+  <div style="display:flex;justify-content:center;margin:.5rem 0 1.4rem">
+    <div class="card o" style="text-align:center;min-width:260px">
+      <div class="kicker" style="margin-bottom:.3rem">ORKESTRATÖR</div>
+      <h3 style="font-size:1.4rem">ASIMO — CEO katmanı</h3>
+      <p class="tiny" style="margin-top:.4rem">Yürütmez. Soruyu parçalar, doğru uzmanı çağırır, cevapları sentezler, <strong>itiraz eder.</strong></p>
+    </div>
+  </div>
+  <div class="grid3" style="gap:.9rem">
+    <div class="card b"><h3>Ar-Ge</h3><p class="tiny">Kimya, formülasyon, patent, REACH, AB projeleri</p></div>
+    <div class="card b"><h3>Pazarlama</h3><p class="tiny">Pazar boyutu, rakip, konumlandırma, fuar</p></div>
+    <div class="card b"><h3>Satış</h3><p class="tiny">Pilot müşteri, itiraz haritası, şartname stratejisi</p></div>
+    <div class="card g"><h3>Finans</h3><p class="tiny">ROI, NPV, geri ödeme, capex gerekçesi</p></div>
+    <div class="card g"><h3>İK</h3><p class="tiny">Kapasite, yetkinlik açığı, eğitim tasarımı</p></div>
+    <div class="card g"><h3>Strateji</h3><p class="tiny">3-5 yıl ufku, teknoloji yol haritası, senaryo</p></div>
+  </div>
+  <p class="tiny" style="margin-top:1.3rem">Her kutu bir skill dosyası. Hepsi aynı modeli kullanıyor — farkı yaratan <strong>context ve kurallar</strong>.</p>
+</section>
+
+<section class="slide" data-sect="01 · Zihin modeli" data-note="<ul><li>Bu slayt atölyenin en pratik çıktısı. Fotoğrafını çeksinler.</li><li>Altın kural: yukarıdan başla, aşağı in. İnsanlar hep en alttan başlıyor ve boğuluyor.</li><li>'3 kereden az yapacaksan skill yazma' kuralını sesli tekrar ettir.</li></ul>">
+  <div class="kicker">01 · Zihin modeli</div>
+  <h2>Karar ağacı: ne zaman ne?</h2>
+  <div class="rows">
+    <div class="card" style="border-left:3px solid #55554f"><div class="row"><div style="min-width:130px" class="mono dim">TEK SEFERLİK</div><div><strong>Sadece iyi bir prompt yaz.</strong> <span class="dim">Bir e-posta, bir özet, bir çeviri. Altyapı kurma. %70 iş burada biter.</span></div></div></div>
+    <div class="card o"><div class="row"><div style="min-width:130px" class="mono" style="color:var(--orange)">TEKRARLI + KURALLI</div><div><strong>Skill yaz.</strong> <span class="dim">Ayda 3+ kez yapıyorsan ve "bizde şöyle yapılır" kısmı varsa. Örn: TDS incelemesi, teklif formatı.</span></div></div></div>
+    <div class="card b"><div class="row"><div style="min-width:130px" class="mono" style="color:var(--blue)">CANLI VERİ LAZIM</div><div><strong>MCP bağla.</strong> <span class="dim">Cevap sisteminizdeki güncel veriye bağlıysa. Örn: "bu hafta hangi projeler gecikti?"</span></div></div></div>
+    <div class="card g"><div class="row"><div style="min-width:130px" class="mono" style="color:var(--green)">ÇOK ADIMLI</div><div><strong>Ajan / alt-ajan kur.</strong> <span class="dim">10+ adım, birden çok kaynak, paralel araştırma. Örn: rakip peyzaj raporu.</span></div></div></div>
+    <div class="card r"><div class="row"><div style="min-width:130px" class="mono" style="color:#c04a3a">GERİ DÖNÜŞÜ YOK</div><div><strong>İnsan onayı zorunlu.</strong> <span class="dim">Dışarı giden e-posta, müşteri fiyatı, formül değişikliği, imza. Otomatikleştirme.</span></div></div></div>
+  </div>
+</section>
+
+<!-- ========== 2 · ANATOMİ ========== -->
+
+<section class="slide" data-sect="02 · Anatomi" data-note="<ul><li>Ekranda gerçek bir SKILL.md aç. Sadeliğini göster — 'bu kadar mı?' dedirt.</li><li>En kritik satır: description. Skill'in tetiklenip tetiklenmeyeceğini bu belirler.</li><li>Kötü description = skill hiç çalışmaz. İnsanlar saatlerce içerik yazıp bunu atlıyor.</li></ul>">
+  <div class="kicker">02 · Anatomi</div>
+  <h2>Bir skill neye benziyor?</h2>
+  <div class="grid2" style="grid-template-columns:1.25fr 1fr;gap:1.8rem">
+    <pre><span class="c">--- (frontmatter: metadata)</span>
+<span class="k">name</span>: tds-inceleme
+<span class="k">description</span>: <span class="s">Rakip veya kendi TDS/SDS</span>
+  <span class="s">dokümanlarını Kalekim standardına göre</span>
+  <span class="s">inceler. Tetikle: "TDS bak", "teknik</span>
+  <span class="s">föy incele", "rakip ürün analizi",</span>
+  <span class="s">bir .pdf TDS yüklendiğinde.</span>
+<span class="c">---</span>
+
+<span class="k"># TDS İnceleme Prosedürü</span>
+
+<span class="k">## Her zaman kontrol et</span>
+1. Bağlayıcı tipi ve oranı
+2. EN 12004 / EN 1504 sınıfı iddiası
+3. Açık kalma süresi, kayma direnci
+4. <span class="v">Beyan ile test raporu tutarlılığı</span>
+
+<span class="k">## Çıktı formatı</span>
+Karşılaştırma tablosu + <span class="v">3 riskli iddia</span>
++ bizim ürünle fark → <span class="v">tek sayfa</span>
+
+<span class="k">## Asla yapma</span>
+- Test verisi uydurma. Yoksa "VERİ YOK" yaz.</pre>
+    <div>
+      <ul class="clean">
+        <li><strong>Bir klasör, bir markdown dosyası.</strong> Kod yok, kurulum yok.</li>
+        <li><span class="mono">description</span> = tetikleyici. Ne zaman devreye gireceğini <em>burası</em> belirler. En çok emeği buraya ver.</li>
+        <li>Gövde = prosedürünüz. Kafanızdaki "biz bunu şöyle yaparız"ı yazıya dökmek.</li>
+        <li>Yanına şablon, kontrol listesi, örnek dosya koyabilirsiniz.</li>
+      </ul>
+      <div class="card r" style="margin-top:1.3rem">
+        <h3 style="color:#e08272">Kritik</h3>
+        <p class="tiny" style="margin-top:.4rem">Skill'in değeri metnin uzunluğunda değil, <strong>içindeki kurumsal bilginin</strong> başka yerde bulunamamasında. Genel bilgi yazarsanız skill gereksizdir — model zaten biliyor.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-sect="02 · Anatomi" data-note="<ul><li>Bu tabloyu lab öncesi göster — insanlar kötü skill yazmasın.</li><li>Vurgula: 'Yaratıcı ol' gibi ifadeler sıfır bilgi taşır. Kesme.</li><li>İyi skill testi: bu dosyayı yeni işe giren birine versen işi yapabilir mi?</li></ul>">
+  <div class="kicker">02 · Anatomi</div>
+  <h2>İyi skill / kötü skill</h2>
+  <table>
+    <tr><th style="width:22%"></th><th style="width:39%">KÖTÜ</th><th style="width:39%">İYİ</th></tr>
+    <tr><td class="dim">Tetikleyici</td><td>"Dokümanlarla ilgili işlerde kullan."</td><td class="hl">"TDS/SDS PDF yüklendiğinde, 'teknik föy incele', 'rakip ürün analizi' dendiğinde."</td></tr>
+    <tr><td class="dim">İçerik</td><td>"Profesyonel ve detaylı bir analiz yap."</td><td class="hl">"Şu 7 parametreyi tablola. EN 12004 sınıfı iddiasını test raporuyla çapraz kontrol et."</td></tr>
+    <tr><td class="dim">Çıktı</td><td>"Güzel bir rapor üret."</td><td class="hl">"Tek sayfa. Üstte karar cümlesi. Altta 3 riskli iddia. Kaynak referansı zorunlu."</td></tr>
+    <tr><td class="dim">Sınır</td><td><span class="dim">(yok)</span></td><td class="hl">"Veri yoksa uydurma, 'VERİ YOK' yaz. Fiyat yorumu yapma — Satış'a yönlendir."</td></tr>
+    <tr><td class="dim">Uzunluk</td><td>4 sayfa genel prensip</td><td class="hl">Yarım sayfa, sizden başka kimsenin bilmediği bilgi</td></tr>
+  </table>
+  <p class="lead" style="margin-top:1.8rem">Test: bu dosyayı <em>bugün işe başlayan birine</em> verseniz, işi doğru yapabilir mi?</p>
+</section>
+
+<section class="slide" data-sect="02 · Anatomi" data-note="<ul><li>Ekranda canlı yap: bir MCP bağla, bir soru sor, cevap gelsin. 90 saniye.</li><li>Uyarı: OAuth ekranında hangi izinleri verdiğine bak. 'Hepsini kabul et' refleksini kır.</li><li>Read-only ile başla mesajı burada verilecek — lab'de tekrar.</li></ul>">
+  <div class="kicker blue">02 · Anatomi</div>
+  <h2>MCP bağlamak: üç adım</h2>
+  <div class="flow" style="margin-bottom:1.6rem">
+    <div class="step"><span class="n">ADIM 01</span><strong>Bağlayıcıyı seç</strong><p class="tiny" style="margin-top:.4rem">Ayarlar → Connectors. Asana, Gmail, Drive hazır. Kurumsal sistem için kendi MCP'nizi yazabilirsiniz.</p></div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">ADIM 02</span><strong>Yetkilendir</strong><p class="tiny" style="margin-top:.4rem">OAuth ekranı. <strong>İzinleri okuyun.</strong> Mümkünse önce sadece-okuma ile başlayın.</p></div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">ADIM 03</span><strong>Test edin</strong><p class="tiny" style="margin-top:.4rem">Doğrulanabilir bir soru sorun: "Bu hafta bana atanan görevleri listele." Cevabı gerçekle karşılaştırın.</p></div>
+  </div>
+  <div class="grid2">
+    <div class="card b"><h3>Doğru ilk soru</h3><p class="dim" style="margin-top:.4rem">Cevabını <strong>zaten bildiğiniz</strong> bir şey sorun. Güven ancak doğrulamayla kurulur.</p></div>
+    <div class="card r"><h3 style="color:#e08272">Yaygın hata</h3><p class="dim" style="margin-top:.4rem">Bağlar bağlamaz yazma yetkisi verip "her şeyi düzenle" demek. Bir MCP hata yaparsa <em>gerçek veride</em> yapar.</p></div>
+  </div>
+</section>
+
+<section class="slide" data-sect="02 · Anatomi" data-note="<ul><li>Kendi bağlı MCP'lerini ekranda göster.</li><li>Soru sor: 'Sizin işinizde hangi sistem bağlansa en çok zaman kazanırsınız?' — cevapları not al, lab'de kullan.</li><li>Kalekim özelinde: SAP/ERP, LIMS, doküman yönetimi. Bunlar özel MCP gerektirir — IT ile konuşulacak konu.</li></ul>">
+  <div class="kicker blue">02 · Anatomi</div>
+  <h2>Bugün elimizde ne var?</h2>
+  <div class="grid4">
+    <div class="card b"><h3>Asana</h3><p class="tiny">Proje, görev, portföy, atama. Portföy brifingi buradan çıkar.</p></div>
+    <div class="card b"><h3>Gmail</h3><p class="tiny">Arama, taslak, etiketleme. Gönderim <strong>her zaman</strong> onaylı.</p></div>
+    <div class="card b"><h3>Google Drive</h3><p class="tiny">Doküman okuma, arama, oluşturma, paylaşım.</p></div>
+    <div class="card b"><h3>Obsidian / dosya</h3><p class="tiny">Kurumsal hafıza. Her konuşma arşivlenir, aranabilir olur.</p></div>
+    <div class="card g"><h3>Chrome</h3><p class="tiny">Tarayıcı sürme — giriş gerektiren portallar, rakip siteleri.</p></div>
+    <div class="card g"><h3>Web + arama</h3><p class="tiny">Güncel bilgi. Model hafızası eskir, arama eskimez.</p></div>
+    <div class="card g"><h3>Kod / terminal</h3><p class="tiny">Veri işleme, hesaplama, dosya üretimi. Excel'in bittiği yer.</p></div>
+    <div class="card"><h3 class="dim">Kendi MCP'niz</h3><p class="tiny">LIMS, ERP, doküman sistemi — iç API'niz varsa bağlanabilir.</p></div>
+  </div>
+  <p class="lead" style="margin-top:1.6rem">Soru: <em>işinizde hangi sistem bağlansa en çok zaman kazanırsınız?</em> Cevabınızı lab'e saklayın.</p>
+</section>
+
+<section class="slide" data-sect="02 · Anatomi" data-note="<ul><li>Context mühendisliği = 2026'nın gerçek becerisi. Prompt yazmak değil.</li><li>3. maddeyi vurgula: kötü çıktının %80'i eksik bağlamdan, %20'si modelden.</li><li>Pratik ipucu: konuşma uzayınca yeni konuşma aç, özeti taşı. 'Kirli context' gerçek bir sorun.</li></ul>">
+  <div class="kicker">02 · Anatomi</div>
+  <h2>Asıl beceri: <em>context mühendisliği</em></h2>
+  <div class="grid2">
+    <ul class="clean">
+      <li><strong>Rol değil, girdi verin.</strong> "Sen bir uzmansın" işe yaramaz. Gerçek TDS'i, gerçek sayıyı, gerçek e-postayı verin.</li>
+      <li><strong>Başarı kriterini yazın.</strong> "İyi olsun" ölçülemez. "Tek sayfa, 5 madde, her iddiaya kaynak" ölçülebilir.</li>
+      <li><strong>Sınırları söyleyin.</strong> Neyi yapmayacağını yazmak, ne yapacağını yazmak kadar önemli.</li>
+    </ul>
+    <ul class="clean b">
+      <li><strong>Örnek verin.</strong> Bir "iyi" örnek, üç paragraf açıklamadan daha güçlüdür.</li>
+      <li><strong>Context'i temiz tutun.</strong> Uzayan konuşmada model dağılır. Yeni konuşma açın, özeti taşıyın.</li>
+      <li><strong>İterasyon planlayın.</strong> İlk çıktı taslaktır. "Şunu değiştir" demek, baştan yazmaktan hızlıdır.</li>
+    </ul>
+  </div>
+  <div class="card o" style="margin-top:1.6rem">
+    <p><strong>Kötü çıktının %80'i eksik bağlamdan kaynaklanır, modelin yetersizliğinden değil.</strong> <span class="dim">Bir sonuç beğenmediğinizde ilk sorunuz "hangi bilgiyi vermedim?" olsun.</span></p>
+  </div>
+</section>
+
+<section class="slide" data-sect="02 · Anatomi" data-note="<ul><li>Bu slaytta gerçekten iki prompt'u canlı çalıştır. Farkı gözle görsünler.</li><li>Soldaki 8 kelime, sağdaki 60 kelime. 60 kelime yazmak 40 saniye sürer, 2 saat kazandırır.</li><li>'Brief yazmak' ifadesini yerleştir — prompt değil, brief.</li></ul>">
+  <div class="kicker">02 · Anatomi</div>
+  <h2>Prompt yazmayın. <em>Brief</em> yazın.</h2>
+  <div class="grid2">
+    <div>
+      <div class="kicker gray" style="margin-bottom:.5rem">ÖNCE</div>
+      <pre>Rakip analizi yap.</pre>
+      <p class="tiny" style="margin-top:.8rem">Çıktı: genel, jenerik, kullanılamaz. 20 dakika düzeltme.</p>
+    </div>
+    <div>
+      <div class="kicker" style="margin-bottom:.5rem">SONRA</div>
+      <pre><span class="k">AMAÇ:</span> Yönetim kuruluna sunulacak tek sayfa.
+<span class="k">KONU:</span> Hızlı priz alan tamir harcı segmenti,
+       Türkiye + Körfez.
+<span class="k">RAKİPLER:</span> Sika, Mapei, Weber. TDS'ler ekte.
+<span class="k">İSTEDİĞİM:</span>
+  - Karşılaştırma tablosu (7 parametre)
+  - Bizim boşluğumuz: 3 madde
+  - Her iddiaya kaynak linki
+<span class="k">FORMAT:</span> Tek sayfa. Üstte karar cümlesi.
+<span class="k">YAPMA:</span> Fiyat tahmini uydurma. Veri
+  yoksa "VERİ YOK" yaz.</pre>
+    </div>
+  </div>
+  <p class="lead" style="margin-top:1.4rem">60 kelime yazmak <strong>40 saniye</strong> sürer. Kötü çıktıyı düzeltmek <strong>2 saat.</strong></p>
+</section>
+<!-- ========== 3 · ŞİRKETİ YÖNETMEK ========== -->
+
+<section class="slide" data-sect="03 · Şirketi yönetmek" data-note="<ul><li>Geçiş cümlesi: 'Teori bitti. Şimdi bir şirketin bir günü.'</li><li>Bu bölümdeki her akışı KENDİ kurulumunda canlı göster. Slaytta okuma.</li><li>Her akışta 'kaç dakika sürerdi / kaç dakika sürüyor' söyle. Sayı olmadan ikna olmuyorlar.</li></ul>">
+  <div class="kicker green">03 · Şirketi yönetmek</div>
+  <h1>Bir şirketin<br><em>bir günü</em></h1>
+  <p class="lead" style="margin-top:1.4rem">Altı fonksiyon. Altı gerçek iş akışı. Hepsi bugün, bu araçlarla mümkün.</p>
+  <div class="grid3" style="margin-top:2.2rem;gap:.9rem">
+    <div class="card o"><h3>08:30 · Portföy</h3><p class="tiny">Sabah brifingi</p></div>
+    <div class="card b"><h3>10:00 · Ar-Ge</h3><p class="tiny">Literatür + patent taraması</p></div>
+    <div class="card b"><h3>13:00 · Pazar</h3><p class="tiny">Rakip peyzajı</p></div>
+    <div class="card g"><h3>15:00 · Finans</h3><p class="tiny">İş vakası modeli</p></div>
+    <div class="card g"><h3>16:30 · Teslim</h3><p class="tiny">Sunum / rapor üretimi</p></div>
+    <div class="card"><h3>18:00 · Hafıza</h3><p class="tiny">Arşivleme ve bağlama</p></div>
+  </div>
+</section>
+
+<section class="slide" data-sect="03 · Şirketi yönetmek" data-note="<ul><li>CANLI DEMO 1. Kendi sabah brifingini çalıştır.</li><li>Kilit nokta: bu bir rapor değil, bir KARAR listesi. 'Ne oldu' değil 'ne yapmalısın'.</li><li>Bunu zamanlanmış görev haline getirdiğini söyle — her sabah 08:00'de kendiliğinden çalışıyor.</li></ul>">
+  <div class="kicker">03 · 08:30 — Portföy</div>
+  <h2>Sabah brifingi</h2>
+  <div class="flow" style="margin-bottom:1.5rem">
+    <div class="step"><span class="n">01 · MCP</span>Asana'dan tüm aktif projeler, görevler, tarihler, atamalar çekilir</div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">02 · SKILL</span>Portföy skill'i kuralları uygular: gecikme eşiği, eksik TDS, kapasite çakışması</div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">03 · ANALİZ</span>Ham liste değil — <strong>risk sıralı karar listesi</strong> üretilir</div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">04 · ARŞİV</span>Obsidian'a tarihli MD olarak yazılır, önceki günlere bağlanır</div>
+  </div>
+  <div class="grid2">
+    <div class="card r"><h3 style="color:#e08272">Elle yapınca</h3><p class="dim" style="margin-top:.4rem"><strong>45–60 dakika.</strong> Asana'da gezinmek, sekme sekme kontrol, not almak. Ve haftada 2 gün atlanır.</p></div>
+    <div class="card g"><h3>Otomatik</h3><p class="dim" style="margin-top:.4rem"><strong>0 dakika.</strong> Zamanlanmış görev 08:00'de çalışır. Siz sadece <em>okur ve karar verirsiniz.</em></p></div>
+  </div>
+  <p class="tiny" style="margin-top:1.2rem">Kritik tasarım kararı: çıktı "ne oldu" değil <strong>"bugün ne yapmalısın"</strong> olmalı. Rapor üreten sistem çöp üretir; karar üreten sistem zaman kazandırır.</p>
+</section>
+
+<section class="slide" data-sect="03 · Şirketi yönetmek" data-note="<ul><li>CANLI DEMO 2. lens-research veya asimo-sci ile bir arama çalıştır.</li><li>Kritik uyarı: her referansı doğrulat. DOI olmayan referansa güvenme.</li><li>Bu Ar-Ge ekibinin en çok zaman kaybettiği yer — vurgula.</li></ul>">
+  <div class="kicker blue">03 · 10:00 — Ar-Ge</div>
+  <h2>Literatür + patent taraması</h2>
+  <div class="grid2" style="grid-template-columns:1.1fr 1fr">
+    <div>
+      <ul class="clean b">
+        <li><strong>Girdi:</strong> "Hızlı priz alan çimento esaslı tamir harçlarında büzülme kontrolü — son 5 yıl, patent + makale."</li>
+        <li><strong>Süreç:</strong> OpenAlex + Google Patents + Espacenet paralel taranır; sonuçlar tekilleştirilir, ilgi puanına göre sıralanır.</li>
+        <li><strong>Çıktı:</strong> Puanlanmış liste + mekanizma özeti + <em>"bizim için ne anlama geliyor"</em> yorumu + prior-art riski.</li>
+        <li><strong>Arşiv:</strong> Her kaynak Obsidian'a not olarak düşer, mevcut projelere bağlanır.</li>
+      </ul>
+    </div>
+    <div>
+      <div class="card r">
+        <h3 style="color:#e08272">Burada dikkat</h3>
+        <ul class="clean" style="margin-top:.6rem">
+          <li><strong>Her referansı doğrulayın.</strong> DOI'si olmayan atıfa güvenmeyin.</li>
+          <li>Model "makul görünen" bir kaynak uydurabilir. Bu en tehlikeli hata tipi — çünkü doğru görünür.</li>
+          <li>Kural: <span class="mono">açılamayan link = yok sayılır.</span></li>
+        </ul>
+      </div>
+      <div class="card g" style="margin-top:1rem">
+        <h3>Gerçek kazanç</h3>
+        <p class="tiny" style="margin-top:.4rem">Tarama süresi <strong>2 gün → 20 dakika.</strong> Ama asıl kazanç hız değil: <em>kapsam.</em> Elle 15 makale tararsınız, sistem 400 tarayıp 15'ini seçer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-sect="03 · Şirketi yönetmek" data-note="<ul><li>Pazarlama ve satışı ayır — çoğu kişi karıştırıyor. Pazarlama segment, satış tek anlaşma.</li><li>Bu akışın çıktısını gerçekten göster: bir rakip karşılaştırma tablosu.</li><li>Uyarı: rakip fiyatı ve iç veri iddialarına dikkat. Halka açık kaynak zorunlu.</li></ul>">
+  <div class="kicker blue">03 · 13:00 — Pazar & Satış</div>
+  <h2>Rakip peyzajı → satış argümanı</h2>
+  <div class="flow">
+    <div class="step"><span class="n">01</span><strong>Topla</strong><p class="tiny" style="margin-top:.35rem">Rakip TDS'leri, web sitesi, fuar materyali, şartname metinleri — tarayıcı MCP ile çekilir.</p></div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">02</span><strong>Karşılaştır</strong><p class="tiny" style="margin-top:.35rem">Standart bazlı tablo. Beyan edilen performans vs test kanıtı ayrımı.</p></div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">03</span><strong>Konumlandır</strong><p class="tiny" style="margin-top:.35rem">Nerede üstünüz, nerede değiliz, hangi segmentte kazanırız.</p></div>
+    <div class="arrow">→</div>
+    <div class="step"><span class="n">04</span><strong>Silahlandır</strong><p class="tiny" style="margin-top:.35rem">Saha ekibi için itiraz haritası: "Sika daha ucuz" → cevap. 1 sayfa.</p></div>
+  </div>
+  <div class="grid2" style="margin-top:1.6rem">
+    <div class="card o"><h3>Pazarlama sorusu</h3><p class="dim" style="margin-top:.4rem">"Bu segmentte nerede konumlanmalıyız?" → <em>segment seviyesi</em></p></div>
+    <div class="card b"><h3>Satış sorusu</h3><p class="dim" style="margin-top:.4rem">"Bu müşteriyi Salı günü nasıl kazanırım?" → <em>tek anlaşma seviyesi</em></p></div>
+  </div>
+  <p class="tiny" style="margin-top:1.1rem"><strong>Kırmızı çizgi:</strong> Rakip fiyatı ve iç maliyet iddiaları asla tahmin edilmez. Halka açık kaynak yoksa alan boş bırakılır.</p>
+</section>
+
+<section class="slide" data-sect="03 · Şirketi yönetmek" data-note="<ul><li>Finansta modelin en güçlü olduğu yer: senaryo üretmek. En zayıf yeri: girdi varsaymak.</li><li>Kural: her varsayım tabloda görünür olmalı. Görünmeyen varsayım yalandır.</li><li>Excel'e ihtiyaç yok — kod çalıştırarak gerçek hesap yapıyor, tahmin etmiyor.</li></ul>">
+  <div class="kicker green">03 · 15:00 — Finans</div>
+  <h2>İş vakası: <em>hesap, tahmin değil</em></h2>
+  <div class="grid2" style="grid-template-columns:1fr 1.05fr">
+    <div>
+      <h3 style="margin-bottom:.7rem">Ne yapar</h3>
+      <ul class="clean g">
+        <li>Yatırım gerekçesi: capex, geri ödeme süresi, NPV/IRR</li>
+        <li>Hammadde maliyet duyarlılığı — %10 artışta ne olur?</li>
+        <li>Yap/satın al kararı, senaryo tabloları</li>
+        <li><strong>Gerçek hesaplama.</strong> Kod çalıştırır, sayı uydurmaz.</li>
+      </ul>
+    </div>
+    <div class="card o">
+      <h3>Tek kural: <span style="color:var(--orange)">varsayımlar görünür olmalı</span></h3>
+      <table style="margin-top:.8rem">
+        <tr><th>Varsayım</th><th>Değer</th><th>Kaynak</th></tr>
+        <tr><td>Yıllık hacim</td><td class="hl">4.500 t</td><td class="dim">Satış tahmini 2026</td></tr>
+        <tr><td>Birim marj</td><td class="hl">₺ ---</td><td class="dim">Finans, doğrulanacak</td></tr>
+        <tr><td>Hat yatırımı</td><td class="hl">€ ---</td><td class="dim">Tedarikçi teklifi yok</td></tr>
+        <tr><td>Devreye alma</td><td class="hl">7 ay</td><td class="dim">Benzer proje geçmişi</td></tr>
+      </table>
+      <p class="tiny" style="margin-top:.8rem">Boş hücre <strong>dürüsttür.</strong> Doldurulmuş uydurma hücre, yönetim kurulunda patlar.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-sect="03 · Şirketi yönetmek" data-note="<ul><li>Bu slaytta ŞU AN izledikleri deck'i göster: 'bu bunun çıktısı'.</li><li>Skill zinciri kavramını burada oturt: bir skill formatı, diğeri içeriği bilir.</li><li>Teslim formatının işi bitirdiğini söyle — analiz doğru ama formatı yanlışsa iş bitmemiştir.</li></ul>">
+  <div class="kicker">03 · 16:30 — Teslim</div>
+  <h2>Analizi <em>teslim edilebilir</em> hale getirmek</h2>
+  <div class="grid2">
+    <div>
+      <h3 style="margin-bottom:.8rem">Skill zinciri</h3>
+      <div class="stack">
+        <div class="layer"><span class="tag">İÇERİK</span><span class="desc">Ar-Ge / Finans skill'i analizi üretir</span></div>
+        <div class="layer b"><span class="tag">STİL</span><span class="desc">consulting-deck-style → Simon-Kucher mantığı, mesaj başlıkları</span></div>
+        <div class="layer g"><span class="tag">FORMAT</span><span class="desc">pptx / docx / pdf skill'i → gerçek dosya</span></div>
+      </div>
+      <p class="tiny" style="margin-top:1rem">Her katman bağımsız. İçeriği değiştirmeden formatı değiştirebilirsiniz.</p>
+    </div>
+    <div class="card o">
+      <h3>Kanıt: <span style="color:var(--orange)">şu an bakıyorsunuz</span></h3>
+      <p class="dim" style="margin-top:.6rem">Bu atölye tam olarak bu zincirin çıktısı. İçerik + tasarım sistemi + tek dosya HTML üretimi.</p>
+      <div style="margin-top:1rem">
+        <span class="pill o">36 slayt</span><span class="pill o">sunucu notları</span><span class="pill o">kronometre</span><span class="pill o">lab kılavuzu</span>
+      </div>
+      <p class="tiny" style="margin-top:1rem"><strong>Ders:</strong> Analiziniz mükemmel ama formatı yanlışsa iş bitmemiştir. Teslim formatı, işin kendisidir.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-sect="03 · Şirketi yönetmek" data-note="<ul><li>Bu atölyenin en az anlaşılan ama en değerli slaytı. Yavaş git.</li><li>Model her konuşmayı unutur. Sizin kurumsal hafızanız dışarıda olmalı.</li><li>Bileşik faiz metaforu: 6 ay sonra sistem sizi sizden iyi tanır. Bunu ancak arşivlerseniz kazanırsınız.</li></ul>">
+  <div class="kicker">03 · 18:00 — Kurumsal hafıza</div>
+  <h2>Bileşik faizin çalıştığı yer</h2>
+  <div class="grid2" style="grid-template-columns:1fr 1fr">
+    <div>
+      <p class="lead" style="margin-bottom:1.2rem">Model her konuşmayı <strong>unutur.</strong> Bu bir kusur değil, mimari. Hafıza <em>sizin</em> sorumluluğunuz.</p>
+      <div class="flow">
+        <div class="step"><span class="n">01</span>Konuşma biter</div>
+        <div class="arrow">→</div>
+        <div class="step"><span class="n">02</span>Anahtar kelimeli MD olarak arşivlenir</div>
+      </div>
+      <div class="flow" style="margin-top:.5rem">
+        <div class="step"><span class="n">03</span>Önceki notlara bağlanır</div>
+        <div class="arrow">→</div>
+        <div class="step"><span class="n">04</span>Bir sonraki soruda <strong>kaynak</strong> olur</div>
+      </div>
+    </div>
+    <div class="card g">
+      <h3>Neden bu, her şeyden önemli</h3>
+      <ul class="clean g" style="margin-top:.7rem">
+        <li><strong>Ay 1:</strong> Her sorunun bağlamını yeniden anlatırsınız.</li>
+        <li><strong>Ay 3:</strong> "Geçen çeyrek bu formülasyonda ne demiştik?" — cevap arşivden gelir.</li>
+        <li><strong>Ay 6:</strong> Sistem, kararlarınızın geçmişini sizden iyi hatırlar. Tutarsızlıklarınızı gösterir.</li>
+      </ul>
+      <p class="tiny" style="margin-top:1rem">Arşivlemeyen ekip, her gün sıfırdan başlar. <strong>Tek en yüksek getirili alışkanlık budur.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 4 · LAB ========== -->
+
+<section class="slide" data-sect="04 · LAB · 40 dk" data-note="<ul><li>Kronometreyi başlat (T). Süre disiplinini sen koru.</li><li>İkişerli çalıştır — takılan kişi yanındakine sorar, sana değil.</li><li>Bitirenler yardımcı olsun. 'Bitirdim' diyen kişi eğitmen olur.</li><li>Lab kılavuzunu dağıt (MD dosyası).</li></ul>">
+  <div class="kicker blue">04 · LAB</div>
+  <h1>Şimdi <em>siz</em> yapıyorsunuz</h1>
+  <p class="lead" style="margin-top:1.4rem">40 dakika. Üç lab. Çıkarken herkeste çalışan bir kurulum olacak.</p>
+  <div class="grid3" style="margin-top:2rem">
+    <div class="card b"><div class="mono tiny" style="color:var(--blue)">12 DAKİKA</div><h3 style="margin-top:.4rem">LAB 1 — İlk MCP</h3><p class="tiny" style="margin-top:.4rem">Bir sistem bağla, doğrulanabilir bir soru sor.</p></div>
+    <div class="card o"><div class="mono tiny" style="color:var(--orange)">16 DAKİKA</div><h3 style="margin-top:.4rem">LAB 2 — İlk skill</h3><p class="tiny" style="margin-top:.4rem">Kendi prosedürünü 15 satıra dök.</p></div>
+    <div class="card g"><div class="mono tiny" style="color:var(--green)">12 DAKİKA</div><h3 style="margin-top:.4rem">LAB 3 — Zincir</h3><p class="tiny" style="margin-top:.4rem">MCP → skill → dosya. Baştan sona bir iş.</p></div>
+  </div>
+  <div class="card r" style="margin-top:1.6rem">
+    <p><strong>Kural:</strong> İkişerli çalışın. Takılırsanız önce yanınızdakine sorun. Bitiren, bitmeyene yardım eder. <span class="dim">Amaç mükemmel çıktı değil — <em>çalışan</em> çıktı.</span></p>
+  </div>
+</section>
+
+<section class="slide" data-sect="04 · LAB 1 · 12 dk" data-note="<ul><li>Kronometre: 12 dk. 8. dakikada uyar.</li><li>Dolaş. En sık takılma: OAuth penceresi popup blocker'a takılıyor.</li><li>Doğrulama adımını atlatma — bu labın asıl dersi 'körü körüne güvenme'.</li></ul>">
+  <div class="kicker blue">LAB 1 · 12 dakika</div>
+  <h2>İlk MCP bağlantınız</h2>
+  <div class="grid2" style="grid-template-columns:1.15fr 1fr">
+    <div class="rows">
+      <div class="card b"><div class="row"><div class="num b" style="font-size:1.6rem;min-width:34px">1</div><div><strong>Bağlayın.</strong> <span class="dim">Ayarlar → Connectors → Asana (ya da Drive). Yetkilendirin. <em>İzin ekranını okuyun.</em></span></div></div></div>
+      <div class="card b"><div class="row"><div class="num b" style="font-size:1.6rem;min-width:34px">2</div><div><strong>Cevabını bildiğiniz bir soru sorun.</strong> <span class="dim">"Bana atanmış, bu hafta biten görevleri listele."</span></div></div></div>
+      <div class="card b"><div class="row"><div class="num b" style="font-size:1.6rem;min-width:34px">3</div><div><strong>Doğrulayın.</strong> <span class="dim">Asana'yı açın, karşılaştırın. Eksik var mı? Fazladan bir şey uydurmuş mu?</span></div></div></div>
+      <div class="card b"><div class="row"><div class="num b" style="font-size:1.6rem;min-width:34px">4</div><div><strong>Zorlaştırın.</strong> <span class="dim">"Bu görevlerden hangileri gecikme riski taşıyor, neden?" — Artık listeleme değil, <em>analiz</em> istiyorsunuz.</span></div></div></div>
+    </div>
+    <div>
+      <div class="card"><h3>Başarı kriteri</h3><p class="tiny" style="margin-top:.5rem">Elle 10 dakikada bulacağınız bir bilgiyi 20 saniyede aldınız <strong>ve doğruluğunu teyit ettiniz.</strong></p></div>
+      <div class="card r" style="margin-top:1rem"><h3 style="color:#e08272">Sık takılmalar</h3>
+        <ul class="clean" style="margin-top:.5rem">
+          <li>OAuth penceresi popup engelleyiciye takılıyor</li>
+          <li>Yanlış workspace seçili</li>
+          <li>Sorunuz çok genel — daraltın</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-sect="04 · LAB 2 · 16 dk" data-note="<ul><li>Kronometre: 16 dk. En zor lab bu.</li><li>Konu seçiminde takılırlar. Hazır öneri listesi ver: TDS incelemesi, toplantı notu formatı, müşteri şikayeti triyajı, deney raporu şablonu.</li><li>Uyar: 'genel bilgi yazmayın'. Sadece SİZİN bildiğiniz kısmı yazın.</li></ul>">
+  <div class="kicker">LAB 2 · 16 dakika</div>
+  <h2>Kendi skill'inizi yazın</h2>
+  <div class="grid2" style="grid-template-columns:1fr 1.1fr">
+    <div>
+      <h3 style="margin-bottom:.7rem">Seçin: ayda 3+ kez yaptığınız bir iş</h3>
+      <div style="margin-bottom:1.2rem">
+        <span class="pill o">Toplantı notu formatı</span><span class="pill o">TDS incelemesi</span><span class="pill o">Müşteri şikayeti triyajı</span><span class="pill o">Deney raporu şablonu</span><span class="pill o">Numune talebi değerlendirme</span><span class="pill o">Tedarikçi teklif karşılaştırma</span>
+      </div>
+      <ul class="clean">
+        <li><strong>Adım 1 · 4 dk</strong> — Bu işi nasıl yaptığınızı maddeler halinde yazın. Kafanızdaki kontrol listesi.</li>
+        <li><strong>Adım 2 · 4 dk</strong> — Tetikleyici cümleleri yazın. Hangi kelimelerle bu işi istersiniz?</li>
+        <li><strong>Adım 3 · 4 dk</strong> — Çıktı formatını ve <em>yasakları</em> ekleyin.</li>
+        <li><strong>Adım 4 · 4 dk</strong> — Çalıştırın. Beğenmediğiniz yeri skill'e geri yazın.</li>
+      </ul>
+    </div>
+    <div>
+      <pre><span class="c">---</span>
+<span class="k">name</span>: toplanti-notu
+<span class="k">description</span>: <span class="s">Toplantı ses kaydı veya ham</span>
+  <span class="s">notu, Kalekim toplantı formatına çevirir.</span>
+  <span class="s">Tetikle: "toplantı notunu düzenle",</span>
+  <span class="s">"aksiyonları çıkar", ham not yapıştırıldığında.</span>
+<span class="c">---</span>
+
+<span class="k">## Format</span>
+1. <span class="v">KARAR</span> — alınan kararlar, tek cümle her biri
+2. <span class="v">AKSİYON</span> — kim / ne / ne zaman (tarih zorunlu)
+3. <span class="v">AÇIK</span> — kapanmamış sorular
+4. <span class="v">RİSK</span> — konuşulan ama sahipsiz konular
+
+<span class="k">## Kurallar</span>
+- Sahibi belirsiz aksiyon → <span class="v">"SAHİP YOK"</span> yaz
+- Tarihsiz aksiyon → <span class="v">"TARİH YOK"</span> yaz
+- Sohbeti özetleme. Sadece karar ve aksiyon.
+- Uzunluk: yarım sayfayı geçme.</pre>
+      <p class="tiny" style="margin-top:.7rem">15 satır. <strong>Değeri uzunluğunda değil</strong> — "SAHİP YOK" kuralında.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-sect="04 · LAB 3 · 12 dk" data-note="<ul><li>Kronometre: 12 dk. Bu labın amacı 'aha' anı — parçaların birleştiğini görmek.</li><li>Herkes bitiremeyebilir, sorun değil. Zinciri KAVRAMASI yeterli.</li><li>Bitiren 2-3 kişiden çıktısını ekrana yansıtmasını iste.</li></ul>">
+  <div class="kicker green">LAB 3 · 12 dakika</div>
+  <h2>Zinciri kurun</h2>
+  <p class="lead" style="margin-bottom:1.4rem">Tek bir istekle: <em>canlı veri çek → kendi kuralınla işle → dosya üret → arşivle.</em></p>
+  <pre style="max-width:none"><span class="c"># Örnek brief — kendi işinize uyarlayın</span>
+
+<span class="k">Asana'dan</span> bana atanmış tüm açık görevleri çek.
+
+<span class="k">Kendi kuralımla</span> değerlendir:
+  - Bitiş tarihi 7 günden yakın olanlar = KIRMIZI
+  - Bağımlılığı tamamlanmamış olanlar = BLOKE
+  - 30 günden uzun süredir dokunulmamış olanlar = ÖLÜ
+
+<span class="k">Çıktı:</span> tek sayfa markdown.
+  Üstte: bu hafta gerçekten yapılması gereken <span class="v">3 iş.</span>
+  Altta: tablo.
+  <span class="v">Tahmin yapma</span> — Asana'da olmayan bilgiyi yazma.
+
+<span class="k">Sonra:</span> bu dosyayı <span class="v">2026-08-17-portfoy.md</span> olarak kaydet.</pre>
+  <div class="grid3" style="margin-top:1.4rem">
+    <div class="card b"><h3>MCP</h3><p class="tiny">Canlı veri geldi</p></div>
+    <div class="card o"><h3>Kural</h3><p class="tiny">Sizin mantığınız uygulandı</p></div>
+    <div class="card g"><h3>Çıktı</h3><p class="tiny">Gerçek dosya, arşivlenmiş</p></div>
+  </div>
+</section>
+
+<section class="slide" data-sect="04 · LAB · paylaşım" data-note="<ul><li>3-4 kişi ekrana yansıtsın. Kısa tut — kişi başı 90 saniye.</li><li>Her paylaşımdan sonra sor: 'Bu ayda kaç saat kazandırır?' Sayıyı tahtaya yaz.</li><li>Toplamı göster. Bu, atölyenin ROI'si.</li></ul>">
+  <div class="kicker">04 · LAB · paylaşım turu</div>
+  <h2>Ne kurdunuz?</h2>
+  <div class="grid2">
+    <div>
+      <h3 style="margin-bottom:.8rem">Her kişi 90 saniye</h3>
+      <ul class="clean">
+        <li>Hangi işi seçtiniz?</li>
+        <li>Elle ne kadar sürüyordu?</li>
+        <li>Şimdi ne kadar sürüyor?</li>
+        <li>Neyi hâlâ <strong>siz</strong> kontrol etmelisiniz?</li>
+      </ul>
+    </div>
+    <div class="card o">
+      <h3>Son soru neden en önemlisi</h3>
+      <p class="dim" style="margin-top:.6rem">Otomatikleştirdiğiniz her işte, <strong>hangi kontrol noktasını elinizde tuttuğunuzu</strong> bilmiyorsanız, o işi otomatikleştirmediniz — sadece görünmez hale getirdiniz.</p>
+      <p class="tiny" style="margin-top:.9rem">Görünmez hata, yavaş hatadır. Üç ay sonra fark edersiniz.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 5 · SINIRLAR ========== -->
+
+<section class="slide" data-sect="05 · Sınırlar" data-note="<ul><li>Ton değişimi. Buraya kadar heyecan, şimdi ciddiyet.</li><li>Bu bölüm olmadan atölye sorumsuzdur. Kısaltma.</li><li>Şu cümleyi kur: 'Bugüne kadar size ne yapabileceğini anlattım. Şimdi nerede sizi yakacağını anlatacağım.'</li></ul>">
+  <div class="kicker gray">05 · Sınırlar</div>
+  <h1>Şimdi <em>nerede yanar</em></h1>
+  <p class="lead" style="margin-top:1.4rem">Buraya kadar ne yapabileceğini gördünüz. Bu bölüm, sizi yakabileceği beş yer.</p>
+  <div class="grid5" style="margin-top:2.2rem">
+    <div class="card r"><h3>01</h3><p class="tiny">Uydurma</p></div>
+    <div class="card r"><h3>02</h3><p class="tiny">Veri sızıntısı</p></div>
+    <div class="card r"><h3>03</h3><p class="tiny">Otomasyon borcu</p></div>
+    <div class="card r"><h3>04</h3><p class="tiny">Yetki kayması</p></div>
+    <div class="card r"><h3>05</h3><p class="tiny">Beceri körelmesi</p></div>
+  </div>
+</section>
+
+<section class="slide" data-sect="05 · Sınırlar" data-note="<ul><li>Somut örnek ver: uydurulmuş DOI, olmayan standart numarası, yanlış hatırlanan test metodu.</li><li>Protokolü tahtaya yazdır. Ekip normu haline gelsin.</li><li>Mesaj: model yalan söylemiyor — emin olmadığını bilmiyor. Fark önemli.</li></ul>">
+  <div class="kicker">05 · Risk 01</div>
+  <h2>Uydurma: <em>en tehlikelisi doğru görünendir</em></h2>
+  <div class="grid2" style="grid-template-columns:1fr 1.05fr">
+    <div>
+      <h3 style="margin-bottom:.7rem">Nerede olur</h3>
+      <ul class="clean">
+        <li>Referans, DOI, patent numarası</li>
+        <li>Standart numarası ve madde referansı <span class="dim">(EN 12004-2 madde 8.3 gibi)</span></li>
+        <li>Rakip ürün spesifikasyonu</li>
+        <li>Sayısal veri — özellikle tablo içinde, güvenilir görünür</li>
+        <li>Tarih ve mevzuat durumu <span class="dim">(model hafızası eskir)</span></li>
+      </ul>
+      <p class="tiny" style="margin-top:1rem">Model yalan söylemiyor. <strong>Emin olmadığını bilmiyor.</strong> Fark önemli — çünkü ikna edici bir tonla yanlış söyler.</p>
+    </div>
+    <div class="card o">
+      <h3>Ekip protokolü</h3>
+      <ul class="clean" style="margin-top:.7rem">
+        <li><strong>Açılamayan link = yok.</strong> Silin.</li>
+        <li><strong>Sayı varsa kaynak zorunlu.</strong> Kaynaksız sayı taslakta kalır, dışarı çıkmaz.</li>
+        <li><strong>Standart iddiası → orijinal metin.</strong> Her zaman.</li>
+        <li><strong>Dışarı giden her doküman → insan okur.</strong> İstisnasız.</li>
+        <li>Brief'e ekleyin: <span class="mono">"Emin değilsen 'BİLMİYORUM' yaz."</span> — işe yarıyor.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-sect="05 · Sınırlar" data-note="<ul><li>IT/hukuk ile konuşulmuş kurumsal politika varsa burada söyle.</li><li>Yoksa: 'bu atölyeden çıkan aksiyon, bu politikayı yazmak' de.</li><li>Yazma yetkisi konusunu vurgula — okuma hatası pahalı değil, yazma hatası pahalı.</li></ul>">
+  <div class="kicker">05 · Risk 02 & 04</div>
+  <h2>Veri sınırı ve yetki kayması</h2>
+  <div class="grid2">
+    <div class="card r">
+      <div class="kicker" style="color:#e08272;margin-bottom:.6rem">KIRMIZI ÇİZGİLER</div>
+      <ul class="clean" style="margin-top:.2rem">
+        <li>Onaylanmamış formülasyon detayı</li>
+        <li>Müşteri sözleşmesi, fiyat listesi</li>
+        <li>Kişisel veri (KVKK kapsamı)</li>
+        <li>Patent başvurusu öncesi buluş metni</li>
+        <li>Üçüncü tarafın gizli verisi</li>
+      </ul>
+      <p class="tiny" style="margin-top:.9rem"><strong>Kural:</strong> Kurumsal politika netleşene kadar, "bunu dışarıdaki bir danışmana e-postayla gönderir miydim?" diye sorun. Cevap hayırsa, girmeyin.</p>
+    </div>
+    <div class="card b">
+      <div class="kicker blue" style="margin-bottom:.6rem">YETKİ KAYMASI</div>
+      <p class="dim">MCP'ler <strong>yazma</strong> yetkisi de alır. Okuma hatası ucuzdur; yazma hatası gerçek veriyi bozar.</p>
+      <ul class="clean b" style="margin-top:.8rem">
+        <li>Yeni bağlantı → <strong>sadece okuma</strong> ile başlayın</li>
+        <li>Yazma yetkisini <em>ihtiyaç kanıtlandığında</em> açın</li>
+        <li>E-posta gönderimi asla otomatik olmasın — taslak üretsin, siz gönderin</li>
+        <li>Toplu silme / toplu güncelleme → her zaman onay</li>
+        <li>Kim neye bağlı, kayıt altında olsun</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-sect="05 · Sınırlar" data-note="<ul><li>Bu slayt en çok gülünen ve en çok ihtiyaç duyulan slayt. Herkes bu tuzağa düşüyor.</li><li>Kendi örneğini ver — otomatikleştirip kullanmadığın bir şey mutlaka vardır. Dürüst ol.</li><li>Eşik formülünü tahtaya yaz.</li></ul>">
+  <div class="kicker">05 · Risk 03</div>
+  <h2>Otomasyon borcu</h2>
+  <p class="lead" style="margin-bottom:1.5rem">3 dakikalık bir işi otomatikleştirmek için 3 saat harcamak — ve sonra o işi ayda bir yapmak.</p>
+  <div class="grid2" style="grid-template-columns:1fr 1.1fr">
+    <div class="card o">
+      <h3>Eşik formülü</h3>
+      <p class="mono" style="margin:.9rem 0;color:var(--orange);font-size:1rem">(dk × yıllık sıklık) &gt; kurulum × 3</p>
+      <p class="tiny">Kurulum maliyetini <strong>ilk yıl içinde 3 katıyla</strong> geri kazanmıyorsa, otomatikleştirmeyin. Elle yapın.</p>
+      <table style="margin-top:1rem">
+        <tr><th>İş</th><th>Yıllık</th><th>Karar</th></tr>
+        <tr><td>Sabah brifingi</td><td>250×45dk</td><td class="hlg">KUR</td></tr>
+        <tr><td>Aylık rapor formatı</td><td>12×30dk</td><td class="hlg">KUR</td></tr>
+        <tr><td>Yıllık bütçe şablonu</td><td>1×2sa</td><td class="hl">ELLE</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3 style="margin-bottom:.7rem">Diğer iki gizli maliyet</h3>
+      <div class="card r"><h3 style="color:#e08272">Bakım borcu</h3><p class="tiny" style="margin-top:.4rem">Kurduğunuz her akış, kırılabilir bir şeydir. Asana alan adı değişir, akış susar. <strong>Sessizce yanlış çalışan sistem, hiç çalışmayandan kötüdür.</strong></p></div>
+      <div class="card r" style="margin-top:.9rem"><h3 style="color:#e08272">Beceri körelmesi</h3><p class="tiny" style="margin-top:.4rem">Literatür taramasını hiç kendiniz yapmazsanız, sistemin kötü bir tarama yaptığını <em>anlayamazsınız.</em> Ara sıra elle yapın — kalibrasyon için.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-sect="05 · Sınırlar" data-note="<ul><li>Bu listeyi ekiple birlikte GÜNCELLEYİN. Sizin listeniz farklı olabilir.</li><li>Kilit ayrım: bilişsel iş delege edilir, SORUMLULUK edilmez.</li><li>'İmzayı siz atıyorsunuz' cümlesiyle kapat.</li></ul>">
+  <div class="kicker">05 · Sınırlar</div>
+  <h2>Asla delege edilmeyenler</h2>
+  <div class="grid2">
+    <div class="rows">
+      <div class="card r"><strong>Nihai teknik onay.</strong> <span class="dim">Formülasyon değişikliği, güvenlik beyanı, standart uygunluk.</span></div>
+      <div class="card r"><strong>Fiyat ve ticari taahhüt.</strong> <span class="dim">Müşteriye giden her sayı.</span></div>
+      <div class="card r"><strong>İnsan kararları.</strong> <span class="dim">İşe alım, performans, terfi. Girdi olabilir; karar olamaz.</span></div>
+    </div>
+    <div class="rows">
+      <div class="card r"><strong>Hukuki ve regülasyon beyanı.</strong> <span class="dim">REACH, biyosidal, CE. Taslak evet, imza hayır.</span></div>
+      <div class="card r"><strong>Kriz iletişimi.</strong> <span class="dim">Müşteri şikayeti, saha problemi, basın.</span></div>
+      <div class="card o"><strong>Stratejik yön.</strong> <span class="dim">Hangi problemi çözmeye değer olduğuna karar vermek — bu <em>sizin</em> işiniz. En zor ve en değerli kısım burası.</span></div>
+    </div>
+  </div>
+  <p class="lead" style="margin-top:1.6rem">Bilişsel iş delege edilir. <em>Sorumluluk edilmez.</em> İmzayı siz atıyorsunuz.</p>
+</section>
+
+<!-- ========== 6 · PLAN ========== -->
+
+<section class="slide" data-sect="06 · Plan" data-note="<ul><li>Herkesten kendini konumlandırmasını iste — sesli değil, kendi kendine.</li><li>Vurgula: Seviye 2'den 3'e geçiş en yüksek getirili adım. Seviye 4 herkes için gerekli değil.</li><li>Tuzak: Seviye 1'den direkt 4'e atlamaya çalışmak. Herkes deniyor, herkes bırakıyor.</li></ul>">
+  <div class="kicker">06 · Plan</div>
+  <h2>Olgunluk modeli — <em>nerede duruyorsunuz?</em></h2>
+  <table>
+    <tr><th style="width:9%">Seviye</th><th style="width:23%">Davranış</th><th style="width:30%">Tipik kazanç</th><th>Sonraki adım</th></tr>
+    <tr><td class="mono dim">0</td><td>Kullanmıyor</td><td class="dim">—</td><td>Bugünkü lab'i tamamla</td></tr>
+    <tr><td class="mono dim">1</td><td>Soru–cevap</td><td class="dim">Neredeyse sıfır</td><td>Brief yazmayı öğren</td></tr>
+    <tr><td class="mono">2</td><td>Metin üretimi</td><td>Haftada 2–3 saat</td><td class="hl">Dosya ver, dosya al</td></tr>
+    <tr><td class="mono hlb">3</td><td><strong>Dosya + MCP + skill</strong></td><td class="hlb">Haftada 8–12 saat</td><td class="hlb">Zincirleri kur, arşivle</td></tr>
+    <tr><td class="mono hlg">4</td><td><strong>Orkestre edilmiş sistem</strong></td><td class="hlg">Fonksiyon başına kapasite</td><td class="hlg">Ekibe yay, standartlaştır</td></tr>
+  </table>
+  <div class="grid2" style="margin-top:1.6rem">
+    <div class="card b"><h3>En yüksek getirili adım</h3><p class="tiny" style="margin-top:.4rem"><strong>2 → 3.</strong> Buradaki sıçrama, diğer tüm adımların toplamından büyük.</p></div>
+    <div class="card r"><h3 style="color:#e08272">En yaygın hata</h3><p class="tiny" style="margin-top:.4rem"><strong>1'den direkt 4'e atlamaya çalışmak.</strong> Karmaşık bir sistem kurulur, iki hafta sonra terk edilir.</p></div>
+  </div>
+</section>
+
+<section class="slide" data-sect="06 · Plan" data-note="<ul><li>Bu planı MD olarak dağıt. Ekranda okumasınlar.</li><li>Hafta 1'in tek işi olduğunu vurgula — bir tane. Beş tane değil.</li><li>30. günde tekrar toplanacağınızı söyle ve tarihi ŞİMDİ belirle. Belirsiz takip = takip yok.</li></ul>">
+  <div class="kicker green">06 · Plan</div>
+  <h2>30 gün — <em>tek bir şeritte</em></h2>
+  <div class="grid4">
+    <div class="card o">
+      <div class="kicker" style="margin-bottom:.5rem">HAFTA 1</div>
+      <h3>Alışkanlık</h3>
+      <ul class="clean" style="margin-top:.7rem">
+        <li>Her gün <strong>bir</strong> işi Claude ile yapın</li>
+        <li>Brief formatını kullanın</li>
+        <li>Hiçbir şey otomatikleştirmeyin</li>
+      </ul>
+      <p class="tiny" style="margin-top:.8rem">Amaç: refleks kazanmak.</p>
+    </div>
+    <div class="card b">
+      <div class="kicker blue" style="margin-bottom:.5rem">HAFTA 2</div>
+      <h3>Bağlantı</h3>
+      <ul class="clean b" style="margin-top:.7rem">
+        <li>Bir MCP bağlayın — sadece bir</li>
+        <li>Sadece okuma yetkisi</li>
+        <li>Her cevabı doğrulayın</li>
+      </ul>
+      <p class="tiny" style="margin-top:.8rem">Amaç: güven kalibre etmek.</p>
+    </div>
+    <div class="card g">
+      <div class="kicker green" style="margin-bottom:.5rem">HAFTA 3</div>
+      <h3>Kodifikasyon</h3>
+      <ul class="clean g" style="margin-top:.7rem">
+        <li>Bugünkü skill'inizi kullanın</li>
+        <li>Her kullanımda bir satır iyileştirin</li>
+        <li>Bir kişiyle paylaşın</li>
+      </ul>
+      <p class="tiny" style="margin-top:.8rem">Amaç: bilgiyi dışa aktarmak.</p>
+    </div>
+    <div class="card">
+      <div class="kicker gray" style="margin-bottom:.5rem">HAFTA 4</div>
+      <h3>Ölçüm</h3>
+      <ul class="clean" style="margin-top:.7rem">
+        <li>Kazanılan saati yazın</li>
+        <li>Yakalanan hatayı yazın</li>
+        <li>İşe yaramayanı <strong>silin</strong></li>
+      </ul>
+      <p class="tiny" style="margin-top:.8rem">Amaç: dürüst muhasebe.</p>
+    </div>
+  </div>
+  <p class="lead" style="margin-top:1.8rem">30. günde tekrar toplanıyoruz. Tarihi <em>şimdi</em> belirleyelim — belirsiz takip, takip değildir.</p>
+</section>
+
+<section class="slide" data-sect="06 · Plan" data-note="<ul><li>Herkesten kağıda YAZMASINI iste. Sessiz 60 saniye. Kalem sesini duy.</li><li>2-3 kişiye sesli okut.</li><li>Bu, atölyenin tek gerçek çıktısı. Diğer her şey bunu mümkün kılmak içindi.</li></ul>">
+  <div class="kicker">06 · Plan</div>
+  <h2>Pazartesi sabahı</h2>
+  <p class="lead" style="margin-bottom:2rem">Buradan çıkarken kağıda yazacağınız <em>tek</em> cümle:</p>
+  <pre style="font-size:1.05rem;padding:1.8rem"><span class="c">Pazartesi sabahı ilk yapacağım iş:</span>
+
+  ______________________________________________
+
+<span class="c">Bunu şu ana kadar elle yapıyordum ve</span>
+<span class="c">her seferinde</span> ______ <span class="c">dakika sürüyordu.</span>
+
+<span class="c">Bunu yapmazsam, 30 gün sonra</span>
+<span class="c">bahanem şu olacak:</span> ______________________</pre>
+  <p class="lead" style="margin-top:1.8rem">Son satır zor. <em>Bahanenizi önceden yazın</em> — yazılmış bahane, kullanılmaz.</p>
+</section>
+
+<section class="slide" data-sect="Kapanış" data-note="<ul><li>Sakin kapat. Alkış bekleme.</li><li>Son mesaj: bu bir araç eğitimi değildi, bir çalışma biçimi değişikliğiydi.</li><li>Soru-cevap için 5 dk bırak. Cevabını bilmediğin soruya 'bilmiyorum, bakıp döneceğim' de — bu atölyenin ana temasıyla tutarlı.</li></ul>">
+  <div class="kicker">Kapanış</div>
+  <h1 class="big-quote">Model herkeste aynı.<br><em>Fark, ona ne verdiğinizde.</em></h1>
+  <div class="grid3" style="margin-top:2.6rem">
+    <div class="card o"><h3>Bağlam</h3><p class="tiny" style="margin-top:.4rem">Şirketinizi tanımayan zeka, işe yaramaz zekadır.</p></div>
+    <div class="card b"><h3>Erişim</h3><p class="tiny" style="margin-top:.4rem">Sistemlerinize bağlı olmayan ajan, sadece bir sohbet kutusudur.</p></div>
+    <div class="card g"><h3>Yargı</h3><p class="tiny" style="margin-top:.4rem">Hangi problemin çözmeye değer olduğuna karar vermek — hâlâ sizin işiniz.</p></div>
+  </div>
+  <p class="lead" style="margin-top:2.6rem">Bugün araç öğrenmedik. <strong>Çalışma biçimi değiştirdik.</strong></p>
+  <p class="tiny" style="margin-top:1.6rem">Sorular · Lab kılavuzu ve bu deck paylaşılacak · 30 gün sonra görüşürüz.</p>
+</section>
+
+</div>
+<div id="sect"></div>
+<div id="hud">
+  <span id="timer" class="chip" onclick="tog()">⏱ 00:00</span>
+  <span class="chip" onclick="ovT()">☰ harita</span>
+  <span class="chip" onclick="nT()">N notlar</span>
+  <span><b id="cur">1</b> / <span id="tot">0</span></span>
+</div>
+<div id="notes"><h4>Sunucu notu</h4><div id="ntxt"></div></div>
+<div id="ov"><div class="g" id="ovg"></div></div>
+
+<script>
+const S=[...document.querySelectorAll('.slide')];
+let i=0;
+document.getElementById('tot').textContent=S.length;
+
+function go(n){
+  i=Math.max(0,Math.min(S.length-1,n));
+  S.forEach((s,k)=>s.classList.toggle('active',k===i));
+  document.getElementById('bar').style.width=((i+1)/S.length*100)+'%';
+  document.getElementById('cur').textContent=i+1;
+  document.getElementById('sect').textContent=S[i].dataset.sect||'';
+  document.getElementById('ntxt').innerHTML=S[i].dataset.note||'<p class="dim">—</p>';
+  location.hash=i+1;
+}
+function nT(){document.getElementById('notes').classList.toggle('on')}
+function ovT(){document.getElementById('ov').classList.toggle('on')}
+
+/* timer */
+let t=0,iv=null;
+function fmt(x){return String(Math.floor(x/60)).padStart(2,'0')+':'+String(x%60).padStart(2,'0')}
+function tog(){
+  const el=document.getElementById('timer');
+  if(iv){clearInterval(iv);iv=null;el.classList.remove('run')}
+  else{iv=setInterval(()=>{t++;el.textContent='⏱ '+fmt(t)},1000);el.classList.add('run')}
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();go(i+1)}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(i-1)}
+  if(e.key==='Home')go(0);
+  if(e.key==='End')go(S.length-1);
+  if(e.key==='n'||e.key==='N')nT();
+  if(e.key==='o'||e.key==='O')ovT();
+  if(e.key==='t'||e.key==='T')tog();
+  if(e.key==='Escape')document.getElementById('ov').classList.remove('on');
+});
+document.addEventListener('click',e=>{
+  if(e.target.closest('#hud')||e.target.closest('#ov')||e.target.closest('#notes'))return;
+  if(e.clientX>window.innerWidth*.55)go(i+1);else go(i-1);
+});
+
+/* overview build */
+const g=document.getElementById('ovg');
+S.forEach((s,k)=>{
+  const d=document.createElement('div');d.className='t';
+  const ttl=s.querySelector('h1,h2');
+  d.innerHTML='<span>'+(k+1)+'</span>'+(ttl?ttl.textContent.slice(0,58):'—');
+  d.onclick=()=>{go(k);ovT()};g.appendChild(d);
+});
+
+window.addEventListener('hashchange',()=>{
+  const n=parseInt(location.hash.slice(1))-1;
+  if(!isNaN(n)&&n!==i)go(n);
+});
+go(location.hash?parseInt(location.hash.slice(1))-1||0:0);
+</script>
+</body>
+</html>

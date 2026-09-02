@@ -32,6 +32,10 @@
       opt.textContent = lang === "tr" ? opt.dataset.tr : opt.dataset.en;
     });
 
+    // masterclass deck link follows the language
+    var mc = document.getElementById("masterclass-link");
+    if (mc) mc.href = lang === "tr" ? "masterclass-tr.html" : "masterclass.html";
+
     // document title + hidden form field
     document.title =
       lang === "tr"

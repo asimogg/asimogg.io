@@ -128,6 +128,25 @@ html[data-lang="tr"] .en { display: none; }
   transform: rotate(45deg);
 }
 
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ink-muted);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.nav-link:hover {
+  color: var(--accent);
+}
+
 .lang-toggle {
   display: inline-flex;
   border: 1px solid var(--line);
@@ -482,6 +501,51 @@ select:invalid {
   max-width: 42rem;
 }
 
+/* measured proof band inside the services section */
+.trust {
+  margin-top: clamp(3rem, 8vh, 5rem);
+}
+
+.trust-heading {
+  font-variation-settings: "wdth" 118;
+  font-weight: 630;
+  font-size: clamp(1.375rem, 2.2vw, 1.75rem);
+  letter-spacing: -0.015em;
+}
+
+.trust-intro {
+  margin-top: 0.6rem;
+  color: var(--ink-muted);
+  max-width: 44rem;
+}
+
+.trust-stats {
+  margin-top: 1.8rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+}
+
+.stat {
+  border-top: 1px solid var(--line-soft);
+  padding-top: 1.3rem;
+}
+
+.stat-num {
+  font-variation-settings: "wdth" 120;
+  font-weight: 640;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+}
+
+.stat p {
+  margin-top: 0.6rem;
+  color: var(--ink-muted);
+  font-size: 0.9375rem;
+}
+
 /* process steps: the sequence carries information */
 .steps {
   list-style: none;
@@ -597,7 +661,8 @@ select:invalid {
     gap: 0.4rem;
   }
 
-  .steps {
+  .steps,
+  .trust-stats {
     grid-template-columns: 1fr;
   }
 }
