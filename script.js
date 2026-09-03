@@ -34,7 +34,7 @@
 
     // masterclass deck link follows the language
     var mc = document.getElementById("masterclass-link");
-    if (mc) mc.href = lang === "tr" ? "masterclass-tr.html?v=5" : "masterclass.html?v=5";
+    if (mc) mc.href = lang === "tr" ? "masterclass-tr.html?v=6" : "masterclass.html?v=6";
 
     // document title + hidden form field
     document.title =
@@ -76,12 +76,14 @@
       ok: "Thanks — your inquiry is in. I'll get back to you shortly.",
       invalid: "Please fill in the required fields.",
       error: "Something went wrong sending this. Please try again in a minute.",
+      rate: "Too many submissions from this connection — please try again in an hour.",
       unconfigured: "The form isn't connected yet — the Formspree endpoint still needs to be set."
     },
     tr: {
       ok: "Teşekkürler — talebiniz ulaştı. Kısa süre içinde dönüş yapacağım.",
       invalid: "Lütfen zorunlu alanları doldurun.",
       error: "Gönderim sırasında bir sorun oldu. Lütfen bir dakika sonra tekrar deneyin.",
+      rate: "Bu bağlantıdan çok fazla gönderim yapıldı — lütfen bir saat sonra tekrar deneyin.",
       unconfigured: "Form henüz bağlı değil — Formspree endpoint'i ayarlanmalı."
     }
   };
@@ -131,7 +133,7 @@
           });
           say("ok", "ok");
         } else {
-          say("error", "error");
+          say("error", res.status === 429 ? "rate" : "error");
         }
       })
       .catch(function () {

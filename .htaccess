@@ -1,12 +1,46 @@
-# Pages: always revalidate so Safari and other browsers never show a stale build.
-# CSS/JS/fonts are versioned by query string, so they can cache long.
+# ---------------------------------------------------------------
+# asimogg.io — server hardening
+# ---------------------------------------------------------------
+
+Options -Indexes
+AddDefaultCharset UTF-8
+ServerSignature Off
+
+# Only these files are meant to be public. Everything else that lives in the
+# repo (docs, dotfiles, config) is denied even though it is deployed.
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>
+<FilesMatch "\.(md|json|lock|log|sh|bak|orig|sql|env|yml|yaml)$">
+  Require all denied
+</FilesMatch>
+
 <IfModule mod_headers.c>
+  # Caching: pages always revalidate, versioned assets cache long.
   <FilesMatch "\.(html|php)$">
     Header set Cache-Control "no-cache, must-revalidate"
   </FilesMatch>
   <FilesMatch "\.(css|js|woff2|svg)$">
     Header set Cache-Control "public, max-age=604800"
   </FilesMatch>
+
+  # Transport + framing + sniffing
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" "expr=%{HTTPS} == 'on'"
+  Header always set X-Frame-Options "DENY"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+  Header unset X-Powered-By
+
+  # Content Security Policy: everything first-party except the deck's Google Fonts.
+  # No inline scripts anywhere; inline <style> is allowed for the standalone decks.
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
 </IfModule>
 
-AddDefaultCharset UTF-8
+# Force HTTPS (host already redirects; this covers any bypass)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+</IfModule>

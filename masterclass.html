@@ -982,71 +982,16 @@ Comparison table + <span class="v">3 risky claims</span>
 </div>
 <div id="sect"></div>
 <div id="hud">
-  <span class="chip arr" onclick="go(i-1)" aria-label="Previous slide">&#8592;</span>
-  <span class="chip arr" onclick="go(i+1)" aria-label="Next slide">&#8594;</span>
-  <span id="timer" class="chip" onclick="tog()">⏱ 00:00</span>
-  <span class="chip" onclick="ovT()">☰ map</span>
-  <span class="chip" onclick="nT()">N notes</span>
+  <span class="chip arr" data-act="prev" aria-label="Previous slide">&#8592;</span>
+  <span class="chip arr" data-act="next" aria-label="Next slide">&#8594;</span>
+  <span id="timer" class="chip" data-act="timer">⏱ 00:00</span>
+  <span class="chip" data-act="overview">☰ map</span>
+  <span class="chip" data-act="notes">N notes</span>
   <span><b id="cur">1</b> / <span id="tot">0</span></span>
 </div>
 <div id="notes"><h4>Speaker note</h4><div id="ntxt"></div></div>
 <div id="ov"><div class="g" id="ovg"></div></div>
 
-<script>
-const S=[...document.querySelectorAll('.slide')];
-let i=0;
-document.getElementById('tot').textContent=S.length;
-
-function go(n){
-  i=Math.max(0,Math.min(S.length-1,n));
-  S.forEach((s,k)=>s.classList.toggle('active',k===i));
-  document.getElementById('bar').style.width=((i+1)/S.length*100)+'%';
-  document.getElementById('cur').textContent=i+1;
-  document.getElementById('sect').textContent=S[i].dataset.sect||'';
-  document.getElementById('ntxt').innerHTML=S[i].dataset.note||'<p class="dim">—</p>';
-  location.hash=i+1;
-}
-function nT(){document.getElementById('notes').classList.toggle('on')}
-function ovT(){document.getElementById('ov').classList.toggle('on')}
-
-/* timer */
-let t=0,iv=null;
-function fmt(x){return String(Math.floor(x/60)).padStart(2,'0')+':'+String(x%60).padStart(2,'0')}
-function tog(){
-  const el=document.getElementById('timer');
-  if(iv){clearInterval(iv);iv=null;el.classList.remove('run')}
-  else{iv=setInterval(()=>{t++;el.textContent='⏱ '+fmt(t)},1000);el.classList.add('run')}
-}
-
-document.addEventListener('keydown',e=>{
-  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();go(i+1)}
-  if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(i-1)}
-  if(e.key==='Home')go(0);
-  if(e.key==='End')go(S.length-1);
-  if(e.key==='n'||e.key==='N')nT();
-  if(e.key==='o'||e.key==='O')ovT();
-  if(e.key==='t'||e.key==='T')tog();
-  if(e.key==='Escape')document.getElementById('ov').classList.remove('on');
-});
-document.addEventListener('click',e=>{
-  if(e.target.closest('#hud')||e.target.closest('#ov')||e.target.closest('#notes')||e.target.closest('#home'))return;
-  if(e.clientX>window.innerWidth*.55)go(i+1);else go(i-1);
-});
-
-/* overview build */
-const g=document.getElementById('ovg');
-S.forEach((s,k)=>{
-  const d=document.createElement('div');d.className='t';
-  const ttl=s.querySelector('h1,h2');
-  d.innerHTML='<span>'+(k+1)+'</span>'+(ttl?ttl.textContent.slice(0,58):'—');
-  d.onclick=()=>{go(k);ovT()};g.appendChild(d);
-});
-
-window.addEventListener('hashchange',()=>{
-  const n=parseInt(location.hash.slice(1))-1;
-  if(!isNaN(n)&&n!==i)go(n);
-});
-go(location.hash?parseInt(location.hash.slice(1))-1||0:0);
-</script>
+<script src="deck.js?v=1"></script>
 </body>
 </html>

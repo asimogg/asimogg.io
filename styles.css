@@ -103,6 +103,12 @@ p {
   margin: 0;
 }
 
+/* honeypot field: off-canvas, never shown */
+.hp {
+  position: absolute;
+  left: -9999px;
+}
+
 /* Language switching: markup carries both languages */
 .tr { display: none; }
 html[data-lang="tr"] .tr { display: inline; }
