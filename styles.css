@@ -126,6 +126,72 @@ html[data-lang="tr"] .en { display: none; }
 
 .topnav {
   justify-self: center;
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+.nav-btn {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+/* ============================================================
+   Video popup
+   ============================================================ */
+.video-modal {
+  width: min(92vw, 60rem);
+  padding: 0;
+  border: 1px solid var(--line-soft);
+  border-radius: 20px;
+  background: var(--surface-2);
+  color: var(--ink);
+  box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+}
+
+.video-modal::backdrop {
+  background: rgba(10, 10, 9, 0.88);
+}
+
+.video-modal video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+
+.video-close {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  z-index: 1;
+  width: 2.4rem;
+  height: 2.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(10, 10, 9, 0.7);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.video-close:hover {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.video-caption {
+  padding: 0.9rem 1.25rem 1rem;
+  font-size: 0.875rem;
+  color: var(--ink-muted);
 }
 
 .mark {
@@ -702,6 +768,23 @@ select:invalid {
 
   .hero-actions .btn {
     width: 100%;
+  }
+
+  /* phone topbar: mark + language on the first row, menu on its own row */
+  .topbar {
+    grid-template-columns: 1fr auto;
+    row-gap: 0.9rem;
+  }
+
+  .topbar-right {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .topnav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-self: start;
   }
 
   .proof-num {

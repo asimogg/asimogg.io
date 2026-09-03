@@ -43,4 +43,16 @@ ServerSignature Off
   RewriteEngine On
   RewriteCond %{HTTPS} !=on
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+  # Media in /assets is playable only from pages on this site: direct URL
+  # visits and hotlinks from elsewhere get 403.
+  RewriteCond %{REQUEST_URI} ^/assets/.*\.(mp4|webm|m4v)$ [NC]
+  RewriteCond %{HTTP_REFERER} !^https://(www\.)?asimogg\.io/ [NC]
+  RewriteRule ^ - [F]
 </IfModule>
+
+# Never offer media as an attachment; no caching of the file on disk by proxies
+<FilesMatch "\.(mp4|webm|m4v)$">
+  Header set Content-Disposition "inline"
+  Header set Cache-Control "private, no-store"
+</FilesMatch>

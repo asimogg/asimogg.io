@@ -59,6 +59,36 @@
     document.body.classList.remove("entrance");
   }, 2400);
 
+  /* ---------- Bi'Boya video popup ---------- */
+  var modal = document.getElementById("biboya-modal");
+  var video = document.getElementById("biboya-video");
+  var openBtn = document.getElementById("biboya-link");
+  var closeBtn = document.getElementById("biboya-close");
+
+  if (modal && video && openBtn && typeof modal.showModal === "function") {
+    function openVideo() {
+      modal.showModal();
+      video.currentTime = 0;
+      var p = video.play();
+      if (p && p.catch) p.catch(function () { /* autoplay blocked: user presses play */ });
+    }
+    function closeVideo() {
+      video.pause();
+      if (modal.open) modal.close();
+    }
+    openBtn.addEventListener("click", openVideo);
+    closeBtn.addEventListener("click", closeVideo);
+    // click on the dimmed backdrop (outside the dialog box) closes it
+    modal.addEventListener("click", function (e) {
+      var r = modal.getBoundingClientRect();
+      var inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+      if (!inside) closeVideo();
+    });
+    modal.addEventListener("close", function () { video.pause(); });
+    // no "save video as" menu
+    video.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+  }
+
   /* ---------- footer year ---------- */
   document.querySelectorAll("[data-year]").forEach(function (el) {
     el.textContent = String(new Date().getFullYear());
