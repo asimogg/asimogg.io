@@ -5,12 +5,12 @@
 return [
     // 1. Google Analytics 4 measurement id for the landing page (e.g. "G-ABC123XYZ").
     //    Leave empty to keep analytics off.
-    'ga_id' => '',
+    'ga_id' => 'G-G4CR2DFRCW',
 
     // 2. Google Sign-In: OAuth 2.0 Web client id from console.cloud.google.com
     //    (e.g. "1234567890-abc.apps.googleusercontent.com").
     //    While empty, Masterclass and the Bi'Boya film open without the gate.
-    'google_client_id' => '',
+    'google_client_id' => '671184599562-7269gb6quphcrud402m47g6aabqerfbj.apps.googleusercontent.com',
 
     // 3. Google Sheets: Apps Script web-app URL that appends a row per unlock
     //    (see tools/sheets-webhook.gs). Leave empty to skip the sheet.
