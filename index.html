@@ -8,7 +8,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/archivo-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=16">
+  <link rel="stylesheet" href="styles.css?v=17">
 </head>
 <body class="entrance">
 <!--
@@ -270,10 +270,16 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 
   <!-- Analytics consent (landing page only) -->
   <div class="consent" id="consent" hidden>
-    <p>
-      <span class="en">This site uses Google Analytics to count visits. Allow?</span>
-      <span class="tr">Bu site ziyaretleri saymak için Google Analytics kullanıyor. İzin veriyor musun?</span>
-    </p>
+    <div class="consent-text">
+      <p>
+        <span class="en">This site uses Google Analytics to count visits. Allow?</span>
+        <span class="tr">Bu site ziyaretleri saymak için Google Analytics kullanıyor. İzin veriyor musun?</span>
+      </p>
+      <p class="consent-note">
+        <span class="en">If you don't answer within <b class="consent-count">10</b> s, consent is assumed and this closes.</span>
+        <span class="tr"><b class="consent-count">10</b> sn içinde yanıt vermezsen kabul edilmiş sayılır ve bu uyarı kapanır.</span>
+      </p>
+    </div>
     <div class="consent-actions">
       <button type="button" class="btn btn-primary btn-small" id="consent-yes"><span class="en">Allow</span><span class="tr">İzin ver</span></button>
       <button type="button" class="quiet-link nav-btn" id="consent-no"><span class="en">No thanks</span><span class="tr">Hayır, teşekkürler</span></button>
@@ -281,6 +287,6 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   </div>
 
   <script src="config.php"></script>
-  <script src="script.js?v=15"></script>
+  <script src="script.js?v=16"></script>
 </body>
 </html>

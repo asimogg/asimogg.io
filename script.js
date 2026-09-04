@@ -81,17 +81,27 @@
   if (CFG.gaId && consentBar) {
     var choice = null;
     try { choice = localStorage.getItem("ga-consent"); } catch (e) { /* ignore */ }
+    var countdown = null;
+    function decide(answer) {
+      if (countdown) { clearInterval(countdown); countdown = null; }
+      try { localStorage.setItem("ga-consent", answer); } catch (e) { /* ignore */ }
+      consentBar.hidden = true;
+      if (answer === "yes") loadGA();
+    }
     if (choice === "yes") loadGA();
-    else if (choice !== "no") consentBar.hidden = false;
-    document.getElementById("consent-yes").addEventListener("click", function () {
-      try { localStorage.setItem("ga-consent", "yes"); } catch (e) { /* ignore */ }
-      consentBar.hidden = true;
-      loadGA();
-    });
-    document.getElementById("consent-no").addEventListener("click", function () {
-      try { localStorage.setItem("ga-consent", "no"); } catch (e) { /* ignore */ }
-      consentBar.hidden = true;
-    });
+    else if (choice !== "no") {
+      // no answer within 10 s counts as consent
+      var left = 10;
+      var counters = consentBar.querySelectorAll(".consent-count");
+      consentBar.hidden = false;
+      countdown = setInterval(function () {
+        left -= 1;
+        counters.forEach(function (c) { c.textContent = String(left); });
+        if (left <= 0) decide("yes");
+      }, 1000);
+    }
+    document.getElementById("consent-yes").addEventListener("click", function () { decide("yes"); });
+    document.getElementById("consent-no").addEventListener("click", function () { decide("no"); });
   }
 
   /* ---------- Google Sign-In gate ---------- */

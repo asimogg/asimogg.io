@@ -271,6 +271,21 @@ html[data-lang="tr"] .en { display: none; }
   color: var(--ink-muted);
 }
 
+.consent[hidden] {
+  display: none;
+}
+
+.consent-note {
+  margin-top: 0.3rem;
+  font-size: 0.8125rem;
+  color: var(--ink-muted);
+}
+
+.consent-note b {
+  color: var(--accent);
+  font-weight: 600;
+}
+
 .consent-actions {
   display: flex;
   align-items: center;
