@@ -17,7 +17,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
 }
 
 // --- same-origin check: the form only ever posts from this site ---------------
-$host   = strtolower($_SERVER['HTTP_HOST'] ?? '');
+$host   = strtolower((string) preg_replace('/:\d+$/', '', $_SERVER['HTTP_HOST'] ?? ''));
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 $source = $origin !== '' ? $origin : ($_SERVER['HTTP_REFERER'] ?? '');
 $srcHost = strtolower((string) parse_url($source, PHP_URL_HOST));

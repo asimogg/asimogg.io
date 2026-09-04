@@ -8,7 +8,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/archivo-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=15">
+  <link rel="stylesheet" href="styles.css?v=16">
 </head>
 <body class="entrance">
 <!--
@@ -27,7 +27,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
       </svg>
     </a>
     <nav class="topnav" aria-label="Main">
-      <a class="nav-link" id="masterclass-link" href="masterclass.html?v=6">Masterclass</a>
+      <button type="button" class="nav-link nav-btn" id="masterclass-link">Masterclass</button>
       <button type="button" class="nav-link nav-btn" id="biboya-link">
         <span class="en">Bi'Boya Ad</span>
         <span class="tr">Bi'Boya Reklamı</span>
@@ -232,15 +232,55 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
         <path d="M3 3l12 12M15 3 3 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
       </svg>
     </button>
-    <video id="biboya-video" playsinline preload="metadata" controls controlsList="nodownload noremoteplayback" disablepictureinpicture disableremoteplayback poster="assets/biboya-poster.jpg">
-      <source src="assets/biboya-reklam.mp4" type="video/mp4">
-    </video>
+    <video id="biboya-video" playsinline preload="none" controls controlsList="nodownload noremoteplayback" disablepictureinpicture disableremoteplayback poster="assets/biboya-poster.jpg"></video>
     <p class="video-caption">
       <span class="en">Bi'Boya — ad film, 30 s. Concept, script and production automated end to end.</span>
       <span class="tr">Bi'Boya — reklam filmi, 30 sn. Konsept, senaryo ve prodüksiyon uçtan uca otomasyonla üretildi.</span>
     </p>
   </dialog>
 
-  <script src="script.js?v=14"></script>
+  <!-- Google Sign-In gate: Masterclass and the film open after a verified Google login -->
+  <dialog class="video-modal gate-modal" id="gate-modal" aria-labelledby="gate-title">
+    <button type="button" class="video-close" id="gate-close" aria-label="Close">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M3 3l12 12M15 3 3 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <div class="gate-body">
+      <h2 class="gate-title" id="gate-title">
+        <span class="en">Open with Google</span>
+        <span class="tr">Google ile aç</span>
+      </h2>
+      <p class="gate-text" data-content="masterclass">
+        <span class="en">The Masterclass is free. Sign in with Google once and it opens — I only learn your name and e-mail, nothing else is stored.</span>
+        <span class="tr">Masterclass ücretsiz. Google ile bir kez giriş yap, açılsın — yalnızca adın ve e-postan bana ulaşır, başka hiçbir şey saklanmaz.</span>
+      </p>
+      <p class="gate-text" data-content="biboya">
+        <span class="en">The Bi'Boya film is free to watch. Sign in with Google once and it plays — I only learn your name and e-mail, nothing else is stored.</span>
+        <span class="tr">Bi'Boya filmi ücretsiz. Google ile bir kez giriş yap, oynasın — yalnızca adın ve e-postan bana ulaşır, başka hiçbir şey saklanmaz.</span>
+      </p>
+      <div class="gate-button" id="gate-button"></div>
+      <p class="gate-status" id="gate-status" role="status" aria-live="polite"></p>
+      <p class="gate-fine">
+        <span class="en">By signing in you agree that your name and e-mail are sent to hello@asimogg.io.</span>
+        <span class="tr">Giriş yaparak ad ve e-postanın hello@asimogg.io adresine iletilmesini kabul etmiş olursun.</span>
+      </p>
+    </div>
+  </dialog>
+
+  <!-- Analytics consent (landing page only) -->
+  <div class="consent" id="consent" hidden>
+    <p>
+      <span class="en">This site uses Google Analytics to count visits. Allow?</span>
+      <span class="tr">Bu site ziyaretleri saymak için Google Analytics kullanıyor. İzin veriyor musun?</span>
+    </p>
+    <div class="consent-actions">
+      <button type="button" class="btn btn-primary btn-small" id="consent-yes"><span class="en">Allow</span><span class="tr">İzin ver</span></button>
+      <button type="button" class="quiet-link nav-btn" id="consent-no"><span class="en">No thanks</span><span class="tr">Hayır, teşekkürler</span></button>
+    </div>
+  </div>
+
+  <script src="config.php"></script>
+  <script src="script.js?v=15"></script>
 </body>
 </html>

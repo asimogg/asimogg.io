@@ -11,7 +11,7 @@ ServerSignature Off
 <FilesMatch "^\.">
   Require all denied
 </FilesMatch>
-<FilesMatch "\.(md|json|lock|log|sh|bak|orig|sql|env|yml|yaml)$">
+<FilesMatch "\.(md|json|lock|log|sh|bak|orig|sql|env|yml|yaml|gs)$">
   Require all denied
 </FilesMatch>
 
@@ -35,7 +35,7 @@ ServerSignature Off
 
   # Content Security Policy: everything first-party except the deck's Google Fonts.
   # No inline scripts anywhere; inline <style> is allowed for the standalone decks.
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' https://accounts.google.com/gsi/client https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://accounts.google.com/gsi/ https://www.google-analytics.com https://analytics.google.com https://*.google-analytics.com https://www.googletagmanager.com; frame-src https://accounts.google.com/gsi/; media-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
 </IfModule>
 
 # Force HTTPS (host already redirects; this covers any bypass)
@@ -43,6 +43,10 @@ ServerSignature Off
   RewriteEngine On
   RewriteCond %{HTTPS} !=on
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+  # Gated originals (decks, film) and server-side includes are never served directly
+  RewriteRule ^(private|tools)/ - [F]
+  RewriteRule ^(lib|settings)\.php$ - [F]
 
   # Media in /assets is playable only from pages on this site: direct URL
   # visits and hotlinks from elsewhere get 403.
