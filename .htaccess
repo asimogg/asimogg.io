@@ -44,6 +44,10 @@ ServerSignature Off
   RewriteCond %{HTTPS} !=on
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
+  # One canonical origin: www -> apex (keeps Google Sign-In and Analytics on a single origin)
+  RewriteCond %{HTTP_HOST} ^www\.asimogg\.io$ [NC]
+  RewriteRule ^ https://asimogg.io%{REQUEST_URI} [R=301,L]
+
   # Gated originals (decks, film) and server-side includes are never served directly
   RewriteRule ^(private|tools)/ - [F]
   RewriteRule ^(lib|settings)\.php$ - [F]
