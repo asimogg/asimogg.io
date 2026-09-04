@@ -189,9 +189,26 @@ html[data-lang="tr"] .en { display: none; }
 }
 
 .video-caption {
-  padding: 0.9rem 1.25rem 1rem;
+  padding: 0.9rem 1.25rem 0.4rem;
   font-size: 0.875rem;
   color: var(--ink-muted);
+}
+
+.video-disclaimer {
+  padding: 0 1.25rem 1rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--ink-muted);
+  border-top: 1px solid var(--line-soft);
+  padding-top: 0.7rem;
+  margin: 0 1.25rem 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.video-disclaimer b {
+  color: var(--ink);
+  font-weight: 600;
 }
 
 /* ============================================================
