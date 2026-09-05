@@ -17,6 +17,19 @@
         "  (M-ERA.NET, Eureka), feasibility of new materials."
       ]
     },
+    "newton": {
+      file: "skills/newton/SKILL.md",
+      en: "Physics referee — tests a materials idea with equations, ranks candidate materials, then drafts the DOE.",
+      tr: "Fizik hakemi — bir malzeme fikrini denklemlerle sınar, aday malzemeleri sıralar, sonra DOE'yi hazırlar.",
+      excerpt: [
+        "name: newton",
+        "description: Tests a materials/coating/adhesive",
+        "  idea with PHYSICS and MATH — picks the governing",
+        "  properties, solves the equations (JKR, Kendall,",
+        "  Dahlquist, Fick, WLF…), returns PROVEN / PARTIAL /",
+        "  REFUTED, ranks candidate materials, drafts the DOE."
+      ]
+    },
     "lens-research": {
       file: "skills/lens-research/SKILL.md",
       en: "Scholarly + patent search with fit scoring — OpenAlex, Google Patents, Espacenet.",

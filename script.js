@@ -263,20 +263,48 @@
     video.addEventListener("contextmenu", function (e) { e.preventDefault(); });
   }
 
-  /* ---------- use-case chain: draw in once when scrolled into view ---------- */
-  var chain = document.getElementById("chain");
-  if (chain) {
+  /* ---------- use-case chains: each draws in once when scrolled into view ---------- */
+  var chains = document.querySelectorAll(".chain");
+  if (chains.length) {
     if ("IntersectionObserver" in window) {
       var io = new IntersectionObserver(function (entries) {
-        if (entries.some(function (e) { return e.isIntersecting; })) {
-          chain.classList.add("in");
-          io.disconnect();
-        }
-      }, { threshold: 0.25 });
-      io.observe(chain);
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.2 });
+      chains.forEach(function (c) { io.observe(c); });
     } else {
-      chain.classList.add("in");
+      chains.forEach(function (c) { c.classList.add("in"); });
     }
+  }
+
+  /* ---------- use-case carousel ---------- */
+  var track = document.getElementById("chain-track");
+  if (track) {
+    var slides = track.querySelectorAll(".chain-slide");
+    var carousel = document.getElementById("chain-carousel");
+    var countCur = carousel.querySelector(".chain-count b");
+    var countAll = carousel.querySelector(".chain-count span");
+    var arrows = carousel.querySelectorAll(".chain-arrow");
+    countAll.textContent = String(slides.length);
+    carousel.classList.toggle("single", slides.length < 2);
+
+    function index() { return Math.round(track.scrollLeft / track.clientWidth); }
+    function update() {
+      var i = index();
+      countCur.textContent = String(i + 1);
+      arrows[0].disabled = i === 0;
+      arrows[1].disabled = i >= slides.length - 1;
+    }
+    arrows.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var next = Math.max(0, Math.min(slides.length - 1, index() + Number(btn.dataset.dir)));
+        track.scrollTo({ left: next * track.clientWidth, behavior: "smooth" });
+      });
+    });
+    track.addEventListener("scroll", function () { window.requestAnimationFrame(update); }, { passive: true });
+    window.addEventListener("resize", update);
+    update();
   }
 
   /* ---------- footer year ---------- */

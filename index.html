@@ -8,7 +8,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/archivo-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=22">
+  <link rel="stylesheet" href="styles.css?v=23">
 </head>
 <body class="entrance">
 <!--
@@ -124,41 +124,34 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
           </p>
         </form>
       </div>
-    </section>
 
-    <!-- ============ PROOF BAND ============ -->
-    <section class="proof-band" aria-label="Measured results">
-      <div class="proof-item">
-        <div class="proof-num">1 <span class="en">h</span><span class="tr">sa</span> → 6+ <span class="en">h</span><span class="tr">sa</span></div>
-        <p><span class="en">of work delivered per hour invested</span><span class="tr">yatırılan her 1 saate karşılık üretilen iş</span></p>
-      </div>
-      <div class="proof-item">
-        <div class="proof-num">125+ <span class="en">h</span><span class="tr">saat</span></div>
-        <p><span class="en">saved in 11 weeks, measured from work logs</span><span class="tr">11 haftada kazanıldı — çalışma kayıtlarından ölçüm</span></p>
-      </div>
-      <div class="proof-item">
-        <div class="proof-num">%65</div>
-        <p><span class="en">less time on my daily approval routine</span><span class="tr">günlük onay rutininde daha az süre</span></p>
-      </div>
-      <div class="proof-item">
-        <div class="proof-num">200+ <span class="en">videos</span><span class="tr">video</span></div>
-        <p><span class="en">distilled into working systems since 2023</span><span class="tr">2023'ten beri damıtılıp çalışan sisteme dönüştü</span></p>
-      </div>
-    </section>
-
-    <!-- ============ USE CASE: skill chain (under the numbers) ============ -->
-    <section class="section usecase" id="usecases">
-      <h2 class="section-heading">
-        <span class="en">A real use case: two funded EU projects</span>
-        <span class="tr">Gerçek bir kullanım örneği: fonlanan iki AB projesi</span>
-      </h2>
+      <!-- use-case carousel: one slide per real use case; add a new .chain-slide to extend -->
+      <div class="hero-chain">
+        <div class="chain-carousel" id="chain-carousel">
+          <div class="chain-head">
+            <h2 class="chain-title">
+              <span class="en">Real use cases</span>
+              <span class="tr">Gerçek kullanım örnekleri</span>
+            </h2>
+            <div class="chain-nav" aria-label="Use cases">
+              <button type="button" class="chain-arrow" data-dir="-1" aria-label="Previous">&#8592;</button>
+              <span class="chain-count" aria-live="polite"><b>1</b> / <span>1</span></span>
+              <button type="button" class="chain-arrow" data-dir="1" aria-label="Next">&#8594;</button>
+            </div>
+          </div>
+          <div class="chain-track" id="chain-track">
+            <article class="chain-slide">
+              <h3 class="chain-slide-title">
+                <span class="en">Two funded EU projects, one skill chain</span>
+                <span class="tr">İki fonlanan AB projesi, tek skill zinciri</span>
+              </h3>
 <p class="usecase-intro">
         <span class="en">The same skills that run daily operations also write research proposals. This is the chain that turned two ideas into funded M-ERA.NET projects — and their websites.</span>
         <span class="tr">Günlük operasyonu yürüten aynı skill'ler, araştırma projesi de yazıyor. İki fikri fonlanan M-ERA.NET projelerine — ve web sitelerine — dönüştüren zincir bu.</span>
       </p>
-<ol class="chain" id="chain">
+<ol class="chain">
         <li class="chain-step">
-          <div class="chain-skills"><span class="skill" data-skill="asimo-rd">asimo-rd</span><span class="skill" data-skill="lens-research">lens-research</span><span class="skill" data-skill="academic">academic</span></div>
+          <div class="chain-skills"><span class="skill" data-skill="asimo-rd">asimo-rd</span><span class="skill" data-skill="newton">newton</span><span class="skill" data-skill="lens-research">lens-research</span><span class="skill" data-skill="academic">academic</span></div>
           <h3><span class="en">Idea → proposal</span><span class="tr">Fikir → proje dosyası</span></h3>
           <p><span class="en">asimo-rd is triggered with a materials idea. lens-research scans papers and patents, the academic skill drafts the science case, gap analysis and work packages — a full consortium proposal.</span><span class="tr">asimo-rd bir malzeme fikriyle tetiklenir. lens-research makale ve patentleri tarar, academic skill bilimsel gerekçeyi, boşluk analizini ve iş paketlerini yazar — eksiksiz bir konsorsiyum dosyası.</span></p>
         </li>
@@ -194,6 +187,10 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
           <p><span class="en">brought in across the 2024 and 2026 rounds — as the only large enterprise coordinating both consortia.</span><span class="tr">2024 ve 2026 turlarında — iki konsorsiyumu da koordine eden tek büyük kuruluş olarak — elde edilen kazanç.</span></p>
         </li>
       </ol>
+            </article>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ============ DISTILLED INFORMATION ============ -->
@@ -345,7 +342,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   </div>
 
   <script src="config.php"></script>
-  <script src="script.js?v=19"></script>
-  <script src="skills.js?v=1"></script>
+  <script src="script.js?v=20"></script>
+  <script src="skills.js?v=2"></script>
 </body>
 </html>
