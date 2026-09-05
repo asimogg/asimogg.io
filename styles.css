@@ -764,6 +764,10 @@ select:invalid {
   margin-bottom: clamp(2rem, 5vh, 3rem);
 }
 
+.section.usecase .section-heading {
+  margin-bottom: 1rem;
+}
+
 .chain {
   list-style: none;
   margin: 0;
