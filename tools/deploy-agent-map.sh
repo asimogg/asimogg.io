@@ -6,7 +6,7 @@ SRC="$HOME/Documents/Obsidian/Asimo-Sessions"
 SITE="$HOME/Documents/asimo/asimogg Website"
 DST="$SITE/assets/agent-map"
 [ -f "$SRC/asimo-agent-map.html" ] || { echo "no delivered map"; exit 0; }
-sleep 5   # archify writes atomically, but wait for JSON + HTML pair to settle
+[ "$1" = "--now" ] || sleep 5   # launchd path: wait for JSON + HTML pair to settle
 mkdir -p "$DST"
 cp "$SRC/asimo-agent-map.html" "$DST/asimo-agent-map.html"
 [ -f "$SRC/asimo-agent-map.architecture.json" ] && cp "$SRC/asimo-agent-map.architecture.json" "$DST/asimo-agent-map.architecture.json"
