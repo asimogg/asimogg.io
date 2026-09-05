@@ -791,13 +791,15 @@ select:invalid {
   left: 0;
   top: 0.95rem;
   height: 1px;
-  width: 0;
+  width: 100%;
   background: var(--accent);
-  transition: width 1.6s var(--ease-out);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 1.6s var(--ease-out);
 }
 
 .chain.in::after {
-  width: 100%;
+  transform: scaleX(1);
 }
 
 .chain-step {
@@ -1084,14 +1086,14 @@ select:invalid {
   }
 
   .chain::after {
-    height: 0;
+    height: 100%;
     bottom: auto;
-    transition: height 1.6s var(--ease-out);
+    transform: scaleY(0);
+    transform-origin: center top;
   }
 
   .chain.in::after {
-    width: 1px;
-    height: 100%;
+    transform: scaleY(1);
   }
 
   .chain-step {
