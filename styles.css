@@ -755,6 +755,195 @@ select:invalid {
   line-height: 1.45;
 }
 
+/* ============================================================
+   Use case: skill chain (draws in on scroll)
+   ============================================================ */
+.usecase-intro {
+  color: var(--ink-muted);
+  max-width: 44rem;
+  margin-bottom: clamp(2rem, 5vh, 3rem);
+}
+
+.chain {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 2rem);
+}
+
+/* the connector: one hairline that fills as the section enters view */
+.chain::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0.95rem;
+  height: 1px;
+  background: var(--line-soft);
+}
+
+.chain::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.95rem;
+  height: 1px;
+  width: 0;
+  background: var(--accent);
+  transition: width 1.6s var(--ease-out);
+}
+
+.chain.in::after {
+  width: 100%;
+}
+
+.chain-step {
+  position: relative;
+  padding-top: 2.4rem;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+}
+
+.chain-step::before {
+  content: "";
+  position: absolute;
+  top: 0.55rem;
+  left: 0;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 999px;
+  background: var(--bg);
+  border: 1.5px solid var(--accent);
+  transform: scale(0.4);
+  transition: transform 0.5s var(--ease-out), background-color 0.5s ease;
+}
+
+.chain.in .chain-step {
+  opacity: 1;
+  transform: none;
+}
+
+.chain.in .chain-step::before {
+  transform: scale(1);
+  background: var(--accent);
+}
+
+.chain.in .chain-step:nth-child(1) { transition-delay: 0.1s; }
+.chain.in .chain-step:nth-child(2) { transition-delay: 0.45s; }
+.chain.in .chain-step:nth-child(3) { transition-delay: 0.8s; }
+.chain.in .chain-step:nth-child(4) { transition-delay: 1.15s; }
+.chain.in .chain-step:nth-child(1)::before { transition-delay: 0.1s; }
+.chain.in .chain-step:nth-child(2)::before { transition-delay: 0.45s; }
+.chain.in .chain-step:nth-child(3)::before { transition-delay: 0.8s; }
+.chain.in .chain-step:nth-child(4)::before { transition-delay: 1.15s; }
+
+.chain-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.9rem;
+}
+
+.skill {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--accent);
+  border: 1px solid rgba(255, 107, 44, 0.45);
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+}
+
+.skill-result {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
+
+.chain-step h3 {
+  font-variation-settings: "wdth" 116;
+  font-weight: 620;
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  margin-bottom: 0.6rem;
+}
+
+.chain-step p,
+.chain-list {
+  color: var(--ink-muted);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+.chain-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.chain-list b {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.chain-sites {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.site-card {
+  display: block;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--line-soft);
+  text-decoration: none;
+  transition: border-color 0.3s ease, transform 0.4s var(--ease-out);
+}
+
+.site-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.site-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.site-name {
+  position: absolute;
+  left: 0.7rem;
+  bottom: 0.6rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ink);
+  background: rgba(10, 10, 9, 0.75);
+  border-radius: 999px;
+  padding: 0.2rem 0.65rem;
+}
+
+.chain-num {
+  font-variation-settings: "wdth" 120;
+  font-weight: 640;
+  font-size: clamp(2.25rem, 3.6vw, 3.25rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+  margin-bottom: 0.7rem;
+}
+
 /* process steps: the sequence carries information */
 .steps {
   list-style: none;
@@ -875,6 +1064,47 @@ select:invalid {
   .steps,
   .distilled {
     grid-template-columns: 1fr;
+  }
+
+  /* chain becomes vertical: connector runs down the left edge */
+  .chain {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding-left: 1.6rem;
+  }
+
+  .chain::before,
+  .chain::after {
+    top: 0.55rem;
+    bottom: 0;
+    left: 0.4rem;
+    right: auto;
+    width: 1px;
+    height: auto;
+  }
+
+  .chain::after {
+    height: 0;
+    bottom: auto;
+    transition: height 1.6s var(--ease-out);
+  }
+
+  .chain.in::after {
+    width: 1px;
+    height: 100%;
+  }
+
+  .chain-step {
+    padding-top: 0;
+  }
+
+  .chain-step::before {
+    left: -1.6rem;
+    top: 0.2rem;
+  }
+
+  .chain-sites {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .proof-band {

@@ -263,6 +263,22 @@
     video.addEventListener("contextmenu", function (e) { e.preventDefault(); });
   }
 
+  /* ---------- use-case chain: draw in once when scrolled into view ---------- */
+  var chain = document.getElementById("chain");
+  if (chain) {
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        if (entries.some(function (e) { return e.isIntersecting; })) {
+          chain.classList.add("in");
+          io.disconnect();
+        }
+      }, { threshold: 0.25 });
+      io.observe(chain);
+    } else {
+      chain.classList.add("in");
+    }
+  }
+
   /* ---------- footer year ---------- */
   document.querySelectorAll("[data-year]").forEach(function (el) {
     el.textContent = String(new Date().getFullYear());
