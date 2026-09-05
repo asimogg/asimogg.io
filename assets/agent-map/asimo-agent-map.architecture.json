@@ -2,7 +2,7 @@
   "schema_version": 1,
   "diagram_type": "architecture",
   "meta": {
-    "title": "Asimo Agent Map v1.3",
+    "title": "Asimo Agent Map v1.4",
     "output": "asimo-agent-map.html",
     "quality_profile": "standard",
     "visual_preset": "signal-flow",
@@ -32,13 +32,14 @@
         "focus": [
           "rd",
           "sci",
+          "newton",
           "lens",
           "eu",
           "academic",
           "strategist",
           "brain"
         ],
-        "note": "Own library → papers + patents → funded-project landscape with gap analysis → human-quality proposal writing."
+        "note": "Own library → newton physics verdict and material ranking → papers + patents → funded landscape with gap analysis → proposal writing."
       },
       {
         "id": "video",
@@ -252,12 +253,27 @@
       ]
     },
     {
+      "id": "newton",
+      "type": "backend",
+      "label": "newton",
+      "sublabel": "physics · materials · DOE",
+      "pos": [
+        820,
+        130
+      ],
+      "size": [
+        140,
+        60
+      ],
+      "tag": "new"
+    },
+    {
       "id": "lens",
       "type": "backend",
       "label": "lens-research",
       "sublabel": "papers · patents",
       "pos": [
-        820,
+        1020,
         130
       ],
       "size": [
@@ -272,7 +288,7 @@
       "label": "academic-shield",
       "sublabel": "human writing",
       "pos": [
-        1020,
+        1220,
         130
       ],
       "size": [
@@ -428,6 +444,7 @@
       "label": "Research chain (asimo-rd)",
       "wraps": [
         "sci",
+        "newton",
         "lens",
         "academic",
         "eu"
@@ -553,12 +570,22 @@
       ]
     },
     {
-      "id": "sci-lens",
+      "id": "sci-newton",
       "from": "sci",
-      "to": "lens",
-      "label": "2 · papers + patents",
+      "to": "newton",
+      "label": "2 · physics verdict",
       "labelAt": [
         790,
+        204
+      ]
+    },
+    {
+      "id": "newton-lens",
+      "from": "newton",
+      "to": "lens",
+      "label": "3 · papers + patents",
+      "labelAt": [
+        990,
         204
       ]
     },
@@ -566,9 +593,9 @@
       "id": "lens-academic",
       "from": "lens",
       "to": "academic",
-      "label": "4 · write",
+      "label": "5 · write",
       "labelAt": [
-        990,
+        1190,
         204
       ]
     },
@@ -576,7 +603,7 @@
       "id": "rd-eu",
       "from": "rd",
       "to": "eu",
-      "label": "3 · funding gap",
+      "label": "4 · funding gap",
       "fromSide": "bottom",
       "toSide": "left",
       "via": [
@@ -595,7 +622,7 @@
       "toSide": "bottom",
       "via": [
         [
-          890,
+          1090,
           360
         ]
       ]
@@ -704,11 +731,10 @@
   "cards": [
     {
       "dot": "violet",
-      "title": "v1.3 changes",
+      "title": "v1.4 changes",
       "items": [
-        "eu-project-research under asimo-rd (CORDIS, M-ERA.NET, EUREKA; partners, sites, funding, gap analysis)",
-        "archify owned by asimo-portfolio: maps all skills, agents, jobs",
-        "OpenMontage moved to Design/OpenMontage, global skill for all video work"
+        "newton under asimo-rd: physics referee (JKR, Kendall, Dahlquist, WLF…), polymer ranking, DOE Excel",
+        "Research chain is now 5 steps: sci → newton → lens → eu → academic-shield"
       ]
     },
     {
@@ -716,9 +742,10 @@
       "title": "Research chain",
       "items": [
         "1 asimo-sci own library",
-        "2 lens-research papers + patents, fit rating",
-        "3 eu-project-research funded landscape + gap",
-        "4 academic-shield human-quality proposal"
+        "2 newton prove / partial / refute + material choice",
+        "3 lens-research papers + patents, fit rating",
+        "4 eu-project-research funded landscape + gap",
+        "5 academic-shield human-quality proposal"
       ]
     },
     {
