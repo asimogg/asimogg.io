@@ -121,7 +121,7 @@ html[data-lang="tr"] .en { display: none; }
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  padding: 1.4rem var(--pad-x);
+  padding: 1.1rem var(--pad-x);
 }
 
 .topnav {
@@ -391,8 +391,8 @@ html[data-lang="tr"] .en { display: none; }
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
   gap: clamp(2.5rem, 6vw, 6rem);
   align-items: center;
-  padding: clamp(2rem, 5vh, 4rem) var(--pad-x) clamp(3rem, 6vh, 4.5rem);
-  row-gap: clamp(1.75rem, 4vh, 3rem);
+  padding: clamp(1.5rem, 3vh, 2.5rem) var(--pad-x) clamp(3rem, 6vh, 4.5rem);
+  row-gap: clamp(1.25rem, 3vh, 2rem);
 }
 
 .display {
@@ -496,7 +496,7 @@ html[data-lang="tr"] .en { display: none; }
   background: var(--surface-2);
   border: 1px solid var(--line-soft);
   border-radius: 20px;
-  padding: clamp(1.5rem, 3vw, 2.5rem);
+  padding: clamp(1.5rem, 2.5vw, 2rem);
   scroll-margin-top: 2rem;
   box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.9);
 }
@@ -516,7 +516,7 @@ html[data-lang="tr"] .en { display: none; }
 }
 
 .field {
-  margin-bottom: 1.1rem;
+  margin-bottom: 0.9rem;
 }
 
 .field label {
@@ -570,7 +570,7 @@ select[aria-invalid="true"] {
 
 textarea {
   resize: vertical;
-  min-height: 7rem;
+  min-height: 4.75rem;
 }
 
 .select-wrap {
