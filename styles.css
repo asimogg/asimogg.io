@@ -727,7 +727,7 @@ select:invalid {
 .hero-chain {
   grid-column: 1 / -1;
   border-top: 1px solid var(--line-soft);
-  padding-top: clamp(1.75rem, 4vh, 2.75rem);
+  padding-top: clamp(1.1rem, 2.5vh, 1.75rem);
 }
 
 .chain-head {
