@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Use Cases — Asimo Agent Map</title>
+  <meta name="description" content="Asimo Agent Map: the multi-agent decision system behind asimo.gg — research, video, software and portfolio agents, mapped and validated with archify.">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="../fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../styles.css?v=18">
+  <style>
+    .uc-main{padding:0 var(--pad-x) clamp(3rem,8vh,6rem)}
+    .uc-head{max-width:64rem;padding:clamp(2.5rem,7vh,5rem) 0 1.5rem;border-bottom:1px solid var(--line)}
+    .uc-eyebrow{font-size:.875rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin:0 0 .9rem}
+    .uc-title{font-family:var(--font);font-size:clamp(2rem,4.4vw,4rem);font-weight:640;line-height:1.04;letter-spacing:-.025em;font-variation-settings:"wdth" 122;margin:0 0 1rem;color:var(--ink);text-wrap:balance}
+    .uc-lead{max-width:44rem;font-size:1.0625rem;line-height:1.6;color:var(--ink-muted);margin:0}
+    .uc-index{display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;padding:1.2rem 0;border-bottom:1px solid var(--line-soft);font-size:.9rem}
+    .uc-index a{color:var(--ink-muted);text-decoration:none;border-bottom:1px solid transparent}
+    .uc-index a[aria-current]{color:var(--ink);border-bottom-color:var(--accent)}
+    .uc-index a:hover{color:var(--ink)}
+    .map-block{margin-top:2.2rem}
+    .map-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.8rem 1.5rem;margin:0 0 .9rem}
+    .map-bar h2{font-size:1.3125rem;font-weight:620;letter-spacing:-.01em;font-variation-settings:"wdth" 116;margin:0;color:var(--ink)}
+    .map-meta{font-size:.875rem;color:var(--ink-muted);font-variant-numeric:tabular-nums}
+    .map-frame{width:100%;aspect-ratio:16/10;min-height:560px;border:1px solid var(--line);border-radius:20px;background:#0f1117;overflow:hidden}
+    .map-frame iframe{width:100%;height:100%;border:0;display:block}
+    .map-actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1rem;align-items:center}
+    .btn-ghost{display:inline-block;padding:.85rem 1.6rem;border:1px solid var(--line);border-radius:999px;color:var(--ink);text-decoration:none;font-weight:600;font-size:.95rem}
+    .btn-ghost:hover{border-color:var(--ink)}
+    .layers{list-style:none;margin:2.6rem 0 0;padding:0;max-width:64rem}
+    .layers li{display:grid;grid-template-columns:minmax(9rem,14rem) 1fr;gap:1rem 2rem;padding:1.15rem 0;border-top:1px solid var(--line-soft);align-items:baseline}
+    .layers li:last-child{border-bottom:1px solid var(--line-soft)}
+    .layers b{font-weight:620;color:var(--ink);letter-spacing:-.01em}
+    .layers p{margin:0;color:var(--ink-muted);line-height:1.55;font-size:1rem}
+    .layers code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.85em;color:var(--ink)}
+    @media (max-width:700px){.layers li{grid-template-columns:1fr;gap:.3rem}.map-frame{min-height:420px;aspect-ratio:auto;height:70vh}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="mark" href="../" aria-label="Home">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+        <path d="M13 2v22M2 13h22M5.2 5.2l15.6 15.6M20.8 5.2 5.2 20.8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+    </a>
+    <nav class="topnav" aria-label="Main">
+      <a class="nav-link" href="../">
+        <span class="en">Home</span><span class="tr">Ana sayfa</span>
+      </a>
+      <a class="nav-link" href="./" aria-current="page">
+        <span class="en">Use Cases</span><span class="tr">Kullanım Örnekleri</span>
+      </a>
+    </nav>
+    <div class="topbar-right">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" class="lang-btn" data-set-lang="en" aria-pressed="true">EN</button>
+        <button type="button" class="lang-btn" data-set-lang="tr" aria-pressed="false">TR</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="uc-main">
+    <div class="uc-head">
+      <p class="uc-eyebrow"><span class="en">Use cases</span><span class="tr">Kullanım örnekleri</span></p>
+      <h1 class="uc-title">
+        <span class="en">Asimo Agent Map</span>
+        <span class="tr">Asimo Ajan Haritası</span>
+      </h1>
+      <p class="uc-lead">
+        <span class="en">One person, a CEO agent and eleven specialist agents. This is the live map of the decision system that runs my R&amp;D work: who decides, who researches, who builds, who ships — and which tool each of them is wired to. Every link on it is a documented route, validated by archify before it is published.</span>
+        <span class="tr">Bir kişi, bir CEO ajanı ve on bir uzman ajan. Bu, Ar-Ge işimi yürüten karar sisteminin canlı haritası: kim karar veriyor, kim araştırıyor, kim inşa ediyor, kim yayına alıyor ve her biri hangi araca bağlı. Haritadaki her bağ belgelenmiş bir rota; yayınlanmadan önce archify ile doğrulanıyor.</span>
+      </p>
+    </div>
+
+    <nav class="uc-index" aria-label="Use cases">
+      <a href="#agent-map" aria-current="true"><span class="en">Agent Map</span><span class="tr">Ajan Haritası</span></a>
+    </nav>
+
+    <section class="map-block" id="agent-map">
+      <div class="map-bar">
+        <h2><span class="en">Agent Map v1.3</span><span class="tr">Ajan Haritası v1.3</span></h2>
+        <span class="map-meta" id="map-updated"><span class="en">Rendered with archify · updated </span><span class="tr">archify ile üretildi · güncelleme </span><time data-map-date></time></span>
+      </div>
+      <div class="map-frame">
+        <iframe src="../assets/agent-map/asimo-agent-map.html?theme=dark&amp;present=1" title="Asimo Agent Map" loading="lazy"></iframe>
+      </div>
+      <div class="map-actions">
+        <a class="btn btn-primary" href="../assets/agent-map/asimo-agent-map.html?theme=dark" target="_blank" rel="noopener">
+          <span class="en">Open full screen</span><span class="tr">Tam ekran aç</span>
+        </a>
+        <a class="btn-ghost" href="../assets/agent-map/asimo-agent-map.architecture.json" target="_blank" rel="noopener">
+          <span class="en">Typed source (JSON)</span><span class="tr">Kaynak (JSON)</span>
+        </a>
+        <span class="map-meta"><span class="en">Keys inside the map: <code>/</code> find · <code>R</code> route · <code>P</code> story · <code>F</code> present</span><span class="tr">Harita içinde: <code>/</code> ara · <code>R</code> rota · <code>P</code> hikâye · <code>F</code> sunum</span></span>
+      </div>
+
+      <ul class="layers">
+        <li><b><span class="en">Orchestration</span><span class="tr">Orkestrasyon</span></b>
+          <p><span class="en"><code>asimo-ceo</code> decomposes every question to domain agents and synthesizes. <code>asimo-portfolio</code> scans Asana and the Obsidian vault daily and is the CEO's required input — it also owns this map.</span><span class="tr"><code>asimo-ceo</code> her soruyu alan ajanlarına böler ve sentezler. <code>asimo-portfolio</code> Asana ve Obsidian'ı her gün tarar, CEO'nun zorunlu girdisidir ve bu haritanın sahibidir.</span></p></li>
+        <li><b><span class="en">Research chain</span><span class="tr">Araştırma zinciri</span></b>
+          <p><span class="en"><code>asimo-rd</code> → own library (<code>asimo-sci</code>, 2,500+ papers) → papers and patents with fit rating (<code>lens-research</code>) → funded-project landscape and gap analysis (<code>eu-project-research</code>) → human-quality proposal writing (<code>academic-shield</code>).</span><span class="tr"><code>asimo-rd</code> → kendi kütüphanemiz (<code>asimo-sci</code>, 2.500+ makale) → uyum puanlı makale ve patent taraması (<code>lens-research</code>) → fonlanmış proje manzarası ve gap analizi (<code>eu-project-research</code>) → insansı proposal yazımı (<code>academic-shield</code>).</span></p></li>
+        <li><b><span class="en">Video production</span><span class="tr">Video üretimi</span></b>
+          <p><span class="en"><code>asimo-marketing</code> owns every video: scientific animation with manim, script and edit pipelines with OpenMontage, generation through TopView and Higgsfield.</span><span class="tr"><code>asimo-marketing</code> tüm videoların sahibi: bilimsel animasyon manim ile, senaryo ve kurgu OpenMontage ile, üretim TopView ve Higgsfield ile.</span></p></li>
+        <li><b><span class="en">Software subsystem</span><span class="tr">Yazılım alt sistemi</span></b>
+          <p><span class="en"><code>asimo-software</code> decides what is worth building, then hands the how to the gstack engineering factory and a mandatory security pass before anything ships.</span><span class="tr"><code>asimo-software</code> neyin inşa edilmeye değer olduğuna karar verir; nasılını gstack mühendislik fabrikasına ve yayın öncesi zorunlu güvenlik geçişine devreder.</span></p></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>
+      <span class="en">© <span data-year></span> — AI automations for real businesses.</span>
+      <span class="tr">© <span data-year></span> — Gerçek işletmeler için yapay zekâ otomasyonları.</span>
+    </p>
+  </footer>
+  <script src="../script.js?v=18"></script>
+  <script>
+    (function(){
+      document.querySelectorAll('[data-year]').forEach(function(e){e.textContent=new Date().getFullYear()});
+      fetch('../assets/agent-map/asimo-agent-map.architecture.json',{cache:'no-store'}).then(function(r){return r.ok?r.headers.get('last-modified'):null}).then(function(lm){
+        var t=document.querySelector('[data-map-date]'); if(!t) return;
+        var d=lm?new Date(lm):new Date(); t.dateTime=d.toISOString().slice(0,10); t.textContent=d.toISOString().slice(0,10);
+      }).catch(function(){});
+    })();
+  </script>
+</body>
+</html>
