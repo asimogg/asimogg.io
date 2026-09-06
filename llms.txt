@@ -18,9 +18,9 @@ Two research ideas became funded M-ERA.NET projects through a chain of Claude sk
 
 ## Other pages
 - Use cases and the Asimo agent map: https://asimogg.io/usecases/
-- Masterclass (AI handbook workshop deck, EN/TR) and the Bi'Boya ad film: open with Google sign-in from the homepage.
+- Masterclass (AI handbook workshop deck, EN/TR) and the Saphire film: open with Google sign-in from the homepage.
 - Privacy notice / KVKK: https://asimogg.io/privacy.html
 
 ## Attribution and scope
 - Personal website. Opinions and methods are the author's own; not official communication of Kalekim or any project consortium.
-- The Bi'Boya ad film: idea by Gülden Polat; script and video generated automatically with Claude and the Seedance 2.5 MCP; not a Kalekim company video.
+- The Saphire film: idea by Gülden Polat; script and video generated automatically with Claude and the Seedance 2.5 MCP; not a Kalekim company video.

@@ -142,7 +142,7 @@
       track("masterclass_open", { lang: currentLang() });
       window.location.href = url;
     } else {
-      track("biboya_play", { lang: currentLang() });
+      track("saphire_play", { lang: currentLang() });
       openVideo(url);
     }
   }
@@ -213,7 +213,7 @@
 
   if (gate && typeof gate.showModal === "function") {
     document.getElementById("masterclass-link").addEventListener("click", function () { openGate("masterclass"); });
-    document.getElementById("biboya-link").addEventListener("click", function () { openGate("biboya"); });
+    document.getElementById("saphire-link").addEventListener("click", function () { openGate("saphire"); });
     document.getElementById("gate-close").addEventListener("click", function () { gate.close(); });
     gate.addEventListener("click", function (e) {
       var r = gate.getBoundingClientRect();
@@ -223,16 +223,16 @@
 
     // sent back here by deck.php when a link expired: reopen the gate
     var locked = new URLSearchParams(window.location.search).get("locked");
-    if (locked === "masterclass" || locked === "biboya") {
+    if (locked === "masterclass" || locked === "saphire") {
       history.replaceState(null, "", window.location.pathname);
       openGate(locked);
     }
   }
 
-  /* ---------- Bi'Boya video popup ---------- */
-  var modal = document.getElementById("biboya-modal");
-  var video = document.getElementById("biboya-video");
-  var closeBtn = document.getElementById("biboya-close");
+  /* ---------- Saphire video popup ---------- */
+  var modal = document.getElementById("saphire-modal");
+  var video = document.getElementById("saphire-video");
+  var closeBtn = document.getElementById("saphire-close");
 
   function openVideo(url) {
     if (!modal || typeof modal.showModal !== "function") return;

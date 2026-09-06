@@ -1,15 +1,15 @@
 <?php
-// Streams the Bi'Boya film from /private only with a valid unlock token.
+// Streams the Saphire film from /private only with a valid unlock token.
 // Supports HTTP Range requests so the <video> element can seek.
 require __DIR__ . '/lib.php';
 
 $token = (string) ($_GET['t'] ?? '');
-if (settings()['google_client_id'] !== '' && !verify_token($token, 'biboya')) {
+if (settings()['google_client_id'] !== '' && !verify_token($token, 'saphire')) {
     http_response_code(403);
     exit;
 }
 
-$file = __DIR__ . '/private/biboya-reklam.mp4';
+$file = __DIR__ . '/private/saphire.mp4';
 if (!is_file($file)) { http_response_code(404); exit; }
 
 $size  = filesize($file);

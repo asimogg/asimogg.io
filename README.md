@@ -7,7 +7,7 @@ Single-page, bilingual (EN/TR) landing site. No build step; a few small PHP endp
 | Setting | What it does | Where to get it |
 |---|---|---|
 | `ga_id` | Google Analytics 4 on the landing page, loaded only after the visitor accepts the consent bar | analytics.google.com → Admin → Data streams → Measurement ID (`G-…`) |
-| `google_client_id` | "Open with Google" gate in front of the Masterclass and the Bi'Boya film. Each unlock is mailed to `lead_to` (+CC) | console.cloud.google.com → APIs & Services → Credentials → OAuth client ID (Web) → Authorized JavaScript origins: `https://asimogg.io` |
+| `google_client_id` | "Open with Google" gate in front of the Masterclass and the Saphire film. Each unlock is mailed to `lead_to` (+CC) | console.cloud.google.com → APIs & Services → Credentials → OAuth client ID (Web) → Authorized JavaScript origins: `https://asimogg.io` |
 | `sheets_webhook` | Appends every unlock as a row to the Leads Google Sheet | Sheet → Extensions → Apps Script → paste `tools/sheets-webhook.gs` → Deploy as web app (Anyone) → copy URL |
 
 While `google_client_id` is empty the gate is off and both contents open directly.
@@ -19,7 +19,7 @@ Gated originals live in `private/` (never served directly). `deck.php` and `medi
 - `index.html` — the whole page (both languages live in the markup)
 - `settings.php` / `config.php` — site settings and their public JS export
 - `unlock.php`, `deck.php`, `media.php`, `lib.php` — Google gate, signed delivery of decks and film
-- `private/` — Masterclass decks (EN/TR) and the Bi'Boya film
+- `private/` — Masterclass decks (EN/TR) and the Saphire film
 - `tools/sheets-webhook.gs` — Apps Script for the Leads sheet
 - `styles.css` — design system + layout
 - `script.js` — language toggle (persists in localStorage), form submission

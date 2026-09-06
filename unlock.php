@@ -1,5 +1,5 @@
 <?php
-// Google Sign-In gate for Masterclass and the Bi'Boya film.
+// Google Sign-In gate for Masterclass and the Saphire film.
 // POST {credential, content, lang} -> verifies the Google ID token, records the
 // lead (mail + Google Sheet), returns a short-lived signed URL for the content.
 
@@ -13,7 +13,7 @@ $cfg      = settings();
 $content  = $_POST['content'] ?? '';
 $lang     = ($_POST['_language'] ?? 'en') === 'tr' ? 'tr' : 'en';
 $deckLang = ($_POST['deck'] ?? 'en') === 'tr' ? 'tr' : 'en';
-if (!in_array($content, ['masterclass', 'biboya'], true)) json_out(422, ['ok' => false, 'error' => 'content']);
+if (!in_array($content, ['masterclass', 'saphire'], true)) json_out(422, ['ok' => false, 'error' => 'content']);
 
 $name = '';
 $email = '';
@@ -46,7 +46,7 @@ $url   = $content === 'masterclass'
 if ($mode === 'google') {
     $ip    = $_SERVER['REMOTE_ADDR'] ?? '';
     $when  = date('Y-m-d H:i:s');
-    $label = $content === 'masterclass' ? 'Masterclass' : "Bi'Boya reklam";
+    $label = $content === 'masterclass' ? 'Masterclass' : "Saphire film";
 
     // 1) notify by mail
     $subject = '=?UTF-8?B?' . base64_encode("Yeni izleyici: $label — $name") . '?=';

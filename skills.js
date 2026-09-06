@@ -117,7 +117,7 @@
         "tools: generate_image, generate_video,",
         "  upscale_image, remove_background, reframe,",
         "  generate_audio, workflows (explainer, ad, UGC)",
-        "used for: site thumbnails, the Bi'Boya film"
+        "used for: site thumbnails, the Saphire film"
       ]
     }
   };

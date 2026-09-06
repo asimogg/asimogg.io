@@ -1,7 +1,7 @@
 // Google Apps Script — appends one row per unlock to the Leads sheet.
 //
 // Setup (once, ~2 minutes):
-//  1. Open the sheet "asimogg.io — Leads (Masterclass & Bi'Boya)"
+//  1. Open the sheet "asimogg.io — Leads (Masterclass & Saphire)"
 //  2. Extensions → Apps Script → paste this file, save
 //  3. Deploy → New deployment → type "Web app"
 //       Execute as: Me   ·   Who has access: Anyone
