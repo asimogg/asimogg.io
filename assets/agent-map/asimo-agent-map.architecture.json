@@ -2,7 +2,7 @@
   "schema_version": 1,
   "diagram_type": "architecture",
   "meta": {
-    "title": "Asimo Agent Map v1.4",
+    "title": "Asimo Agent Map v1.5",
     "output": "asimo-agent-map.html",
     "quality_profile": "standard",
     "visual_preset": "signal-flow",
@@ -14,6 +14,7 @@
           "asim",
           "sources",
           "portfolio",
+          "gate",
           "archify",
           "ceo",
           "rd",
@@ -24,7 +25,7 @@
           "sales",
           "software"
         ],
-        "note": "Portfolio scans Asana + Obsidian daily, feeds the CEO and maintains the archify map of all skills and jobs."
+        "note": "Portfolio scans Asana + Obsidian daily, feeds the CEO, maintains the archify map and audits projects against the five-gate procedure."
       },
       {
         "id": "research",
@@ -124,6 +125,21 @@
         60
       ],
       "tag": "portfolio-owned"
+    },
+    {
+      "id": "gate",
+      "type": "backend",
+      "label": "gate-analysis",
+      "sublabel": "5-gate audit · HTML + PDF",
+      "pos": [
+        40,
+        40
+      ],
+      "size": [
+        140,
+        60
+      ],
+      "tag": "new"
     },
     {
       "id": "ceo",
@@ -503,6 +519,24 @@
       ]
     },
     {
+      "id": "portfolio-gate",
+      "from": "portfolio",
+      "to": "gate",
+      "label": "gate audit",
+      "fromSide": "top",
+      "toSide": "right",
+      "via": [
+        [
+          290,
+          70
+        ]
+      ],
+      "labelAt": [
+        200,
+        114
+      ]
+    },
+    {
       "id": "portfolio-ceo",
       "from": "portfolio",
       "to": "ceo",
@@ -731,10 +765,10 @@
   "cards": [
     {
       "dot": "violet",
-      "title": "v1.4 changes",
+      "title": "v1.5 changes",
       "items": [
-        "newton under asimo-rd: physics referee (JKR, Kendall, Dahlquist, WLF…), polymer ranking, DOE Excel",
-        "Research chain is now 5 steps: sci → newton → lens → eu → academic-shield"
+        "gate-analysis under asimo-portfolio: Asana project × SG_PR_0010 five-gate audit, role fit, unrecorded closures, HTML + PDF",
+        "v1.4: newton physics referee under asimo-rd"
       ]
     },
     {
