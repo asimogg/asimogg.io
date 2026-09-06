@@ -27,12 +27,6 @@
     .map-actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1rem;align-items:center}
     .btn-ghost{display:inline-block;padding:.85rem 1.6rem;border:1px solid var(--line);border-radius:999px;color:var(--ink);text-decoration:none;font-weight:600;font-size:.95rem}
     .btn-ghost:hover{border-color:var(--ink)}
-    .layers{list-style:none;margin:2.6rem 0 0;padding:0;max-width:64rem}
-    .layers li{display:grid;grid-template-columns:minmax(9rem,14rem) 1fr;gap:1rem 2rem;padding:1.15rem 0;border-top:1px solid var(--line-soft);align-items:baseline}
-    .layers li:last-child{border-bottom:1px solid var(--line-soft)}
-    .layers b{font-weight:620;color:var(--ink);letter-spacing:-.01em}
-    .layers p{margin:0;color:var(--ink-muted);line-height:1.55;font-size:1rem}
-    .layers code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.85em;color:var(--ink)}
     @media (max-width:700px){.layers li{grid-template-columns:1fr;gap:.3rem}.map-frame{min-height:420px;aspect-ratio:auto;height:70vh}}
   </style>
 </head>
@@ -144,16 +138,6 @@
         <span class="map-meta"><span class="en">Keys inside the map: <code>/</code> find · <code>R</code> route · <code>P</code> story · <code>F</code> present</span><span class="tr">Harita içinde: <code>/</code> ara · <code>R</code> rota · <code>P</code> hikâye · <code>F</code> sunum</span></span>
       </div>
 
-      <ul class="layers">
-        <li><b><span class="en">Orchestration</span><span class="tr">Orkestrasyon</span></b>
-          <p><span class="en"><code>asimo-ceo</code> decomposes every question to domain agents and synthesizes. <code>asimo-portfolio</code> scans Asana and the Obsidian vault daily and is the CEO's required input — it also owns this map and audits each project against the five-gate innovation procedure (<code>gate-analysis</code>).</span><span class="tr"><code>asimo-ceo</code> her soruyu alan ajanlarına böler ve sentezler. <code>asimo-portfolio</code> Asana ve Obsidian'ı her gün tarar, CEO'nun zorunlu girdisidir, bu haritanın sahibidir ve her projeyi beş kapılı inovasyon prosedürüne göre denetler (<code>gate-analysis</code>).</span></p></li>
-        <li><b><span class="en">Research chain</span><span class="tr">Araştırma zinciri</span></b>
-          <p><span class="en"><code>asimo-rd</code> → own library (<code>asimo-sci</code>, 2,500+ papers) → physics verdict, material ranking and DOE (<code>newton</code>) → papers and patents with fit rating (<code>lens-research</code>) → funded-project landscape and gap analysis (<code>eu-project-research</code>) → human-quality proposal writing (<code>academic-shield</code>).</span><span class="tr"><code>asimo-rd</code> → kendi kütüphanemiz (<code>asimo-sci</code>, 2.500+ makale) → fizik hükmü, malzeme sıralaması ve DOE (<code>newton</code>) → uyum puanlı makale ve patent taraması (<code>lens-research</code>) → fonlanmış proje manzarası ve gap analizi (<code>eu-project-research</code>) → insansı proposal yazımı (<code>academic-shield</code>).</span></p></li>
-        <li><b><span class="en">Video production</span><span class="tr">Video üretimi</span></b>
-          <p><span class="en"><code>asimo-marketing</code> owns every video: scientific animation with manim, script and edit pipelines with OpenMontage, generation through TopView and Higgsfield.</span><span class="tr"><code>asimo-marketing</code> tüm videoların sahibi: bilimsel animasyon manim ile, senaryo ve kurgu OpenMontage ile, üretim TopView ve Higgsfield ile.</span></p></li>
-        <li><b><span class="en">Software subsystem</span><span class="tr">Yazılım alt sistemi</span></b>
-          <p><span class="en"><code>asimo-software</code> decides what is worth building, then hands the how to the gstack engineering factory and a mandatory security pass before anything ships.</span><span class="tr"><code>asimo-software</code> neyin inşa edilmeye değer olduğuna karar verir; nasılını gstack mühendislik fabrikasına ve yayın öncesi zorunlu güvenlik geçişine devreder.</span></p></li>
-      </ul>
     </section>
   </main>
 
