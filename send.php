@@ -60,6 +60,10 @@ $lang    = ($_POST['_language'] ?? 'en') === 'tr' ? 'tr' : 'en';
 
 $areas = ['sales-quoting', 'operations-orders', 'support-followup', 'reporting-data', 'not-sure'];
 
+if (($_POST['consent'] ?? '') !== 'yes') {
+    respond(422, ['ok' => false, 'error' => 'consent']);
+}
+
 if ($name === '' || !in_array($area, $areas, true)
     || !filter_var($email, FILTER_VALIDATE_EMAIL)
     || preg_match('/[\r\n]/', $email)) {

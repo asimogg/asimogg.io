@@ -211,6 +211,121 @@ html[data-lang="tr"] .en { display: none; }
   font-weight: 600;
 }
 
+/* explicit consent on the form */
+.consent-check {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  margin: 0.2rem 0 1rem;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--ink-muted);
+}
+
+.consent-check input {
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.2rem;
+  accent-color: var(--accent);
+  flex-shrink: 0;
+}
+
+.consent-check a {
+  color: var(--ink);
+  text-underline-offset: 0.2em;
+}
+
+.consent-check input[aria-invalid="true"] {
+  outline: 2px solid #ff4d3d;
+  outline-offset: 2px;
+}
+
+/* footer: plain-text site summary (for readers and for AI assistants) */
+.site-summary {
+  max-width: 64rem;
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.site-summary h2 {
+  font-variation-settings: "wdth" 116;
+  font-weight: 620;
+  font-size: 1rem;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+}
+
+.site-summary p {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--ink-muted);
+}
+
+.site-disclaimer {
+  margin-top: 0.6rem;
+}
+
+.footer-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+}
+
+.footer-line a {
+  color: var(--ink-muted);
+  text-underline-offset: 0.25em;
+}
+
+.footer-line a:hover {
+  color: var(--ink);
+}
+
+/* legal page */
+.legal {
+  padding: clamp(2rem, 6vh, 4rem) var(--pad-x) clamp(3rem, 8vh, 6rem);
+  max-width: 52rem;
+}
+
+.legal-updated {
+  color: var(--ink-muted);
+  font-size: 0.875rem;
+  margin: -1.5rem 0 2rem;
+}
+
+.legal h2 {
+  font-variation-settings: "wdth" 116;
+  font-weight: 620;
+  font-size: 1.25rem;
+  margin: 2rem 0 0.6rem;
+}
+
+.legal p,
+.legal li {
+  color: var(--ink-muted);
+  line-height: 1.6;
+}
+
+.legal ul {
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.legal a {
+  color: var(--ink);
+  text-underline-offset: 0.2em;
+}
+
+html[data-lang="tr"] .legal div.tr,
+.legal div.en {
+  display: block;
+}
+
+html[data-lang="tr"] .legal div.en {
+  display: none;
+}
+
 /* ============================================================
    Google gate
    ============================================================ */

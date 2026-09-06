@@ -5,10 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Automations That Do Real Work</title>
   <meta name="description" content="I design, build and ship AI automations that run inside real businesses. Not demos — production.">
+  <link rel="canonical" href="https://asimogg.io/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="asimogg.io">
+  <meta property="og:title" content="AI automations that actually do the work">
+  <meta property="og:description" content="Distilled information, shipped as working systems — quotes, follow-ups, reports and order flows that run inside real businesses. Not demos. Production.">
+  <meta property="og:url" content="https://asimogg.io/">
+  <meta property="og:image" content="https://asimogg.io/assets/og-cover.jpg">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="tr_TR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI automations that actually do the work">
+  <meta name="twitter:description" content="Distilled information, shipped as working systems that run inside real businesses.">
+  <meta name="twitter:image" content="https://asimogg.io/assets/og-cover.jpg">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://asimogg.io/#website",
+        "url": "https://asimogg.io/",
+        "name": "asimogg.io",
+        "inLanguage": ["en", "tr"],
+        "description": "AI automations that actually do the work — designed, built and shipped into production inside real businesses."
+      },
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://asimogg.io/#service",
+        "name": "asimogg.io — AI automation for real businesses",
+        "url": "https://asimogg.io/",
+        "email": "hello@asimogg.io",
+        "areaServed": ["TR", "EU", "Worldwide"],
+        "availableLanguage": ["en", "tr"],
+        "description": "One builder who turns real business processes into working AI automations: quote and document automation, follow-up agents, reporting pipelines, internal AI assistants.",
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "What gets automated",
+          "itemListElement": [
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Quote & document automation"}},
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Follow-up agents"}},
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Reporting pipelines"}},
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Internal AI assistants"}}
+          ]
+        }
+      },
+      {
+        "@type": "ItemList",
+        "@id": "https://asimogg.io/#usecases",
+        "name": "Real use cases",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "item": {"@type": "ResearchProject", "name": "STF4SW", "url": "https://www.stf4sw.eu/", "description": "Shear-thickening-fluid seismic dampers. M-ERA.NET 3 Call 2023, 2024–2027, 5 partners; Kalekim coordinates.", "funder": {"@type": "Organization", "name": "M-ERA.NET"}}},
+          {"@type": "ListItem", "position": 2, "item": {"@type": "ResearchProject", "name": "NiPure", "url": "https://nipure.eu/", "description": "Isocyanate-free polyurethane thermal-insulation coating. M-ERA.NET Call 2025, €921K total budget, 3 partners; Kalekim coordinates.", "funder": {"@type": "Organization", "name": "M-ERA.NET"}}}
+        ]
+      }
+    ]
+  }
+  </script>
   <link rel="preload" href="fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/archivo-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=25">
+  <link rel="stylesheet" href="styles.css?v=26">
 </head>
 <body class="entrance">
 <!--
@@ -105,6 +162,10 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
             <label for="f-message"><span class="en">What eats your team's time?</span><span class="tr">Ekibinizin zamanını ne yiyor?</span></label>
             <textarea id="f-message" name="message" rows="3" placeholder="A few lines is enough." data-ph-en="A few lines is enough." data-ph-tr="Birkaç satır yeter."></textarea>
           </div>
+          <label class="consent-check">
+            <input type="checkbox" name="consent" value="yes" required>
+            <span><span class="en">I have read the <a href="privacy.html" target="_blank" rel="noopener">privacy notice</a> and give explicit consent to my data being processed and stored on Google servers abroad.</span><span class="tr"><a href="privacy.html" target="_blank" rel="noopener">KVKK aydınlatma metnini</a> okudum; verilerimin işlenmesine ve yurt dışındaki Google sunucularında saklanmasına açık rıza veriyorum.</span></span>
+          </label>
           <input type="hidden" name="_language" value="en">
           <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" value="">
           <button class="btn btn-primary btn-submit" type="submit">
@@ -182,9 +243,9 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
         </li>
 
         <li class="chain-step chain-result">
-          <div class="chain-skills"><span class="skill skill-result"><span class="en">Outcome</span><span class="tr">Sonuç</span></span></div>
+          <div class="chain-skills"><span class="skill skill-result"><span class="en">Outcome → Kalekim</span><span class="tr">Sonuç → Kalekim</span></span></div>
           <div class="chain-num">~$250K</div>
-          <p><span class="en">brought in across the 2024 and 2026 rounds — as the only large enterprise coordinating both consortia.</span><span class="tr">2024 ve 2026 turlarında — iki konsorsiyumu da koordine eden tek büyük kuruluş olarak — elde edilen kazanç.</span></p>
+          <p><span class="en">of public research funding brought to <b>Kalekim</b> — the enterprise coordinating both consortia — across the 2024 and 2026 rounds. The skill chain wrote the proposals; Kalekim's R&amp;D centre — its laboratories, its scientific team and its track record as coordinator — carried equal weight in winning them.</span><span class="tr">2024 ve 2026 turlarında, iki konsorsiyumun da koordinatörü olan <b>Kalekim</b>'e kazandırılan kamu Ar-Ge fonu. Proje dosyalarını skill zinciri yazdı; Kalekim'in Ar-Ge merkezi — laboratuvarları, bilimsel ekibi ve koordinatör olarak geçmişi — kazanılmalarında eşit ağırlıkta pay sahibi.</span></p>
         </li>
       </ol>
             </article>
@@ -270,9 +331,22 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   </main>
 
   <footer class="footer">
-    <p>
+    <section class="site-summary" id="about" aria-label="About this site">
+      <h2><span class="en">About this site</span><span class="tr">Bu site hakkında</span></h2>
+      <p>
+        <span class="en">asimogg.io is the personal site of one builder who designs, builds and ships AI automations that run in production inside real businesses: quote and document automation, follow-up agents, reporting pipelines and internal AI assistants. Projects run in three steps — map, build, run — and start from the inquiry form above. The use case on this page describes two M-ERA.NET-funded research projects (STF4SW, NiPure) whose proposals were written with a chain of Claude skills and whose funding went to Kalekim, the coordinating enterprise.</span>
+        <span class="tr">asimogg.io, gerçek işletmelerin içinde üretimde çalışan yapay zekâ otomasyonlarını tasarlayan, kuran ve devreye alan tek bir kişinin sitesidir: teklif ve doküman otomasyonu, takip ajanları, raporlama hatları ve şirket içi yapay zekâ asistanları. Projeler üç adımda ilerler — keşif, kurulum, devreye alma — ve yukarıdaki talep formuyla başlar. Bu sayfadaki kullanım örneği, proje dosyaları bir Claude skill zinciriyle yazılan ve fonu koordinatör kuruluş Kalekim'e giden iki M-ERA.NET projesini (STF4SW, NiPure) anlatır.</span>
+      </p>
+      <p class="site-disclaimer">
+        <span class="en">Personal website. Views, methods and materials here are the author's own and are not official communication of Kalekim or of any project consortium. Project facts are from public funding records and the projects' own websites.</span>
+        <span class="tr">Kişisel web sitesi. Buradaki görüş, yöntem ve materyaller yazara aittir; Kalekim'in ya da herhangi bir proje konsorsiyumunun resmî açıklaması değildir. Proje bilgileri kamuya açık fon kayıtlarından ve projelerin kendi sitelerinden alınmıştır.</span>
+      </p>
+    </section>
+    <p class="footer-line">
       <span class="en">© <span data-year></span> — AI automations for real businesses.</span>
       <span class="tr">© <span data-year></span> — Gerçek işletmeler için yapay zekâ otomasyonları.</span>
+      <a href="privacy.html"><span class="en">Privacy · KVKK</span><span class="tr">Gizlilik · KVKK</span></a>
+      <a href="llms.txt">llms.txt</a>
     </p>
   </footer>
 
@@ -317,8 +391,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
       <div class="gate-button" id="gate-button"></div>
       <p class="gate-status" id="gate-status" role="status" aria-live="polite"></p>
       <p class="gate-fine">
-        <span class="en">By signing in you agree that your name and e-mail are sent to hello@asimogg.io.</span>
-        <span class="tr">Giriş yaparak ad ve e-postanın hello@asimogg.io adresine iletilmesini kabul etmiş olursun.</span>
+        <span class="en">By signing in you give explicit consent to your name and e-mail being sent to hello@asimogg.io and stored on Google servers abroad, as described in the <a href="privacy.html" target="_blank" rel="noopener">privacy notice</a>.</span>
+        <span class="tr">Giriş yaparak ad ve e-postanın hello@asimogg.io adresine iletilmesine ve <a href="privacy.html" target="_blank" rel="noopener">KVKK aydınlatma metninde</a> açıklandığı şekilde yurt dışındaki Google sunucularında saklanmasına açık rıza vermiş olursun.</span>
       </p>
     </div>
   </dialog>
@@ -342,7 +416,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   </div>
 
   <script src="config.php"></script>
-  <script src="script.js?v=20"></script>
+  <script src="script.js?v=21"></script>
   <script src="skills.js?v=2"></script>
 </body>
 </html>

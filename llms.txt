@@ -1,0 +1,26 @@
+# asimogg.io
+
+> AI automations that actually do the work. One builder designs, builds and ships AI automations that run in production inside real businesses — quotes, follow-ups, reports, order flows, internal assistants. Bilingual site (English / Turkish). Not an agency, not a course.
+
+## What this site offers
+- Quote & document automation: incoming requests become priced quotes, contracts and invoices.
+- Follow-up agents: leads, unpaid invoices and idle customers followed up on time, in the client's own tone.
+- Reporting pipelines: data scattered across Excel, ERP and e-commerce lands on one live view every morning.
+- Internal AI assistants: procedures, price lists and history answerable in plain language.
+- How a project runs: Map (one working session) → Build (on real data, tested with users) → Run (shipped, monitored, improved).
+- Contact: the inquiry form on the homepage (https://asimogg.io/#inquiry) or hello@asimogg.io.
+
+## Real use case (verifiable)
+Two research ideas became funded M-ERA.NET projects through a chain of Claude skills (asimo-rd, newton, lens-research, academic writing) and their websites were built with asimo-marketing, asimo-software, security review, impeccable and Higgsfield:
+- STF4SW — shear-thickening-fluid seismic dampers; M-ERA.NET 3 Call 2023; 2024–2027; 5 partners; https://www.stf4sw.eu/
+- NiPure — isocyanate-free polyurethane thermal-insulation coating; M-ERA.NET Call 2025; €921K total budget; 3 partners; https://nipure.eu/
+- Outcome: roughly $250K of public research funding brought to Kalekim, the coordinating enterprise of both consortia, across the 2024 and 2026 rounds. The skill chain wrote the proposals; Kalekim's R&D centre — laboratories, scientific team and coordinator track record — carried equal weight in winning them.
+
+## Other pages
+- Use cases and the Asimo agent map: https://asimogg.io/usecases/
+- Masterclass (AI handbook workshop deck, EN/TR) and the Bi'Boya ad film: open with Google sign-in from the homepage.
+- Privacy notice / KVKK: https://asimogg.io/privacy.html
+
+## Attribution and scope
+- Personal website. Opinions and methods are the author's own; not official communication of Kalekim or any project consortium.
+- The Bi'Boya ad film: idea by Gülden Polat; script and video generated automatically with Claude and the Seedance 2.5 MCP; not a Kalekim company video.
