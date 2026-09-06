@@ -263,19 +263,36 @@
     video.addEventListener("contextmenu", function (e) { e.preventDefault(); });
   }
 
-  /* ---------- use-case chains: each draws in once when scrolled into view ---------- */
+  /* ---------- use-case chains: each draws in once when scrolled into view ----------
+     Safari does not reliably fire IntersectionObserver for targets inside a
+     scroll-snap track, so we observe the wrapper outside the track and keep a
+     geometry fallback that runs on scroll/resize and once after load. */
   var chains = document.querySelectorAll(".chain");
   if (chains.length) {
+    function reveal(chain) { chain.classList.add("in"); }
+    function wrapperOf(chain) { return chain.closest(".hero-chain") || chain.closest(".usecase") || chain; }
+    function inView(el) {
+      var r = el.getBoundingClientRect();
+      return r.bottom > 0 && r.top < window.innerHeight * 0.85;
+    }
+    function checkAll() {
+      chains.forEach(function (c) { if (!c.classList.contains("in") && inView(wrapperOf(c))) reveal(c); });
+    }
     if ("IntersectionObserver" in window) {
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
-          if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+          if (e.isIntersecting) {
+            chains.forEach(function (c) { if (wrapperOf(c) === e.target) reveal(c); });
+          }
         });
-      }, { threshold: 0.2 });
-      chains.forEach(function (c) { io.observe(c); });
-    } else {
-      chains.forEach(function (c) { c.classList.add("in"); });
+      }, { threshold: 0.1 });
+      chains.forEach(function (c) { io.observe(wrapperOf(c)); });
     }
+    window.addEventListener("scroll", checkAll, { passive: true });
+    window.addEventListener("resize", checkAll);
+    window.addEventListener("load", checkAll);
+    setTimeout(checkAll, 300);
+    setTimeout(checkAll, 1500);
   }
 
   /* ---------- use-case carousel ---------- */
