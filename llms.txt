@@ -22,5 +22,5 @@ Two research ideas became funded M-ERA.NET projects through a chain of Claude sk
 - Privacy notice / KVKK: https://asimogg.io/privacy.html
 
 ## Attribution and scope
-- Personal website. Opinions and methods are the author's own; not official communication of Kalekim or any project consortium.
+- Every use case on the site combines personal skills with the high-end laboratory infrastructure Kalekim provides and its investment in a culture of AI-driven business development. Personal website; not official communication of Kalekim or any project consortium.
 - The Saphire film: idea by Gülden Polat; script and video generated automatically with Claude and the Seedance 2.5 MCP; not a Kalekim company video.

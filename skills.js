@@ -32,15 +32,28 @@
     },
     "lens-research": {
       file: "skills/lens-research/SKILL.md",
-      en: "Scholarly + patent search with fit scoring — OpenAlex, Google Patents, Espacenet.",
-      tr: "Uyum puanlı makale + patent taraması — OpenAlex, Google Patents, Espacenet.",
+      en: "Scholarly + patent search with fit scoring — Lens.org, OpenAlex, Google Patents, WIPO PATENTSCOPE, Espacenet.",
+      tr: "Uyum puanlı makale + patent taraması — Lens.org, OpenAlex, Google Patents, WIPO PATENTSCOPE, Espacenet.",
       excerpt: [
         "name: lens-research",
-        "description: Lens.org-style scholarly literature",
-        "  + patent research. Rates every result with",
-        "  separate asimo-fit scores for papers and patents.",
-        "Always run scholarly and patent searches",
-        "  for a topic in parallel."
+        "description: Scholarly + patent research —",
+        "  Lens.org API, OpenAlex, Google Patents,",
+        "  WIPO PATENTSCOPE, Espacenet. Rates every result",
+        "  with separate asimo-fit scores for papers/patents.",
+        "Always run scholarly and patent searches in parallel."
+      ]
+    },
+    "eu-project-research": {
+      file: "skills/eu-project-research/SKILL.md",
+      en: "EU funding landscape — past and running projects on the same idea, partners, budgets, and a gap analysis as an Excel report.",
+      tr: "AB fon manzarası — aynı fikir üzerine geçmiş ve süren projeler, ortaklar, bütçeler ve Excel gap analizi.",
+      excerpt: [
+        "name: eu-project-research",
+        "description: Scans CORDIS / Horizon Europe,",
+        "  M-ERA.NET, EUREKA/Eurostars, EIT RawMaterials",
+        "  for similar projects: coordinator + consortium,",
+        "  funding (EU contribution + total budget), site,",
+        "  and a GAP ANALYSIS against the idea → Excel report."
       ]
     },
     "academic": {

@@ -545,6 +545,23 @@ html[data-lang="tr"] .legal div.en {
   background-position: left center;
 }
 
+/* brush in running text and headings: slightly tighter than the hero subline */
+.distilled-text .brush {
+  padding: 0.12em 0.4em 0.16em;
+  margin: -0.1em -0.15em;
+  transform: rotate(-1deg);
+}
+
+.section-heading .brush {
+  padding: 0.08em 0.28em 0.12em;
+  margin: -0.06em -0.1em;
+  transform: rotate(-1.2deg);
+}
+
+.site-summary p + p {
+  margin-top: 0.4rem;
+}
+
 .sub {
   margin-top: 1.75rem;
   max-width: 34rem;
@@ -935,6 +952,82 @@ select:invalid {
   font-size: 1.25rem;
   letter-spacing: -0.01em;
   margin-bottom: 0.5rem;
+}
+
+/* time markers on the chain timeline + figure inside a step */
+.chain-clock {
+  color: var(--ink-muted);
+  font-size: 0.9375rem;
+  margin: -1.2rem 0 2.4rem;
+}
+
+.chain-clock b {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.chain-tick {
+  position: absolute;
+  left: 1.3rem;
+  top: 0.55rem;
+  transform: translateY(-50%);
+  font-size: 0.8125rem;
+  color: var(--ink-muted);
+  white-space: nowrap;
+  line-height: 1;
+  background: var(--bg);
+  padding: 0 0.4rem 0 0.2rem;
+}
+
+.chain-tick b {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.chain-tick i {
+  font-style: normal;
+  opacity: 0.75;
+  margin-left: 0.35rem;
+}
+
+.chain-figure {
+  margin: 1rem 0 0;
+  border: 1px solid var(--line-soft);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.chain-figure img,
+.chain-figure video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--bg);
+}
+
+.chain-figure figcaption {
+  padding: 0.5rem 0.8rem;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--ink-muted);
+  background: var(--surface-2);
+}
+
+.chain-figure figcaption em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.chain-num .en,
+.chain-num .tr {
+  white-space: nowrap;
+}
+
+.chain-num.chain-num-sm {
+  font-size: clamp(1.5rem, 2.1vw, 2rem);
 }
 
 /* ============================================================
@@ -1377,6 +1470,18 @@ select:invalid {
   .chain-step::before {
     left: -1.6rem;
     top: 0.2rem;
+  }
+
+  .chain-tick {
+    position: static;
+    display: block;
+    transform: none;
+    margin-bottom: 0.5rem;
+    padding: 0;
+  }
+
+  .chain-clock {
+    margin-top: -0.6rem;
   }
 
   .chain-sites {

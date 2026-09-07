@@ -59,8 +59,9 @@ ServerSignature Off
   RewriteRule ^ - [F]
 </IfModule>
 
-# Never offer media as an attachment; no caching of the file on disk by proxies
+# Public media in /assets (site animations): inline, cacheable. The gated film
+# lives in /private and is streamed by media.php with its own headers.
 <FilesMatch "\.(mp4|webm|m4v)$">
   Header set Content-Disposition "inline"
-  Header set Cache-Control "private, no-store"
+  Header set Cache-Control "public, max-age=604800"
 </FilesMatch>
