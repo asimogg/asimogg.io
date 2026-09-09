@@ -17,7 +17,7 @@ Two research ideas became funded M-ERA.NET projects through a chain of Claude sk
 - Outcome: roughly $250K of public research funding brought to Kalekim, the coordinating enterprise of both consortia, across the 2024 and 2026 rounds. The skill chain wrote the proposals; Kalekim's R&D centre — laboratories, scientific team and coordinator track record — carried equal weight in winning them.
 
 ## Other pages
-- Use cases and the Asimo agent map: https://asimogg.io/usecases/
+- Asimo Agent Map (multi-agent decision system, archify-rendered): https://asimogg.io/agentmap/
 - Masterclass (AI handbook workshop deck, EN/TR) and the Saphire film: open with Google sign-in from the homepage.
 - Privacy notice / KVKK: https://asimogg.io/privacy.html
 

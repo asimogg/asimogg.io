@@ -1,11 +1,11 @@
 # Archify-delivered, self-contained map: needs inline scripts/styles and data:/blob: URLs,
-# and must be frameable by the Use Cases page on the same origin.
+# and must be frameable by the Agent Map page on the same origin.
 <IfModule mod_headers.c>
   Header always set Content-Security-Policy "default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self'; media-src 'self' blob:; frame-ancestors 'self'; base-uri 'self'; object-src 'none'"
   Header always set X-Frame-Options "SAMEORIGIN"
 </IfModule>
 
-# The typed source is public on purpose (linked from the Use Cases page); root rules deny *.json.
+# The typed source is public on purpose (linked from the Agent Map page); root rules deny *.json.
 <Files "asimo-agent-map.architecture.json">
   Require all granted
   Header set Content-Type "application/json; charset=utf-8"

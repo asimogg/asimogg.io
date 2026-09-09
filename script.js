@@ -221,12 +221,19 @@
       if (!inside) gate.close();
     });
 
-    // sent back here by deck.php when a link expired: reopen the gate
+    // sent back here by deck.php when a link expired or failed to verify:
+    // forget the cached link first, otherwise openGate would reuse it and loop
     var locked = new URLSearchParams(window.location.search).get("locked");
     if (locked === "masterclass" || locked === "saphire") {
       history.replaceState(null, "", window.location.pathname);
+      forgetUnlock(locked);
       openGate(locked);
     }
+  }
+
+  function forgetUnlock(content) {
+    delete unlocked[content];
+    try { sessionStorage.setItem("unlocked", JSON.stringify(unlocked)); } catch (e) { /* ignore */ }
   }
 
   /* ---------- Saphire video popup ---------- */
@@ -244,6 +251,18 @@
     video.currentTime = 0;
     var p = video.play();
     if (p && p.catch) p.catch(function () { /* autoplay blocked: user presses play */ });
+  }
+  // media.php answered 403 (expired or unverifiable token): drop the cached
+  // link and ask for a fresh sign-in instead of showing a dead player
+  if (video) {
+    video.addEventListener("error", function () {
+      if (!modal.open || !video.getAttribute("src")) return;
+      video.removeAttribute("src");
+      video.load();
+      modal.close();
+      forgetUnlock("saphire");
+      openGate("saphire");
+    });
   }
   function closeVideo() {
     video.pause();

@@ -22,14 +22,31 @@ function b64url(string $s): string { return rtrim(strtr(base64_encode($s), '+/',
 function b64url_decode(string $s): string { return (string) base64_decode(strtr($s, '-_', '+/')); }
 
 // The signing secret never lives in the repo: it is generated once on the
-// server and kept outside the web root.
+// server. It must survive between requests, otherwise a token issued by
+// unlock.php cannot be verified by deck.php/media.php a second later.
+// Candidate locations, first writable wins: one level above the web root,
+// then /private (served 403 by .htaccess), then the system temp dir.
 function secret(): string {
-    $file = sys_get_temp_dir() . '/asimogg-secret-' . hash('crc32b', __DIR__) . '.key';
-    if (is_file($file) && filesize($file) >= 32) return (string) file_get_contents($file);
+    static $cached = null;
+    if ($cached !== null) return $cached;
+    $name = 'asimogg-secret-' . hash('crc32b', __DIR__) . '.key';
+    $candidates = [
+        dirname(__DIR__) . '/.' . $name,
+        __DIR__ . '/private/' . $name,
+        sys_get_temp_dir() . '/' . $name,
+    ];
+    foreach ($candidates as $file) {
+        if (is_file($file) && filesize($file) >= 32) return $cached = (string) file_get_contents($file);
+    }
     $k = bin2hex(random_bytes(32));
-    @file_put_contents($file, $k, LOCK_EX);
-    @chmod($file, 0600);
-    return $k;
+    foreach ($candidates as $file) {
+        if (@file_put_contents($file, $k, LOCK_EX) !== false) {
+            @chmod($file, 0600);
+            return $cached = $k;
+        }
+    }
+    // nothing writable: fall back to a per-install constant so tokens still verify
+    return $cached = hash('sha256', __DIR__ . '|' . php_uname('n') . '|' . settings()['google_client_id'] . '|' . (string) @filemtime(__FILE__));
 }
 
 function sign_token(array $claims): string {

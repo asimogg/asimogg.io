@@ -1026,7 +1026,14 @@ select:invalid {
   white-space: nowrap;
 }
 
+.chain-num.chain-num-sm .en,
+.chain-num.chain-num-sm .tr {
+  white-space: normal;
+}
+
 .chain-num.chain-num-sm {
+  white-space: normal;
+  line-height: 1.1;
   font-size: clamp(1.5rem, 2.1vw, 2rem);
 }
 
