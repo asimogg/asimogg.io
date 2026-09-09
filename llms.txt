@@ -18,7 +18,7 @@ Two research ideas became funded M-ERA.NET projects through a chain of Claude sk
 
 ## Other pages
 - Asimo Agent Map (multi-agent decision system, archify-rendered): https://asimogg.io/agentmap/
-- Masterclass (AI handbook workshop deck, EN/TR) and the Saphire film: open with Google sign-in from the homepage.
+- Masterclass (AI handbook workshop deck, EN/TR): opens from the homepage through an e-mailed link. The Saphire film plays freely from the homepage.
 - Privacy notice / KVKK: https://asimogg.io/privacy.html
 
 ## Attribution and scope

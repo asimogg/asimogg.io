@@ -159,13 +159,8 @@
   }
 
   function deliver(content, url) {
-    if (content === "masterclass") {
-      gaEvent("masterclass_open", { lang: currentLang() });
-      window.location.href = url;
-    } else {
-      gaEvent("saphire_play", { lang: currentLang() });
-      openVideo(url);
-    }
+    gaEvent("masterclass_open", { lang: currentLang() });
+    window.location.href = url;
   }
 
   function openGate(content, note) {
@@ -189,15 +184,10 @@
     if (first) setTimeout(function () { first.focus(); }, 50);
   }
 
-  // /?play=TOKEN is where a used film link lands: the session url is media.php?t=TOKEN
-  function sessionUrl(content, url) {
-    if (content === "saphire" && url.indexOf("?play=") !== -1) return "media.php?t=" + url.split("?play=")[1];
-    return url;
-  }
+  function sessionUrl(content, url) { return url; }
 
   if (gate && gateForm && typeof gate.showModal === "function") {
     document.getElementById("masterclass-link").addEventListener("click", function () { openGate("masterclass"); });
-    document.getElementById("saphire-link").addEventListener("click", function () { openGate("saphire"); });
     document.getElementById("gate-close").addEventListener("click", function () { gate.close(); });
     gate.addEventListener("click", function (e) {
       var r = gate.getBoundingClientRect();
@@ -238,20 +228,13 @@
 
     landing = function () {
       var params = new URLSearchParams(window.location.search);
-      // a used film link lands here with the session token: play straight away
-      var play = params.get("play");
-      if (play && /^[A-Za-z0-9_\-]+\.[A-Za-z0-9_\-]+$/.test(play)) {
-        history.replaceState(null, "", window.location.pathname);
-        rememberUnlock("saphire", "media.php?t=" + play);
-        deliver("saphire", unlocked.saphire);
-      }
       // sent back by deck.php / open.php when a link or session expired:
       // forget the cached session first, otherwise openGate would reuse it and loop
       var locked = params.get("locked");
-      if (locked === "masterclass" || locked === "saphire" || locked === "expired") {
+      if (locked === "masterclass" || locked === "expired") {
         history.replaceState(null, "", window.location.pathname);
-        forgetUnlock("masterclass"); forgetUnlock("saphire");
-        openGate(locked === "saphire" ? "saphire" : "masterclass", "expired");
+        forgetUnlock("masterclass");
+        openGate("masterclass", "expired");
       }
     };
   }
@@ -281,16 +264,12 @@
     var p = video.play();
     if (p && p.catch) p.catch(function () { /* autoplay blocked: user presses play */ });
   }
-  // media.php answered 403 (expired or unverifiable token): drop the cached
-  // link and ask for a fresh sign-in instead of showing a dead player
-  if (video) {
-    video.addEventListener("error", function () {
-      if (!modal.open || !video.getAttribute("src")) return;
-      video.removeAttribute("src");
-      video.load();
-      modal.close();
-      forgetUnlock("saphire");
-      openGate("saphire");
+  // the film is open to everyone: the nav button plays it straight away
+  var filmLink = document.getElementById("saphire-link");
+  if (filmLink && modal) {
+    filmLink.addEventListener("click", function () {
+      gaEvent("saphire_play", { lang: currentLang() });
+      openVideo("media.php");
     });
   }
   function closeVideo() {

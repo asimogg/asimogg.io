@@ -1,10 +1,13 @@
 <?php
-// Streams the Saphire film from /private only with a valid unlock token.
-// Supports HTTP Range requests so the <video> element can seek.
+// Streams the Saphire film from /private. Open to everyone who plays it from a
+// page on this site; direct visits and hotlinks from elsewhere get 403 (the same
+// rule .htaccess applies to /assets media). Supports HTTP Range requests so the
+// <video> element can seek.
 require __DIR__ . '/lib.php';
 
-$token = (string) ($_GET['t'] ?? '');
-if (settings()['gate'] !== 'off' && !verify_token($token, 'saphire')) {
+$host = strtolower((string) preg_replace('/:\d+$/', '', $_SERVER['HTTP_HOST'] ?? ''));
+$ref  = strtolower((string) parse_url($_SERVER['HTTP_REFERER'] ?? '', PHP_URL_HOST));
+if ($host === '' || $ref === '' || ($ref !== $host && $ref !== 'www.' . $host)) {
     http_response_code(403);
     exit;
 }

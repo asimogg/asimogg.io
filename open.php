@@ -6,7 +6,7 @@ require __DIR__ . '/lib.php';
 $cfg    = settings();
 $token  = (string) ($_GET['t'] ?? '');
 $claims = null;
-foreach (['masterclass', 'saphire'] as $c) {
+foreach (['masterclass'] as $c) {
     if (($claims = verify_token($token, $c, 'link')) !== null) break;
 }
 if ($claims === null) {

@@ -1,5 +1,5 @@
 <?php
-// Magic-link gate for the Masterclass and the Saphire film.
+// Magic-link gate for the Masterclass.
 // POST {content, name, email, consent, _language} -> e-mails the visitor a
 // short-lived signed link (open.php?t=...). Nothing is recorded until the link
 // is used, so every lead that reaches the inbox has a verified address.
@@ -13,7 +13,7 @@ same_origin_or_die();
 $cfg     = settings();
 $content = (string) ($_POST['content'] ?? '');
 $lang    = ($_POST['_language'] ?? 'en') === 'tr' ? 'tr' : 'en';
-if (!in_array($content, ['masterclass', 'saphire'], true)) json_out(422, ['ok' => false, 'error' => 'content']);
+if (!in_array($content, ['masterclass'], true)) json_out(422, ['ok' => false, 'error' => 'content']);
 
 if ($cfg['gate'] === 'off') {
     // gate switched off: content stays reachable, no lead is recorded
