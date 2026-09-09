@@ -65,7 +65,7 @@
   </script>
   <link rel="preload" href="fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/archivo-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=32">
+  <link rel="stylesheet" href="styles.css?v=33">
 </head>
 <body class="entrance">
 <!--
@@ -413,15 +413,13 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
           <div class="chain-skills"><span class="skill" data-skill="asimo-marketing">asimo-marketing</span><span class="skill" data-skill="asimo-software">asimo-software</span><span class="skill" data-skill="security-review">security-review</span><span class="skill" data-skill="impeccable">impeccable ↗</span><span class="skill" data-skill="higgsfield">Higgsfield MCP ↗</span></div>
           <h3><span class="en">Two project websites</span><span class="tr">İki proje web sitesi</span></h3>
           <p><span class="en">asimo-marketing wrote the positioning; asimo-software scoped both sites and shipped them through the gstack factory with a security review; impeccable drove the design and Higgsfield produced the visuals — live, linked below.</span><span class="tr">asimo-marketing konumlandırmayı yazdı; asimo-software iki siteyi kapsamlayıp gstack fabrikasında güvenlik incelemesiyle yayına aldı; tasarımı impeccable, görselleri Higgsfield üretti — ikisi de yayında, aşağıda bağlı.</span></p>
-          <div class="chain-sites">
-            <a class="site-card" href="https://www.stf4sw.eu/" target="_blank" rel="noopener">
-              <img src="assets/stf4sw-thumb.jpg" alt="stf4sw.eu website" loading="lazy" width="1280" height="800">
-              <span class="site-name">stf4sw.eu ↗</span>
-            </a>
-            <a class="site-card" href="https://nipure.eu/" target="_blank" rel="noopener">
-              <img src="assets/nipure-thumb.jpg" alt="nipure.eu website" loading="lazy" width="1280" height="800">
-              <span class="site-name">nipure.eu ↗</span>
-            </a>
+          <div class="cmp" data-cmp>
+            <img class="cmp-a" src="assets/stf4sw-thumb.jpg" alt="stf4sw.eu website" loading="lazy" width="1280" height="800">
+            <div class="cmp-b"><img src="assets/nipure-thumb.jpg" alt="nipure.eu website" loading="lazy" width="1280" height="800"></div>
+            <div class="cmp-handle" aria-hidden="true"><span></span></div>
+            <input class="cmp-range" type="range" min="0" max="100" value="50" aria-label="Slide to compare the STF4SW and NiPure websites">
+            <a class="cmp-tag cmp-tag-a" href="https://www.stf4sw.eu/" target="_blank" rel="noopener">stf4sw.eu ↗</a>
+            <a class="cmp-tag cmp-tag-b" href="https://nipure.eu/" target="_blank" rel="noopener">nipure.eu ↗</a>
           </div>
         </li>
 
@@ -460,7 +458,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
                 <li class="chain-step chain-result">
                   <div class="chain-skills"><span class="skill skill-result"><span class="en">Outcome</span><span class="tr">Sonuç</span></span></div>
                   <div class="chain-num chain-num-sm"><span class="en">0 shooting days</span><span class="tr">0 çekim günü</span></div>
-                  <p><span class="en">From idea to screening in <b>[hours — to fill]</b>; a 30 s film and a poster, opened here with a Google sign-in.</span><span class="tr">Fikirden gösterime <b>[süre — doldurulacak]</b>; 30 sn film ve poster, burada Google girişiyle açılıyor.</span></p>
+                  <p><span class="en">From idea to screening in <b>[hours — to fill]</b>; a 30 s film and a poster, opened here with an e-mail link.</span><span class="tr">Fikirden gösterime <b>[süre — doldurulacak]</b>; 30 sn film ve poster, burada e-posta bağlantısıyla açılıyor.</span></p>
                 </li>
               </ol>
             </article>
@@ -470,8 +468,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
                 <span class="tr">Bu web sitesi de aynı yöntemle yapıldı</span>
               </h3>
               <p class="usecase-intro">
-                <span class="en">One brief. A design system and a bilingual page, gated content behind Google sign-in, a form, analytics with consent, KVKK, a security pass, four browsers — then GitHub → Hostinger, automatically.</span>
-                <span class="tr">Tek brief. Tasarım sistemi ve iki dilli sayfa, Google girişiyle kapılı içerik, form, rızalı analitik, KVKK, güvenlik taraması, dört tarayıcı — sonra GitHub → Hostinger, otomatik.</span>
+                <span class="en">One brief. A design system and a bilingual page, gated content behind an e-mail link, a form, analytics with consent, KVKK, a security pass, four browsers — then GitHub → Hostinger, automatically.</span>
+                <span class="tr">Tek brief. Tasarım sistemi ve iki dilli sayfa, e-posta bağlantısıyla kapılı içerik, form, rızalı analitik, KVKK, güvenlik taraması, dört tarayıcı — sonra GitHub → Hostinger, otomatik.</span>
               </p>
               <ol class="chain">
                 <li class="chain-step">
@@ -482,7 +480,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
                 <li class="chain-step">
                   <div class="chain-skills"><span class="skill" data-skill="asimo-software">asimo-software</span></div>
                   <h3><span class="en">Gate, form, analytics, KVKK</span><span class="tr">Kapı, form, analitik, KVKK</span></h3>
-                  <p><span class="en">Google sign-in with server-side verification, a form that mails, analytics only after consent, a privacy notice — all on plain PHP, no framework.</span><span class="tr">Sunucuda doğrulanan Google girişi, e-posta gönderen form, yalnızca rızadan sonra analitik, aydınlatma metni — hepsi düz PHP, framework yok.</span></p>
+                  <p><span class="en">An e-mail magic link with server-signed tokens, a form that mails, analytics only after consent, a privacy notice — all on plain PHP, no framework.</span><span class="tr">Sunucuda imzalanan e-posta bağlantısı, e-posta gönderen form, yalnızca rızadan sonra analitik, aydınlatma metni — hepsi düz PHP, framework yok.</span></p>
                 </li>
                 <li class="chain-step">
                   <div class="chain-skills"><span class="skill" data-skill="security-review">security-review</span><span class="skill">gstack</span></div>
@@ -637,7 +635,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
     </p>
   </dialog>
 
-  <!-- Google Sign-In gate: Masterclass and the film open after a verified Google login -->
+  <!-- Magic-link gate: Masterclass and the film open through a link sent by e-mail -->
   <dialog class="video-modal gate-modal" id="gate-modal" aria-labelledby="gate-title">
     <button type="button" class="video-close" id="gate-close" aria-label="Close">
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
@@ -646,22 +644,46 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
     </button>
     <div class="gate-body">
       <h2 class="gate-title" id="gate-title">
-        <span class="en">Open with Google</span>
-        <span class="tr">Google ile aç</span>
+        <span class="en">Open with an e-mail link</span>
+        <span class="tr">E-posta bağlantısıyla aç</span>
       </h2>
       <p class="gate-text" data-content="masterclass">
-        <span class="en">The Masterclass is free. Sign in with Google once and it opens — I only learn your name and e-mail, nothing else is stored.</span>
-        <span class="tr">Masterclass ücretsiz. Google ile bir kez giriş yap, açılsın — yalnızca adın ve e-postan bana ulaşır, başka hiçbir şey saklanmaz.</span>
+        <span class="en">The Masterclass is free. Leave your name and e-mail and a link arrives in your inbox within a minute; it opens the deck in this browser and stays valid for 30 minutes.</span>
+        <span class="tr">Masterclass ücretsiz. Adını ve e-postanı bırak, bir dakika içinde e-postana bir bağlantı gelsin; bağlantı deck'i bu tarayıcıda açar ve 30 dakika geçerli kalır.</span>
       </p>
       <p class="gate-text" data-content="saphire">
-        <span class="en">The Saphire film is free to watch. Sign in with Google once and it plays — I only learn your name and e-mail, nothing else is stored.</span>
-        <span class="tr">Saphire filmi ücretsiz. Google ile bir kez giriş yap, oynasın — yalnızca adın ve e-postan bana ulaşır, başka hiçbir şey saklanmaz.</span>
+        <span class="en">The Saphire film is free to watch. Leave your name and e-mail and a link arrives in your inbox within a minute; it plays the film here and stays valid for 30 minutes.</span>
+        <span class="tr">Saphire filmi ücretsiz. Adını ve e-postanı bırak, bir dakika içinde e-postana bir bağlantı gelsin; bağlantı filmi burada oynatır ve 30 dakika geçerli kalır.</span>
       </p>
-      <div class="gate-button" id="gate-button"></div>
-      <p class="gate-status" id="gate-status" role="status" aria-live="polite"></p>
+      <form class="gate-form" id="gate-form" action="unlock.php" method="POST" novalidate>
+        <div class="field">
+          <label for="g-name"><span class="en">Name</span><span class="tr">Ad Soyad</span> <span class="req" aria-hidden="true">*</span></label>
+          <input id="g-name" name="name" type="text" required autocomplete="name" placeholder="Your full name" data-ph-en="Your full name" data-ph-tr="Adınız soyadınız">
+        </div>
+        <div class="field">
+          <label for="g-email"><span class="en">Email</span><span class="tr">E-posta</span> <span class="req" aria-hidden="true">*</span></label>
+          <input id="g-email" name="email" type="email" required autocomplete="email" placeholder="you@company.com" data-ph-en="you@company.com" data-ph-tr="siz@sirket.com">
+        </div>
+        <label class="consent-check">
+          <input type="checkbox" name="consent" value="yes" required>
+          <span><span class="en">I have read the <a href="privacy.html" target="_blank" rel="noopener">privacy notice</a> and give explicit consent to my name and e-mail being sent to hello@asimogg.io and stored on Google servers abroad.</span><span class="tr"><a href="privacy.html" target="_blank" rel="noopener">KVKK aydınlatma metnini</a> okudum; ad ve e-postamın hello@asimogg.io adresine iletilmesine ve yurt dışındaki Google sunucularında saklanmasına açık rıza veriyorum.</span></span>
+        </label>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" value="">
+        <button class="btn btn-primary btn-submit gate-submit" type="submit">
+          <span class="btn-label">
+            <span class="en">Send me the link</span>
+            <span class="tr">Bağlantıyı gönder</span>
+          </span>
+          <span class="btn-busy" aria-hidden="true">
+            <span class="en">Sending…</span>
+            <span class="tr">Gönderiliyor…</span>
+          </span>
+        </button>
+        <p class="gate-status" id="gate-status" role="status" aria-live="polite"></p>
+      </form>
       <p class="gate-fine">
-        <span class="en">By signing in you give explicit consent to your name and e-mail being sent to hello@asimogg.io and stored on Google servers abroad, as described in the <a href="privacy.html" target="_blank" rel="noopener">privacy notice</a>.</span>
-        <span class="tr">Giriş yaparak ad ve e-postanın hello@asimogg.io adresine iletilmesine ve <a href="privacy.html" target="_blank" rel="noopener">KVKK aydınlatma metninde</a> açıklandığı şekilde yurt dışındaki Google sunucularında saklanmasına açık rıza vermiş olursun.</span>
+        <span class="en">One e-mail, no newsletter. A verified address is what lets me follow up with you about the material.</span>
+        <span class="tr">Tek bir e-posta, bülten yok. Doğrulanmış adres, materyal hakkında seninle iletişime geçebilmemi sağlar.</span>
       </p>
     </div>
   </dialog>
@@ -685,7 +707,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   </div>
 
   <script src="config.php"></script>
-  <script src="script.js?v=23"></script>
+  <script src="script.js?v=24"></script>
   <script src="skills.js?v=4"></script>
 </body>
 </html>

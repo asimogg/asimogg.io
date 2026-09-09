@@ -1,79 +1,82 @@
 <?php
-// Google Sign-In gate for Masterclass and the Saphire film.
-// POST {credential, content, lang} -> verifies the Google ID token, records the
-// lead (mail + Google Sheet), returns a short-lived signed URL for the content.
+// Magic-link gate for the Masterclass and the Saphire film.
+// POST {content, name, email, consent, _language} -> e-mails the visitor a
+// short-lived signed link (open.php?t=...). Nothing is recorded until the link
+// is used, so every lead that reaches the inbox has a verified address.
+// While settings()['gate'] is 'off', a session link is returned directly.
 
 require __DIR__ . '/lib.php';
 
 if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') json_out(405, ['ok' => false, 'error' => 'method']);
 same_origin_or_die();
-rate_limit('unlock', 20, 3600);
 
-$cfg      = settings();
-$content  = $_POST['content'] ?? '';
-$lang     = ($_POST['_language'] ?? 'en') === 'tr' ? 'tr' : 'en';
-$deckLang = ($_POST['deck'] ?? 'en') === 'tr' ? 'tr' : 'en';
+$cfg     = settings();
+$content = (string) ($_POST['content'] ?? '');
+$lang    = ($_POST['_language'] ?? 'en') === 'tr' ? 'tr' : 'en';
 if (!in_array($content, ['masterclass', 'saphire'], true)) json_out(422, ['ok' => false, 'error' => 'content']);
 
-$name = '';
-$email = '';
+if ($cfg['gate'] === 'off') {
+    // gate switched off: content stays reachable, no lead is recorded
+    $token = sign_token(['c' => $content, 'e' => '', 'm' => 'open']);
+    json_out(200, ['ok' => true, 'mode' => 'open', 'url' => content_url($content, $token, $lang)]);
+}
 
-if ($cfg['google_client_id'] === '') {
-    // gate not configured yet: content stays reachable, no lead is recorded
-    $mode = 'open';
+// honeypot: real visitors never fill this hidden field
+if (!empty($_POST['_gotcha'])) json_out(200, ['ok' => true, 'mode' => 'magic']);
+
+rate_limit('unlock', 5, 3600);
+
+$name  = trim(preg_replace('/\s+/u', ' ', preg_replace('/\p{C}/u', '', (string) ($_POST['name'] ?? ''))) ?? '');
+$name  = mb_substr($name, 0, 200);
+$email = mb_substr(trim((string) ($_POST['email'] ?? '')), 0, 254);
+
+if (($_POST['consent'] ?? '') !== 'yes') json_out(422, ['ok' => false, 'error' => 'consent']);
+if ($name === '' || !filter_var($email, FILTER_VALIDATE_EMAIL) || preg_match('/[\r\n]/', $email)) {
+    json_out(422, ['ok' => false, 'error' => 'validation']);
+}
+
+// at most 3 links per address per hour, whatever the IP
+$bucket = sys_get_temp_dir() . '/asimogg-link-' . hash('sha256', strtolower($email)) . '.json';
+$now = time(); $hits = [];
+if (is_file($bucket)) {
+    $hits = json_decode((string) file_get_contents($bucket), true) ?: [];
+    $hits = array_values(array_filter($hits, fn($t) => is_int($t) && $t > $now - 3600));
+}
+if (count($hits) >= 3) json_out(429, ['ok' => false, 'error' => 'rate']);
+
+$token = sign_token([
+    'c' => $content, 'e' => $email, 'n' => $name, 'l' => $lang, 'm' => 'link',
+    'exp' => $now + (int) $cfg['link_ttl'],
+]);
+$link  = site_url() . '/open.php?t=' . $token;
+$mins  = (int) round($cfg['link_ttl'] / 60);
+$label = $content === 'masterclass' ? 'Masterclass' : ($lang === 'tr' ? 'Saphire filmi' : 'Saphire film');
+
+if ($lang === 'tr') {
+    $subject = "$label açılış bağlantın — asimogg.io";
+    $body = "Merhaba $name,\n\n"
+          . "$label için açılış bağlantın aşağıda. Bağlantı $mins dakika geçerli; tıkladığında içerik tarayıcında açılır.\n\n"
+          . "$link\n\n"
+          . "Bu isteği sen yapmadıysan bu e-postayı yok sayabilirsin; bağlantı kullanılmadan kendiliğinden geçersiz olur.\n\n"
+          . "asimogg.io\n";
 } else {
-    $credential = (string) ($_POST['credential'] ?? '');
-    if ($credential === '' || strlen($credential) > 4096) json_out(422, ['ok' => false, 'error' => 'credential']);
-
-    $info = http_get_json('https://oauth2.googleapis.com/tokeninfo?id_token=' . rawurlencode($credential));
-    if (!$info
-        || ($info['aud'] ?? '') !== $cfg['google_client_id']
-        || !in_array($info['iss'] ?? '', ['accounts.google.com', 'https://accounts.google.com'], true)
-        || (int) ($info['exp'] ?? 0) < time()
-        || ($info['email_verified'] ?? 'false') !== 'true') {
-        json_out(401, ['ok' => false, 'error' => 'google']);
-    }
-    $email = mb_substr((string) $info['email'], 0, 254);
-    $name  = mb_substr(trim(preg_replace('/\s+/u', ' ', (string) ($info['name'] ?? ''))), 0, 200);
-    $mode  = 'google';
+    $subject = "Your $label link — asimogg.io";
+    $body = "Hello $name,\n\n"
+          . "Here is your link for the $label. It is valid for $mins minutes; the content opens in your browser when you click it.\n\n"
+          . "$link\n\n"
+          . "If you did not request this, ignore this e-mail; the link expires by itself.\n\n"
+          . "asimogg.io\n";
 }
 
-$token = sign_token(['c' => $content, 'e' => $email, 'm' => $mode]);
-$url   = $content === 'masterclass'
-    ? 'deck.php?l=' . $deckLang . '&t=' . $token
-    : 'media.php?t=' . $token;
+$headers = [
+    'From: asimogg.io <form@asimogg.io>',
+    'MIME-Version: 1.0',
+    'Content-Type: text/plain; charset=UTF-8',
+    'Content-Transfer-Encoding: 8bit',
+];
+$sent = @mail($email, '=?UTF-8?B?' . base64_encode($subject) . '?=', $body, implode("\r\n", $headers));
+if (!$sent) json_out(500, ['ok' => false, 'error' => 'mail']);
 
-if ($mode === 'google') {
-    $ip    = $_SERVER['REMOTE_ADDR'] ?? '';
-    $when  = date('Y-m-d H:i:s');
-    $label = $content === 'masterclass' ? 'Masterclass' : "Saphire film";
-
-    // 1) notify by mail
-    $subject = '=?UTF-8?B?' . base64_encode("Yeni izleyici: $label — $name") . '?=';
-    $body = "İçerik açıldı / Content unlocked\n"
-          . "----------------------------------\n"
-          . "İçerik   : $label\n"
-          . "Ad       : $name\n"
-          . "E-posta  : $email\n"
-          . "Dil      : $lang\n"
-          . "IP       : $ip\n"
-          . "Zaman    : $when\n";
-    $headers = [
-        'From: asimogg.io <form@asimogg.io>',
-        'Cc: ' . $cfg['lead_cc'],
-        'MIME-Version: 1.0',
-        'Content-Type: text/plain; charset=UTF-8',
-        'Content-Transfer-Encoding: 8bit',
-    ];
-    @mail($cfg['lead_to'], $subject, $body, implode("\r\n", $headers));
-
-    // 2) append to the Google Sheet
-    if ($cfg['sheets_webhook'] !== '') {
-        http_post_json($cfg['sheets_webhook'], [
-            'key' => $cfg['sheets_key'],
-            'row' => [$when, $name, $email, $label, $lang, $ip],
-        ]);
-    }
-}
-
-json_out(200, ['ok' => true, 'url' => $url, 'mode' => $mode]);
+$hits[] = $now;
+@file_put_contents($bucket, json_encode($hits), LOCK_EX);
+json_out(200, ['ok' => true, 'mode' => 'magic', 'minutes' => $mins]);

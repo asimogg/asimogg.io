@@ -7,10 +7,12 @@ return [
     //    Leave empty to keep analytics off.
     'ga_id' => 'G-G4CR2DFRCW',
 
-    // 2. Google Sign-In: OAuth 2.0 Web client id from console.cloud.google.com
-    //    (e.g. "1234567890-abc.apps.googleusercontent.com").
-    //    While empty, Masterclass and the Saphire film open without the gate.
-    'google_client_id' => '671184599562-7269gb6quphcrud402m47g6aabqerfbj.apps.googleusercontent.com',
+    // 2. Content gate for the Masterclass and the Saphire film.
+    //    'magic' = the visitor enters name + e-mail and receives a short-lived
+    //    link by e-mail (a verified lead is recorded when the link is used).
+    //    'off'   = content opens directly, no lead is recorded.
+    'gate'     => 'magic',
+    'link_ttl' => 1800,   // e-mailed link validity (seconds)
 
     // 3. Google Sheets: Apps Script web-app URL that appends a row per unlock
     //    (see tools/sheets-webhook.gs). Leave empty to skip the sheet.
@@ -21,6 +23,6 @@ return [
     'lead_to' => 'hello@asimogg.io',
     'lead_cc' => 'asimize@gmail.com',
 
-    // How long an unlock link stays valid (seconds)
+    // How long the session lasts after the link was used (seconds)
     'token_ttl' => 43200,
 ];

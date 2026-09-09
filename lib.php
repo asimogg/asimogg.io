@@ -46,7 +46,7 @@ function secret(): string {
         }
     }
     // nothing writable: fall back to a per-install constant so tokens still verify
-    return $cached = hash('sha256', __DIR__ . '|' . php_uname('n') . '|' . settings()['google_client_id'] . '|' . (string) @filemtime(__FILE__));
+    return $cached = hash('sha256', __DIR__ . '|' . php_uname('n') . '|' . settings()['gate'] . '|' . (string) @filemtime(__FILE__));
 }
 
 function sign_token(array $claims): string {
@@ -55,7 +55,7 @@ function sign_token(array $claims): string {
     return $body . '.' . b64url(hash_hmac('sha256', $body, secret(), true));
 }
 
-function verify_token(string $token, string $content): ?array {
+function verify_token(string $token, string $content, string $mode = 'session'): ?array {
     $parts = explode('.', $token, 2);
     if (count($parts) !== 2) return null;
     [$body, $sig] = $parts;
@@ -65,10 +65,25 @@ function verify_token(string $token, string $content): ?array {
     if (!is_array($claims)) return null;
     if (($claims['c'] ?? '') !== $content) return null;
     if ((int) ($claims['exp'] ?? 0) < time()) return null;
-    // a token issued while the gate was off stops working once the gate is on
-    $needMode = settings()['google_client_id'] !== '' ? 'google' : 'open';
+    // 'link' = e-mailed magic link (short), 'session' = minted after the link
+    // was used (long); 'open' = issued while the gate is off. A token issued
+    // while the gate was off stops working once the gate is on, and vice versa.
+    $needMode = settings()['gate'] === 'off' ? 'open' : $mode;
     if (($claims['m'] ?? '') !== $needMode) return null;
     return $claims;
+}
+
+// Where the content lives once a session token exists.
+function content_url(string $content, string $token, string $lang): string {
+    return $content === 'masterclass'
+        ? 'deck.php?l=' . ($lang === 'tr' ? 'tr' : 'en') . '&t=' . $token
+        : '/?play=' . $token;
+}
+
+function site_url(): string {
+    $host = strtolower((string) preg_replace('/[^a-z0-9.\-:]/i', '', $_SERVER['HTTP_HOST'] ?? 'asimogg.io'));
+    $https = (($_SERVER['HTTPS'] ?? '') === 'on') || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https');
+    return ($https ? 'https' : 'http') . '://' . $host;
 }
 
 function same_origin_or_die(): string {

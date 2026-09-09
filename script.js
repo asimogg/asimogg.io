@@ -75,7 +75,7 @@
     s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(CFG.gaId);
     document.head.appendChild(s);
   }
-  function track(name, params) {
+  function gaEvent(name, params) {
     if (gaLoaded && window.gtag) window.gtag("event", name, params || {});
   }
   if (CFG.gaId && consentBar) {
@@ -104,13 +104,14 @@
     document.getElementById("consent-no").addEventListener("click", function () { decide("no"); });
   }
 
-  /* ---------- Google Sign-In gate ---------- */
+  /* ---------- Magic-link gate (Masterclass, Saphire film) ---------- */
   var gate = document.getElementById("gate-modal");
-  var gateBtn = document.getElementById("gate-button");
+  var gateForm = document.getElementById("gate-form");
   var gateStatus = document.getElementById("gate-status");
+  var gateSubmit = gateForm ? gateForm.querySelector(".btn-submit") : null;
   var gateContent = null;
-  var gsiReady = false;
-  var unlocked = {}; // content -> signed url for this session
+  var landing = null; // runs once the video popup below is wired up
+  var unlocked = {}; // content -> session url for this browser session
 
   try {
     var saved = sessionStorage.getItem("unlocked");
@@ -121,97 +122,80 @@
     unlocked[content] = url;
     try { sessionStorage.setItem("unlocked", JSON.stringify(unlocked)); } catch (e) { /* ignore */ }
   }
-
-  function gateSay(state, text) {
-    gateStatus.dataset.state = state;
-    gateStatus.textContent = text;
+  function forgetUnlock(content) {
+    delete unlocked[content];
+    try { sessionStorage.setItem("unlocked", JSON.stringify(unlocked)); } catch (e) { /* ignore */ }
   }
 
-  function requestUnlock(content, credential) {
+  var GATE_MSG = {
+    en: {
+      sent: "Done — the link is in your inbox. It is valid for {m} minutes; check spam if it doesn't show up.",
+      invalid: "Please enter your name, a valid e-mail and tick the consent box.",
+      rate: "Too many links requested — please try again in an hour.",
+      error: "The link could not be sent. Please try again in a minute.",
+      expired: "That link has expired. Enter your e-mail and I'll send a fresh one."
+    },
+    tr: {
+      sent: "Tamam — bağlantı e-postana gönderildi. {m} dakika geçerli; gelmezse spam klasörüne bak.",
+      invalid: "Lütfen adını, geçerli bir e-posta adresini yaz ve rıza kutusunu işaretle.",
+      rate: "Çok fazla bağlantı istendi — lütfen bir saat sonra tekrar dene.",
+      error: "Bağlantı gönderilemedi. Lütfen bir dakika sonra tekrar dene.",
+      expired: "Bu bağlantının süresi dolmuş. E-postanı yaz, yenisini göndereyim."
+    }
+  };
+
+  function gateSay(state, key, minutes) {
+    gateStatus.dataset.state = state;
+    gateStatus.textContent = key ? GATE_MSG[currentLang()][key].replace("{m}", String(minutes || 30)) : "";
+  }
+
+  function requestUnlock(content, fields) {
     var body = new FormData();
     body.append("content", content);
     body.append("_language", currentLang());
-    body.append("deck", currentLang());
-    if (credential) body.append("credential", credential);
+    if (fields) fields.forEach(function (f) { body.append(f[0], f[1]); });
     return fetch("unlock.php", { method: "POST", body: body, headers: { Accept: "application/json" } })
       .then(function (r) { return r.json().then(function (j) { j.status = r.status; return j; }); });
   }
 
   function deliver(content, url) {
     if (content === "masterclass") {
-      track("masterclass_open", { lang: currentLang() });
+      gaEvent("masterclass_open", { lang: currentLang() });
       window.location.href = url;
     } else {
-      track("saphire_play", { lang: currentLang() });
+      gaEvent("saphire_play", { lang: currentLang() });
       openVideo(url);
     }
   }
 
-  function loadGsi(cb) {
-    if (window.google && window.google.accounts) { cb(); return; }
-    var s = document.createElement("script");
-    s.src = "https://accounts.google.com/gsi/client";
-    s.async = true;
-    s.onload = cb;
-    s.onerror = function () {
-      gateSay("error", currentLang() === "tr"
-        ? "Google girişi yüklenemedi. Lütfen tekrar deneyin."
-        : "Google sign-in could not load. Please try again.");
-    };
-    document.head.appendChild(s);
-  }
-
-  function onCredential(resp) {
-    gateSay("", currentLang() === "tr" ? "Doğrulanıyor…" : "Verifying…");
-    requestUnlock(gateContent, resp.credential).then(function (j) {
-      if (!j.ok) throw new Error(j.error || "unlock");
-      rememberUnlock(gateContent, j.url);
-      gate.close();
-      deliver(gateContent, j.url);
-    }).catch(function () {
-      gateSay("error", currentLang() === "tr"
-        ? "Giriş doğrulanamadı. Lütfen tekrar deneyin."
-        : "Sign-in could not be verified. Please try again.");
-    });
-  }
-
-  function renderGoogleButton() {
-    if (!gsiReady) {
-      window.google.accounts.id.initialize({
-        client_id: CFG.googleClientId,
-        callback: onCredential,
-        ux_mode: "popup",
-        auto_select: false
-      });
-      gsiReady = true;
-    }
-    gateBtn.innerHTML = "";
-    window.google.accounts.id.renderButton(gateBtn, {
-      theme: "filled_black", size: "large", shape: "pill", text: "continue_with",
-      locale: currentLang() === "tr" ? "tr" : "en", width: 280
-    });
-  }
-
-  function openGate(content) {
+  function openGate(content, note) {
     if (unlocked[content]) { deliver(content, unlocked[content]); return; }
 
-    // gate not configured on the server yet: ask for a plain unlock
-    if (!CFG.googleClientId) {
+    // gate switched off on the server: ask for a plain session link
+    if (CFG.gate === "off") {
       requestUnlock(content).then(function (j) {
-        if (j.ok) { rememberUnlock(content, j.url); deliver(content, j.url); }
+        if (j.ok) { rememberUnlock(content, sessionUrl(content, j.url)); deliver(content, unlocked[content]); }
       });
       return;
     }
 
     gateContent = content;
     gate.dataset.content = content;
-    gateSay("", "");
-    gateBtn.textContent = "…";
+    gateForm.reset();
+    gateForm.querySelectorAll("[aria-invalid]").forEach(function (f) { f.removeAttribute("aria-invalid"); });
+    gateSay(note ? "error" : "", note || null);
     gate.showModal();
-    loadGsi(renderGoogleButton);
+    var first = gateForm.querySelector("input[name=name]");
+    if (first) setTimeout(function () { first.focus(); }, 50);
   }
 
-  if (gate && typeof gate.showModal === "function") {
+  // /?play=TOKEN is where a used film link lands: the session url is media.php?t=TOKEN
+  function sessionUrl(content, url) {
+    if (content === "saphire" && url.indexOf("?play=") !== -1) return "media.php?t=" + url.split("?play=")[1];
+    return url;
+  }
+
+  if (gate && gateForm && typeof gate.showModal === "function") {
     document.getElementById("masterclass-link").addEventListener("click", function () { openGate("masterclass"); });
     document.getElementById("saphire-link").addEventListener("click", function () { openGate("saphire"); });
     document.getElementById("gate-close").addEventListener("click", function () { gate.close(); });
@@ -221,20 +205,65 @@
       if (!inside) gate.close();
     });
 
-    // sent back here by deck.php when a link expired or failed to verify:
-    // forget the cached link first, otherwise openGate would reuse it and loop
-    var locked = new URLSearchParams(window.location.search).get("locked");
-    if (locked === "masterclass" || locked === "saphire") {
-      history.replaceState(null, "", window.location.pathname);
-      forgetUnlock(locked);
-      openGate(locked);
-    }
+    gateForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      gateSay("", null);
+      var invalid = false;
+      gateForm.querySelectorAll("[required]").forEach(function (field) {
+        var bad = !field.checkValidity();
+        field.setAttribute("aria-invalid", String(bad));
+        if (bad) invalid = true;
+      });
+      if (invalid) { gateSay("error", "invalid"); return; }
+
+      gateSubmit.dataset.busy = "true";
+      gateSubmit.disabled = true;
+      var fields = [
+        ["name", gateForm.elements.name.value],
+        ["email", gateForm.elements.email.value],
+        ["consent", gateForm.elements.consent.checked ? "yes" : ""],
+        ["_gotcha", gateForm.elements._gotcha.value]
+      ];
+      requestUnlock(gateContent, fields).then(function (j) {
+        if (!j.ok) throw j;
+        gaEvent("gate_link_sent", { content: gateContent, lang: currentLang() });
+        gateSay("ok", "sent", j.minutes);
+      }).catch(function (j) {
+        gateSay("error", j && j.status === 429 ? "rate" : (j && j.error === "validation" ? "invalid" : "error"));
+      }).then(function () {
+        delete gateSubmit.dataset.busy;
+        gateSubmit.disabled = false;
+      });
+    });
+
+    landing = function () {
+      var params = new URLSearchParams(window.location.search);
+      // a used film link lands here with the session token: play straight away
+      var play = params.get("play");
+      if (play && /^[A-Za-z0-9_\-]+\.[A-Za-z0-9_\-]+$/.test(play)) {
+        history.replaceState(null, "", window.location.pathname);
+        rememberUnlock("saphire", "media.php?t=" + play);
+        deliver("saphire", unlocked.saphire);
+      }
+      // sent back by deck.php / open.php when a link or session expired:
+      // forget the cached session first, otherwise openGate would reuse it and loop
+      var locked = params.get("locked");
+      if (locked === "masterclass" || locked === "saphire" || locked === "expired") {
+        history.replaceState(null, "", window.location.pathname);
+        forgetUnlock("masterclass"); forgetUnlock("saphire");
+        openGate(locked === "saphire" ? "saphire" : "masterclass", "expired");
+      }
+    };
   }
 
-  function forgetUnlock(content) {
-    delete unlocked[content];
-    try { sessionStorage.setItem("unlocked", JSON.stringify(unlocked)); } catch (e) { /* ignore */ }
-  }
+  /* ---------- before/after comparison sliders ---------- */
+  document.querySelectorAll("[data-cmp]").forEach(function (cmp) {
+    var range = cmp.querySelector(".cmp-range");
+    if (!range) return;
+    function set() { cmp.style.setProperty("--pos", range.value + "%"); }
+    range.addEventListener("input", set);
+    set();
+  });
 
   /* ---------- Saphire video popup ---------- */
   var modal = document.getElementById("saphire-modal");
@@ -347,6 +376,9 @@
   document.querySelectorAll("[data-year]").forEach(function (el) {
     el.textContent = String(new Date().getFullYear());
   });
+
+  // deep links (?play=, ?locked=) need the popup above, so they run last
+  if (landing) landing();
 
   /* ---------- inquiry form ---------- */
   var form = document.getElementById("inquiry-form");

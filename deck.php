@@ -5,7 +5,7 @@ require __DIR__ . '/lib.php';
 $lang  = ($_GET['l'] ?? 'en') === 'tr' ? 'tr' : 'en';
 $token = (string) ($_GET['t'] ?? '');
 
-if (settings()['google_client_id'] !== '' && !verify_token($token, 'masterclass')) {
+if (settings()['gate'] !== 'off' && !verify_token($token, 'masterclass')) {
     header('Location: /?locked=masterclass', true, 302);
     exit;
 }

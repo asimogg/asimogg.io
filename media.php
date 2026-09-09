@@ -4,7 +4,7 @@
 require __DIR__ . '/lib.php';
 
 $token = (string) ($_GET['t'] ?? '');
-if (settings()['google_client_id'] !== '' && !verify_token($token, 'saphire')) {
+if (settings()['gate'] !== 'off' && !verify_token($token, 'saphire')) {
     http_response_code(403);
     exit;
 }
