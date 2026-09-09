@@ -87,7 +87,7 @@ $body = "Yeni form gönderimi / New inquiry\n"
       . ($message !== '' ? $message : '(mesaj boş / no message)') . "\n";
 
 $headers = [
-    'From: asimogg.io form <form@asimogg.io>',
+    'From: asimogg.io form <hello@asimogg.io>',
     'Cc: asimize@gmail.com',
     'Reply-To: ' . $email,
     'MIME-Version: 1.0',
@@ -95,7 +95,7 @@ $headers = [
     'Content-Transfer-Encoding: 8bit',
 ];
 
-$sent = mail($to, $subject, $body, implode("\r\n", $headers));
+$sent = mail($to, $subject, $body, implode("\r\n", $headers), '-fhello@asimogg.io');
 
 if ($sent) {
     $hits[] = $now;

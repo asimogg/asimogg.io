@@ -28,7 +28,7 @@ if (!is_file($seen)) {
     $when  = date('Y-m-d H:i:s');
     $label = $content === 'masterclass' ? 'Masterclass' : 'Saphire film';
 
-    $subject = '=?UTF-8?B?' . base64_encode("Yeni izleyici: $label — $name") . '?=';
+    $subject = "Yeni izleyici: $label — $name";
     $body = "İçerik açıldı / Content unlocked (e-posta bağlantısı doğrulandı)\n"
           . "----------------------------------\n"
           . "İçerik   : $label\n"
@@ -37,15 +37,7 @@ if (!is_file($seen)) {
           . "Dil      : $lang\n"
           . "IP       : $ip\n"
           . "Zaman    : $when\n";
-    $headers = [
-        'From: asimogg.io <form@asimogg.io>',
-        'Cc: ' . $cfg['lead_cc'],
-        'Reply-To: ' . $email,
-        'MIME-Version: 1.0',
-        'Content-Type: text/plain; charset=UTF-8',
-        'Content-Transfer-Encoding: 8bit',
-    ];
-    @mail($cfg['lead_to'], $subject, $body, implode("\r\n", $headers));
+    send_mail($cfg['lead_to'], $subject, $body, ['Cc: ' . $cfg['lead_cc'], 'Reply-To: ' . $email]);
 
     if ($cfg['sheets_webhook'] !== '') {
         http_post_json($cfg['sheets_webhook'], [

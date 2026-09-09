@@ -68,13 +68,7 @@ if ($lang === 'tr') {
           . "asimogg.io\n";
 }
 
-$headers = [
-    'From: asimogg.io <form@asimogg.io>',
-    'MIME-Version: 1.0',
-    'Content-Type: text/plain; charset=UTF-8',
-    'Content-Transfer-Encoding: 8bit',
-];
-$sent = @mail($email, '=?UTF-8?B?' . base64_encode($subject) . '?=', $body, implode("\r\n", $headers));
+$sent = send_mail($email, $subject, $body);
 if (!$sent) json_out(500, ['ok' => false, 'error' => 'mail']);
 
 $hits[] = $now;

@@ -86,6 +86,20 @@ function site_url(): string {
     return ($https ? 'https' : 'http') . '://' . $host;
 }
 
+// All outgoing mail leaves as the real mailbox hello@asimogg.io (header From and
+// envelope sender): shared hosts drop mail from non-existent local senders.
+function send_mail(string $to, string $subject, string $body, array $extraHeaders = []): bool {
+    $from = settings()['lead_to'];
+    $headers = array_merge([
+        'From: asimogg.io <' . $from . '>',
+        'MIME-Version: 1.0',
+        'Content-Type: text/plain; charset=UTF-8',
+        'Content-Transfer-Encoding: 8bit',
+    ], $extraHeaders);
+    $encoded = '=?UTF-8?B?' . base64_encode($subject) . '?=';
+    return @mail($to, $encoded, $body, implode("\r\n", $headers), '-f' . $from);
+}
+
 function same_origin_or_die(): string {
     $host   = strtolower((string) preg_replace('/:\d+$/', '', $_SERVER['HTTP_HOST'] ?? ''));
     $source = $_SERVER['HTTP_ORIGIN'] ?? ($_SERVER['HTTP_REFERER'] ?? '');
