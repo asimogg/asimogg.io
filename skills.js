@@ -56,6 +56,84 @@
         "  and a GAP ANALYSIS against the idea → Excel report."
       ]
     },
+    "asimo-brain": {
+      file: "skills/asimo-brain/SKILL.md",
+      en: "The second brain — a 3D knowledge galaxy and voice Q&A over the Obsidian vault; answers only from the notes, adds memories live.",
+      tr: "İkinci beyin — Obsidian kasası üzerinde 3B bilgi galaksisi ve sesli soru-cevap; yalnızca notlardan cevap verir, anıları anında ekler.",
+      excerpt: [
+        "name: asimo-brain",
+        "description: Operate, extend and embody asimo —",
+        "  a JARVIS-style talking second brain (3D knowledge",
+        "  galaxy + voice RAG over the Obsidian vault).",
+        "  Vault Q&A, rebuilding the galaxy, adding memories.",
+        "Answer ONLY from the notes; admit when they don't cover it."
+      ]
+    },
+    "markitdown": {
+      file: "skills/markitdown/SKILL.md",
+      en: "PDF → Markdown for the vault — converts papers and reports, adds front-matter tags and backlinks, files them into Obsidian.",
+      tr: "Kasa için PDF → Markdown — makale ve raporları çevirir, etiket ve geri bağlantı ekler, Obsidian'a yerleştirir.",
+      excerpt: [
+        "name: markitdown",
+        "description: Convert PDF files to Markdown using",
+        "  Microsoft's markitdown, then enrich each output",
+        "  for Obsidian (frontmatter tags + backlinks) and",
+        "  move it into the vault. Native file picker for",
+        "  one PDF, several PDFs or a whole folder."
+      ]
+    },
+    "asimo-portfolio": {
+      file: "skills/asimo-portfolio/SKILL.md",
+      en: "Portfolio agent — reads every active project and task through the Asana MCP, applies the rules, writes the daily briefing and approval lists.",
+      tr: "Portföy ajanı — Asana MCP ile tüm aktif proje ve görevleri okur, kuralları uygular, günlük brifingi ve onay listelerini yazar.",
+      excerpt: [
+        "name: asimo-portfolio",
+        "description: Portfolio and operations agent —",
+        "  pulls projects, tasks, owners and dates from",
+        "  Asana, applies delay / missing-document /",
+        "  capacity rules and writes a dated briefing:",
+        "  not 'what happened' but 'what to do today'."
+      ]
+    },
+    "gate-analysis": {
+      file: "skills/gate-analysis/SKILL.md",
+      en: "Gate analysis — checks a project board against the innovation procedure's 5-gate model: who did what, evidence, closures without a record.",
+      tr: "Kapı analizi — bir proje panosunu inovasyon prosedürünün 5 kapılı modeliyle karşılaştırır: kim ne yaptı, kanıt, kayıtsız kapatmalar.",
+      excerpt: [
+        "name: gate-analysis",
+        "description: Produces the Gate Analysis report of",
+        "  an Asana project against the 5-gate innovation",
+        "  procedure: gate ↔ task mapping, role fit, tasks",
+        "  closed without evidence, timing, actions;",
+        "  output as HTML and PDF."
+      ]
+    },
+    "openmontage": {
+      file: "skills/openmontage/SKILL.md",
+      en: "Agentic video production — 13 pipelines (explainer, animation, documentary montage, dubbing…): script, scene plan, assets, edit decisions, render.",
+      tr: "Ajanlı video prodüksiyonu — 13 pipeline (açıklayıcı, animasyon, belgesel kurgu, dublaj…): senaryo, sahne planı, varlıklar, kurgu kararları, render.",
+      excerpt: [
+        "name: openmontage",
+        "description: Agentic video production with",
+        "  OpenMontage (script writing, editing, 13",
+        "  pipelines such as animated-explainer,",
+        "  talking-head, documentary-montage, clip-factory,",
+        "  localization-dub). Every job goes through a pipeline."
+      ]
+    },
+    "consulting-deck-style": {
+      file: "skills/consulting-deck-style/SKILL.md",
+      en: "Consulting-firm presentation style — storyline first, one message per slide, evidence under it; combined with the pptx skill.",
+      tr: "Danışmanlık firması sunum tarzı — önce hikâye akışı, her slaytta tek mesaj, altında kanıt; pptx skill'i ile birlikte.",
+      excerpt: [
+        "name: consulting-deck-style",
+        "description: Apply consulting-firm presentation",
+        "  style when creating decks, strategy presentations",
+        "  or any slide-based deliverable. Storyline first,",
+        "  action titles, evidence under every message.",
+        "  Always combine with the pptx skill."
+      ]
+    },
     "academic": {
       file: "skills/academic-shield/SKILL.md",
       en: "Academic writing integrity — originality scoring and human-quality rewrites for proposals and papers.",

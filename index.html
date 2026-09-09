@@ -65,7 +65,7 @@
   </script>
   <link rel="preload" href="fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/archivo-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=31">
+  <link rel="stylesheet" href="styles.css?v=32">
 </head>
 <body class="entrance">
 <!--
@@ -203,6 +203,189 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
           <div class="chain-track" id="chain-track">
             <article class="chain-slide">
               <h3 class="chain-slide-title">
+                <span class="en">A second brain: every conversation saved, tagged, recalled</span>
+                <span class="tr">İkinci beyin: her konuşma kaydedilir, etiketlenir, geri çağrılır</span>
+              </h3>
+              <p class="usecase-intro">
+                <span class="en">Every conversation with the systems on this page — every Claude session, every agent report — lands in an Obsidian vault as a dated, tagged note. Zettelkasten-style links turn the notes into a map I can ask questions to, fly through in 3D, and scan before the next idea.</span>
+                <span class="tr">Bu sayfadaki sistemlerle yapılan her konuşma — her Claude oturumu, her ajan raporu — Obsidian'a tarihli ve etiketli bir not olarak düşer. Zettelkasten tarzı bağlantılar notları soru sorabildiğim, 3B'de içinde gezdiğim ve bir sonraki fikirden önce taradığım bir haritaya çevirir.</span>
+              </p>
+              <ol class="chain">
+                <li class="chain-step">
+                  <div class="chain-skills"><span class="skill">Claude Code</span><span class="skill">Obsidian</span><span class="skill" data-skill="markitdown">markitdown</span></div>
+                  <h3><span class="en">Capture</span><span class="tr">Yakala</span></h3>
+                  <p><span class="en">Conversations, agent session reports and PDFs are written into the vault automatically as Markdown — date, skill and tags in the front matter. Nothing is typed twice.</span><span class="tr">Konuşmalar, ajan oturum raporları ve PDF'ler kasaya otomatik olarak Markdown notu olarak yazılır — ön bilgi alanında tarih, skill ve etiketler. Hiçbir şey iki kez yazılmaz.</span></p>
+                </li>
+                <li class="chain-step">
+                  <div class="chain-skills"><span class="skill">Zettelkasten</span></div>
+                  <h3><span class="en">Tag + link</span><span class="tr">Etiketle + bağla</span></h3>
+                  <p><span class="en">Atomic notes, front-matter tags and <b>[[wiki-links]]</b> between them — 170+ notes and 350+ links today. New notes link back to old ones, so a topic leaves a trail instead of a pile.</span><span class="tr">Atomik notlar, etiketler ve aralarındaki <b>[[wiki-bağlantıları]]</b> — bugün 170+ not, 350+ bağ. Yeni notlar eskilere bağlanır; bir konu yığın değil iz bırakır.</span></p>
+                </li>
+                <li class="chain-step">
+                  <div class="chain-skills"><span class="skill" data-skill="asimo-brain">asimo-brain</span></div>
+                  <h3><span class="en">Recall</span><span class="tr">Geri çağır</span></h3>
+                  <p><span class="en">asimo-brain builds a 3D knowledge galaxy from the vault and answers questions by voice or text — from the notes only. Ask, and the camera flies to the source cluster; say “remember that…” and a new note lands live.</span><span class="tr">asimo-brain kasadan 3B bir bilgi galaksisi kurar; sesle ya da yazıyla sorulara yalnızca notlardan cevap verir. Sor, kamera kaynak kümeye uçar; “bunu hatırla…” de, yeni not anında yerini alır.</span></p>
+                </li>
+                <li class="chain-step chain-result">
+                  <div class="chain-skills"><span class="skill skill-result"><span class="en">Outcome</span><span class="tr">Sonuç</span></span></div>
+                  <div class="chain-num chain-num-sm"><span class="en">170+ notes, one question away</span><span class="tr">170+ not, tek soru uzakta</span></div>
+                  <p><span class="en">Two uses. <b>Visual:</b> the galaxy shows where knowledge is dense, where it is thin, which notes are orphans. <b>Effective:</b> before any new idea, a scan of the map says what was already tried, by which skill, with what result — every session starts from what is already known.</span><span class="tr">İki kullanım. <b>Görsel:</b> galaksi bilginin nerede yoğun, nerede seyrek, hangi notların yetim olduğunu gösterir. <b>Etkin:</b> yeni bir fikirden önce haritayı taramak neyin, hangi skill ile, hangi sonuçla denendiğini söyler — her oturum bilinenin üstünden başlar.</span></p>
+                  <figure class="chain-figure">
+                    <img src="assets/second-brain-graph.jpg" alt="Obsidian graph view of the vault: notes as dots, tags in red, links between them" loading="lazy" width="1280" height="720">
+                    <figcaption><span class="en">Obsidian graph view of the vault — notes as dots, tags in red, links as lines. The same map asimo-brain flies through in 3D.</span><span class="tr">Kasanın Obsidian graf görünümü — notlar nokta, etiketler kırmızı, bağlar çizgi. asimo-brain'in 3B'de içinde gezdiği harita aynı.</span></figcaption>
+                  </figure>
+                </li>
+              </ol>
+            </article>
+            <article class="chain-slide">
+              <h3 class="chain-slide-title">
+                <span class="en">The morning portfolio briefing</span>
+                <span class="tr">Sabah portföy brifingi</span>
+              </h3>
+              <p class="usecase-intro">
+                <span class="en">At 08:00 a scheduled agent reads every active project, task and date, applies the rules, and writes not “what happened” but “what to do today”.</span>
+                <span class="tr">08:00'de zamanlanmış bir ajan tüm aktif projeleri, görevleri ve tarihleri okur, kuralları uygular ve “ne oldu” değil “bugün ne yapmalısın” yazar.</span>
+              </p>
+              <ol class="chain">
+                <li class="chain-step">
+                  <div class="chain-skills"><span class="skill" data-skill="asimo-portfolio">asimo-portfolio</span><span class="skill">Asana MCP</span></div>
+                  <h3><span class="en">Pull</span><span class="tr">Çek</span></h3>
+                  <p><span class="en">All active projects, their tasks, owners and dates — in one pass, every morning, without opening a single board.</span><span class="tr">Tüm aktif projeler, görevleri, sorumluları ve tarihleri — her sabah tek geçişte, tek bir pano açmadan.</span></p>
+                </li>
+                <li class="chain-step">
+                  <div class="chain-skills"><span class="skill" data-skill="asimo-portfolio">asimo-portfolio</span></div>
+                  <h3><span class="en">Rules</span><span class="tr">Kurallar</span></h3>
+                  <p><span class="en">Delay threshold, missing technical data sheet, capacity clash between projects — each rule turns a fact into a to-do with a name on it.</span><span class="tr">Gecikme eşiği, eksik teknik föy, projeler arası kapasite çakışması — her kural bir olguyu üzerinde isim olan bir yapılacağa çevirir.</span></p>
+                </li>
+                <li class="chain-step">
+                  <div class="chain-skills"><span class="skill">Obsidian</span><span class="skill" data-skill="asimo-brain">asimo-brain</span></div>
+                  <h3><span class="en">Archive + link</span><span class="tr">Arşivle + bağla</span></h3>
+                  <p><span class="en">The briefing is saved as a dated note and linked to the previous days — so it also feeds the second brain.</span><span class="tr">Brifing tarihli bir not olarak kaydedilir ve önceki günlere bağlanır — böylece ikinci beyni de besler.</span></p>
+                </li>
+                <li class="chain-step chain-result">
+                  <div class="chain-skills"><span class="skill skill-result"><span class="en">Outcome</span><span class="tr">Sonuç</span></span></div>
+                  <div class="chain-num chain-num-sm"><span class="en">45–60 → 0 min</span><span class="tr">45–60 → 0 dk</span></div>
+                  <p><span class="en">The briefing writes itself before the day starts; reading it takes two minutes.</span><span class="tr">Brifing gün başlamadan kendini yazar; okumak iki dakika sürer.</span></p>
+                </li>
+              </ol>
+            </article>
+            <article class="chain-slide">
+              <h3 class="chain-slide-title">
+                <span class="en">The daily raw-material approval routine</span>
+                <span class="tr">Günlük hammadde onay rutini</span>
+              </h3>
+              <p class="usecase-intro">
+                <span class="en">New raw-material items land on a project board every day. Each morning the agent scans them against the procedure, flags what is missing and leaves one approval list — the human only approves.</span>
+                <span class="tr">Her gün proje panosuna yeni hammadde kalemleri düşer. Ajan her sabah bunları prosedüre göre tarar, eksikleri işaretler ve tek bir onay listesi bırakır — insan yalnızca onaylar.</span>
+              </p>
+              <ol class="chain">
+                <li class="chain-step">
+                  <div class="chain-skills"><span class="skill" data-skill="asimo-portfolio">asimo-portfolio</span><span class="skill">Asana MCP</span></div>
+                  <h3><span class="en">Scan</span><span class="tr">Tara</span></h3>
+                  <p><span class="en">Every morning the new items on the raw-material project are pulled through the Asana MCP: name, owner, attachments, due date.</span><span class="tr">Her sabah hammadde projesindeki yeni kalemler Asana MCP ile çekilir: ad, sorumlu, ekler, tarih.</span></p>
+                </li>
+                <li class="chain-step">
+                  <div class="chain-skills"><span class="skill" data-skill="gate-analysis">gate-analysis</span></div>
+                  <h3><span class="en">Check against the procedure</span><span class="tr">Prosedürle karşılaştır</span></h3>
+                  <p><span class="en">Each item is checked against the innovation procedure's gate rules: missing evidence, tasks closed without a record, wrong owner — flagged with the reason, never fixed silently.</span><span class="tr">Her kalem inovasyon prosedürünün kapı kurallarıyla karşılaştırılır: eksik kanıt, kayıtsız kapatılan görev, yanlış sorumlu — gerekçesiyle işaretlenir, sessizce düzeltilmez.</span></p>
+                </li>
+                <li class="chain-step">
+                  <div class="chain-skills"><span class="skill">Asana MCP</span></div>
+                  <h3><span class="en">One list</span><span class="tr">Tek liste</span></h3>
+                  <p><span class="en">The result is a single approval list, the reason next to every flag. Approve, and the board is updated — nothing else is touched.</span><span class="tr">Sonuç, her işaretin yanında gerekçesi olan tek bir onay listesi. Onayla, pano güncellensin — başka hiçbir şeye dokunulmaz.</span></p>
+                </li>
+                <li class="chain-step chain-result">
+                  <div class="chain-skills"><span class="skill skill-result"><span class="en">Outcome</span><span class="tr">Sonuç</span></span></div>
+                  <div class="chain-num chain-num-sm"><span class="en">16 → 5 min a day</span><span class="tr">günde 16 → 5 dk</span></div>
+                  <p><span class="en">−65 % a day, about 3.7 hours a month — measured on real board records, five days a week.</span><span class="tr">Günde %65 azalma, ayda ~3,7 saat — gerçek pano kayıtlarıyla, haftada beş gün ölçüldü.</span></p>
+                </li>
+              </ol>
+            </article>
+            <article class="chain-slide">
+              <h3 class="chain-slide-title">
+                <span class="en">Project effectiveness, measured with gate analysis</span>
+                <span class="tr">Kapı analizi ile proje etkinliği ölçümü</span>
+              </h3>
+              <p class="usecase-intro">
+                <span class="en">One project board goes in. Every main task and subtask is scanned, every comment is read and tied to its task, delays are located, and compliance with the plan is scored — as an HTML + PDF report.</span>
+                <span class="tr">Bir proje panosu girer. Her ana görev ve alt görev taranır, her yorum okunup görevine bağlanır, gecikmelerin nerede yaşandığı bulunur ve plana uyum puanlanır — HTML + PDF rapor olarak.</span>
+              </p>
+              <p class="chain-clock">
+                <span class="en"><b>15 min</b> to the finished report — by hand, about <b>2 days</b>.</span>
+                <span class="tr">Bitmiş rapora <b>15 dk</b> — elle yaklaşık <b>2 gün</b>.</span>
+              </p>
+              <ol class="chain">
+                <li class="chain-step">
+                  <div class="chain-skills"><span class="skill" data-skill="gate-analysis">gate-analysis</span><span class="skill">Asana MCP</span></div>
+                  <h3><span class="en">Scan the board</span><span class="tr">Panoyu tara</span></h3>
+                  <p><span class="en">76 main tasks and 71 subtasks pulled with their owners, dates, closures and attachments — one pass, nothing skipped.</span><span class="tr">76 ana görev ve 71 alt görev; sorumlu, tarih, kapatma ve ekleriyle tek geçişte çekilir — hiçbiri atlanmaz.</span></p>
+                </li>
+                <li class="chain-step">
+                  <div class="chain-skills"><span class="skill" data-skill="gate-analysis">gate-analysis</span></div>
+                  <h3><span class="en">Read the comments</span><span class="tr">Yorumları oku</span></h3>
+                  <p><span class="en">Every comment is read and linked to the task it belongs to, so who did what — and who only said they did — is visible next to each gate.</span><span class="tr">Her yorum okunur ve ait olduğu göreve bağlanır; kim ne yaptı — ve kim yalnızca yaptığını söyledi — her kapının yanında görünür.</span></p>
+                </li>
+                <li class="chain-step">
+                  <div class="chain-skills"><span class="skill" data-skill="gate-analysis">gate-analysis</span></div>
+                  <h3><span class="en">Delays and plan compliance</span><span class="tr">Gecikmeler ve plana uyum</span></h3>
+                  <p><span class="en">Tasks are mapped to the procedure's five gates: closures without evidence, bulk closures on one day, where the delay actually sits, and how far the board follows the plan — each with the record that proves it.</span><span class="tr">Görevler prosedürün beş kapısına eşlenir: kanıtsız kapatmalar, tek günde toplu kapatmalar, gecikmenin gerçekte nerede olduğu ve panonun plana ne kadar uyduğu — her biri kanıtlayan kayıtla.</span></p>
+                </li>
+                <li class="chain-step chain-result">
+                  <div class="chain-skills"><span class="skill skill-result"><span class="en">Outcome</span><span class="tr">Sonuç</span></span></div>
+                  <div class="chain-num chain-num-sm"><span class="en">2 days → 15 min</span><span class="tr">2 gün → 15 dk</span></div>
+                  <p><span class="en">A gate-by-gate report with actions, ready for the review board — the same evening the board was opened, instead of two working days later.</span><span class="tr">Kurula hazır, aksiyonlu, kapı kapı bir rapor — iki iş günü sonra değil, panonun açıldığı akşam.</span></p>
+                </li>
+              </ol>
+            </article>
+            <article class="chain-slide">
+              <h3 class="chain-slide-title">
+                <span class="en">From a materials idea to a physics-checked, funding-aware DOE</span>
+                <span class="tr">Bir malzeme fikrinden fizikle sınanmış, fon-manzaralı bir DOE'ye</span>
+              </h3>
+              <p class="usecase-intro">
+                <span class="en">One idea goes in. Physics refutes or proves it, the literature and patent world is scanned, the EU funding landscape is mapped, and a design of experiments comes out — with the clock on every step.</span>
+                <span class="tr">Bir fikir girer. Fizik onu çürütür ya da ispatlar, makale ve patent dünyası taranır, AB fon manzarası çıkarılır ve bir deney tasarımı (DOE) çıkar — her adımın süresi çizginin üstünde.</span>
+              </p>
+              <p class="chain-clock">
+                <span class="en"><b>~20 min</b> end to end — by hand, about <b>2 days</b>.</span>
+                <span class="tr">Uçtan uca <b>~20 dk</b> — elle yaklaşık <b>2 gün</b>.</span>
+              </p>
+              <ol class="chain">
+                <li class="chain-step">
+                  <span class="chain-tick"><b>5</b> <span class="en">min</span><span class="tr">dk</span> <i class="en">by hand ~3 h</i><i class="tr">elle ~3 sa</i></span>
+                  <div class="chain-skills"><span class="skill" data-skill="newton">newton</span></div>
+                  <h3><span class="en">Idea → physics verdict</span><span class="tr">Fikir → fizik hükmü</span></h3>
+                  <p><span class="en">newton runs the idea through <b>every</b> property on Wikipedia's <i>List of materials properties</i> and the governing equations behind them (JKR, Kendall, Dahlquist, Euler, Fick, WLF…), solves them numerically and returns PROVEN / PARTIAL / REFUTED — then ranks the candidate materials.</span><span class="tr">newton fikri Wikipedia'daki <i>List of materials properties</i> haritasındaki <b>tüm</b> özelliklerden ve arkalarındaki denklemlerden (JKR, Kendall, Dahlquist, Euler, Fick, WLF…) geçirir, sayısal çözer ve İSPAT / KISMİ / ÇÜRÜTME hükmü verir — sonra aday malzemeleri sıralar.</span></p>
+                </li>
+                <li class="chain-step">
+                  <span class="chain-tick"><b>11</b> <span class="en">min</span><span class="tr">dk</span> <i class="en">by hand ~1 day</i><i class="tr">elle ~1 gün</i></span>
+                  <div class="chain-skills"><span class="skill" data-skill="lens-research">lens-research</span></div>
+                  <h3><span class="en">Papers + patents, scored</span><span class="tr">Makale + patent, puanlı</span></h3>
+                  <p><span class="en">Five sources in parallel — <b>OpenAlex</b>, <b>Lens.org</b>, <b>Google Patents</b>, <b>WIPO PATENTSCOPE</b>, <b>Espacenet</b> — de-duplicated and rated with separate fit scores for papers and patents. 400 items scanned, the 15 that matter kept.</span><span class="tr">Beş kaynak paralel — <b>OpenAlex</b>, <b>Lens.org</b>, <b>Google Patents</b>, <b>WIPO PATENTSCOPE</b>, <b>Espacenet</b> — tekilleştirilir, makale ve patent için ayrı uyum puanıyla sıralanır. 400 kayıt taranır, işe yarayan 15'i kalır.</span></p>
+                </li>
+                <li class="chain-step">
+                  <span class="chain-tick"><b>17</b> <span class="en">min</span><span class="tr">dk</span> <i class="en">by hand ~½ day</i><i class="tr">elle ~½ gün</i></span>
+                  <div class="chain-skills"><span class="skill" data-skill="eu-project-research">eu-project-research</span></div>
+                  <h3><span class="en">EU funding landscape + gap</span><span class="tr">AB fon manzarası + boşluk</span></h3>
+                  <p><span class="en">Past and running projects on the same idea across CORDIS / Horizon, M-ERA.NET, EUREKA and EIT: coordinators, partners, budgets, project sites — and a gap analysis against the idea, delivered as an Excel landscape report.</span><span class="tr">Aynı fikir üzerine CORDIS / Horizon, M-ERA.NET, EUREKA ve EIT'de geçmiş ve süren projeler: koordinatörler, ortaklar, bütçeler, proje siteleri — ve fikre karşı boşluk analizi; Excel manzara raporu olarak.</span></p>
+                </li>
+                <li class="chain-step chain-result">
+                  <span class="chain-tick"><b>20</b> <span class="en">min</span><span class="tr">dk</span> <i class="en">by hand ~3 h</i><i class="tr">elle ~3 sa</i></span>
+                  <div class="chain-skills"><span class="skill" data-skill="newton">newton</span><span class="skill skill-result"><span class="en">Outcome</span><span class="tr">Sonuç</span></span></div>
+                  <div class="chain-num chain-num-sm"><span class="en">2 days → 20 min</span><span class="tr">2 gün → 20 dk</span></div>
+                  <p><span class="en">Formulations from the 80+-scored papers and patents become a design of experiments: raw materials, levels, tests — as an Excel DOE ready for the lab.</span><span class="tr">80+ puan alan makale ve patentlerdeki formülasyonlar deney tasarımına dönüşür: hammaddeler, seviyeler, testler — laboratuvara hazır bir Excel DOE.</span></p>
+                  <figure class="chain-figure">
+                    <video class="chain-video" autoplay muted loop playsinline preload="metadata" poster="assets/doe-poster.jpg" aria-label="Animated design of experiments: screening points over Polymer, Filler and Solvent, then a Box-Behnken cube at Polymer = 0.5" width="960" height="540">
+                      <source src="assets/doe-animation.webm" type="video/webm">
+                      <source src="assets/doe-animation.mp4" type="video/mp4">
+                    </video>
+                    <figcaption><span class="en">Screening DOE over Polymer · Filler · Solvent → Elasticity &gt; 200 % → Box-Behnken cube at Polymer = 0.5. <em>Illustrative only — does not reflect real data.</em></span><span class="tr">Polymer · Filler · Solvent üzerinde tarama DOE'si → Elasticity &gt; 200 % → Polymer = 0,5'te Box-Behnken küpü. <em>Gösterim amaçlıdır; gerçeği yansıtmaz.</em></span></figcaption>
+                  </figure>
+                </li>
+              </ol>
+            </article>
+            <article class="chain-slide">
+              <h3 class="chain-slide-title">
                 <span class="en">Two funded EU projects, one skill chain</span>
                 <span class="tr">İki fonlanan AB projesi, tek skill zinciri</span>
               </h3>
@@ -251,48 +434,97 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
             </article>
             <article class="chain-slide">
               <h3 class="chain-slide-title">
-                <span class="en">From a materials idea to a physics-checked, funding-aware DOE</span>
-                <span class="tr">Bir malzeme fikrinden fizikle sınanmış, fon-manzaralı bir DOE'ye</span>
+                <span class="en">A 30-second ad film, without a shooting day</span>
+                <span class="tr">Çekim günü olmadan 30 saniyelik reklam filmi</span>
               </h3>
               <p class="usecase-intro">
-                <span class="en">One idea goes in. Physics refutes or proves it, the literature and patent world is scanned, the EU funding landscape is mapped, and a design of experiments comes out — with the clock on every step.</span>
-                <span class="tr">Bir fikir girer. Fizik onu çürütür ya da ispatlar, makale ve patent dünyası taranır, AB fon manzarası çıkarılır ve bir deney tasarımı (DOE) çıkar — her adımın süresi çizginin üstünde.</span>
-              </p>
-              <p class="chain-clock">
-                <span class="en"><b>~20 min</b> end to end — by hand, about <b>2 days</b>.</span>
-                <span class="tr">Uçtan uca <b>~20 dk</b> — elle yaklaşık <b>2 gün</b>.</span>
+                <span class="en">One idea, a script, a storyboard, generated scenes, a cut — and a gated screening on this site (nav → GP Coating Ad). The idea belongs to Gülden Polat; this is not a Kalekim company video.</span>
+                <span class="tr">Bir fikir, senaryo, storyboard, üretilmiş sahneler, kurgu — ve bu sitede kapılı gösterim (menü → GP Coating Reklamı). Fikir Gülden Polat'a aittir; bu bir Kalekim şirket videosu değildir.</span>
               </p>
               <ol class="chain">
                 <li class="chain-step">
-                  <span class="chain-tick"><b>5</b> <span class="en">min</span><span class="tr">dk</span> <i class="en">by hand ~3 h</i><i class="tr">elle ~3 sa</i></span>
-                  <div class="chain-skills"><span class="skill" data-skill="newton">newton</span></div>
-                  <h3><span class="en">Idea → physics verdict</span><span class="tr">Fikir → fizik hükmü</span></h3>
-                  <p><span class="en">newton runs the idea through <b>every</b> property on Wikipedia's <i>List of materials properties</i> and the governing equations behind them (JKR, Kendall, Dahlquist, Euler, Fick, WLF…), solves them numerically and returns PROVEN / PARTIAL / REFUTED — then ranks the candidate materials.</span><span class="tr">newton fikri Wikipedia'daki <i>List of materials properties</i> haritasındaki <b>tüm</b> özelliklerden ve arkalarındaki denklemlerden (JKR, Kendall, Dahlquist, Euler, Fick, WLF…) geçirir, sayısal çözer ve İSPAT / KISMİ / ÇÜRÜTME hükmü verir — sonra aday malzemeleri sıralar.</span></p>
+                  <div class="chain-skills"><span class="skill" data-skill="asimo-marketing">asimo-marketing</span></div>
+                  <h3><span class="en">Idea → script</span><span class="tr">Fikir → senaryo</span></h3>
+                  <p><span class="en">A one-paragraph idea becomes a script and a shot-by-shot storyboard with the brand's tone locked in.</span><span class="tr">Bir paragraflık fikir, markanın tonu sabitlenmiş bir senaryoya ve plan plan storyboard'a dönüşür.</span></p>
                 </li>
                 <li class="chain-step">
-                  <span class="chain-tick"><b>11</b> <span class="en">min</span><span class="tr">dk</span> <i class="en">by hand ~1 day</i><i class="tr">elle ~1 gün</i></span>
-                  <div class="chain-skills"><span class="skill" data-skill="lens-research">lens-research</span></div>
-                  <h3><span class="en">Papers + patents, scored</span><span class="tr">Makale + patent, puanlı</span></h3>
-                  <p><span class="en">Five sources in parallel — <b>OpenAlex</b>, <b>Lens.org</b>, <b>Google Patents</b>, <b>WIPO PATENTSCOPE</b>, <b>Espacenet</b> — de-duplicated and rated with separate fit scores for papers and patents. 400 items scanned, the 15 that matter kept.</span><span class="tr">Beş kaynak paralel — <b>OpenAlex</b>, <b>Lens.org</b>, <b>Google Patents</b>, <b>WIPO PATENTSCOPE</b>, <b>Espacenet</b> — tekilleştirilir, makale ve patent için ayrı uyum puanıyla sıralanır. 400 kayıt taranır, işe yarayan 15'i kalır.</span></p>
+                  <div class="chain-skills"><span class="skill">Seedance 2.5 MCP</span><span class="skill" data-skill="higgsfield">Higgsfield MCP ↗</span></div>
+                  <h3><span class="en">Scenes</span><span class="tr">Sahneler</span></h3>
+                  <p><span class="en">Every shot is generated from the storyboard. A retake is a prompt, not a crew.</span><span class="tr">Her plan storyboard'dan üretilir. Tekrar çekim bir ekip değil, bir prompt.</span></p>
                 </li>
                 <li class="chain-step">
-                  <span class="chain-tick"><b>17</b> <span class="en">min</span><span class="tr">dk</span> <i class="en">by hand ~½ day</i><i class="tr">elle ~½ gün</i></span>
-                  <div class="chain-skills"><span class="skill" data-skill="eu-project-research">eu-project-research</span></div>
-                  <h3><span class="en">EU funding landscape + gap</span><span class="tr">AB fon manzarası + boşluk</span></h3>
-                  <p><span class="en">Past and running projects on the same idea across CORDIS / Horizon, M-ERA.NET, EUREKA and EIT: coordinators, partners, budgets, project sites — and a gap analysis against the idea, delivered as an Excel landscape report.</span><span class="tr">Aynı fikir üzerine CORDIS / Horizon, M-ERA.NET, EUREKA ve EIT'de geçmiş ve süren projeler: koordinatörler, ortaklar, bütçeler, proje siteleri — ve fikre karşı boşluk analizi; Excel manzara raporu olarak.</span></p>
+                  <div class="chain-skills"><span class="skill" data-skill="openmontage">openmontage</span></div>
+                  <h3><span class="en">Cut</span><span class="tr">Kurgu</span></h3>
+                  <p><span class="en">Pipeline manifest, edit decisions, music bed, end card, poster — the cut is a reproducible recipe, not a timeline in someone's head.</span><span class="tr">Pipeline manifestosu, kurgu kararları, müzik yatağı, kapanış kartı, poster — kurgu birinin kafasındaki zaman çizgisi değil, tekrarlanabilir bir reçete.</span></p>
                 </li>
                 <li class="chain-step chain-result">
-                  <span class="chain-tick"><b>20</b> <span class="en">min</span><span class="tr">dk</span> <i class="en">by hand ~3 h</i><i class="tr">elle ~3 sa</i></span>
-                  <div class="chain-skills"><span class="skill" data-skill="newton">newton</span><span class="skill skill-result"><span class="en">Outcome</span><span class="tr">Sonuç</span></span></div>
-                  <div class="chain-num chain-num-sm"><span class="en">2 days → 20 min</span><span class="tr">2 gün → 20 dk</span></div>
-                  <p><span class="en">Formulations from the 80+-scored papers and patents become a design of experiments: raw materials, levels, tests — as an Excel DOE ready for the lab.</span><span class="tr">80+ puan alan makale ve patentlerdeki formülasyonlar deney tasarımına dönüşür: hammaddeler, seviyeler, testler — laboratuvara hazır bir Excel DOE.</span></p>
-                  <figure class="chain-figure">
-                    <video class="chain-video" autoplay muted loop playsinline preload="metadata" poster="assets/doe-poster.jpg" aria-label="Animated design of experiments: screening points over Polymer, Filler and Solvent, then a Box-Behnken cube at Polymer = 0.5" width="960" height="540">
-                      <source src="assets/doe-animation.webm" type="video/webm">
-                      <source src="assets/doe-animation.mp4" type="video/mp4">
-                    </video>
-                    <figcaption><span class="en">Screening DOE over Polymer · Filler · Solvent → Elasticity &gt; 200 % → Box-Behnken cube at Polymer = 0.5. <em>Illustrative only — does not reflect real data.</em></span><span class="tr">Polymer · Filler · Solvent üzerinde tarama DOE'si → Elasticity &gt; 200 % → Polymer = 0,5'te Box-Behnken küpü. <em>Gösterim amaçlıdır; gerçeği yansıtmaz.</em></span></figcaption>
-                  </figure>
+                  <div class="chain-skills"><span class="skill skill-result"><span class="en">Outcome</span><span class="tr">Sonuç</span></span></div>
+                  <div class="chain-num chain-num-sm"><span class="en">0 shooting days</span><span class="tr">0 çekim günü</span></div>
+                  <p><span class="en">From idea to screening in <b>[hours — to fill]</b>; a 30 s film and a poster, opened here with a Google sign-in.</span><span class="tr">Fikirden gösterime <b>[süre — doldurulacak]</b>; 30 sn film ve poster, burada Google girişiyle açılıyor.</span></p>
+                </li>
+              </ol>
+            </article>
+            <article class="chain-slide">
+              <h3 class="chain-slide-title">
+                <span class="en">This website, built the same way</span>
+                <span class="tr">Bu web sitesi de aynı yöntemle yapıldı</span>
+              </h3>
+              <p class="usecase-intro">
+                <span class="en">One brief. A design system and a bilingual page, gated content behind Google sign-in, a form, analytics with consent, KVKK, a security pass, four browsers — then GitHub → Hostinger, automatically.</span>
+                <span class="tr">Tek brief. Tasarım sistemi ve iki dilli sayfa, Google girişiyle kapılı içerik, form, rızalı analitik, KVKK, güvenlik taraması, dört tarayıcı — sonra GitHub → Hostinger, otomatik.</span>
+              </p>
+              <ol class="chain">
+                <li class="chain-step">
+                  <div class="chain-skills"><span class="skill" data-skill="asimo-software">asimo-software</span><span class="skill" data-skill="impeccable">impeccable ↗</span></div>
+                  <h3><span class="en">Brief → design system</span><span class="tr">Brief → tasarım sistemi</span></h3>
+                  <p><span class="en">Palette, type ramp, spacing and motion written down once; every page since follows them.</span><span class="tr">Palet, yazı ölçeği, boşluk ve hareket bir kez yazıldı; o günden beri her sayfa onlara uyuyor.</span></p>
+                </li>
+                <li class="chain-step">
+                  <div class="chain-skills"><span class="skill" data-skill="asimo-software">asimo-software</span></div>
+                  <h3><span class="en">Gate, form, analytics, KVKK</span><span class="tr">Kapı, form, analitik, KVKK</span></h3>
+                  <p><span class="en">Google sign-in with server-side verification, a form that mails, analytics only after consent, a privacy notice — all on plain PHP, no framework.</span><span class="tr">Sunucuda doğrulanan Google girişi, e-posta gönderen form, yalnızca rızadan sonra analitik, aydınlatma metni — hepsi düz PHP, framework yok.</span></p>
+                </li>
+                <li class="chain-step">
+                  <div class="chain-skills"><span class="skill" data-skill="security-review">security-review</span><span class="skill">gstack</span></div>
+                  <h3><span class="en">Security + browsers</span><span class="tr">Güvenlik + tarayıcılar</span></h3>
+                  <p><span class="en">CSP, HSTS, no inline scripts, gated originals never served directly; Chrome, Safari, Firefox and iPhone checked with Playwright before every deploy.</span><span class="tr">CSP, HSTS, satır içi script yok, kapılı orijinaller asla doğrudan sunulmaz; her yayından önce Chrome, Safari, Firefox ve iPhone Playwright ile denendi.</span></p>
+                </li>
+                <li class="chain-step chain-result">
+                  <div class="chain-skills"><span class="skill skill-result"><span class="en">Outcome</span><span class="tr">Sonuç</span></span></div>
+                  <div class="chain-num chain-num-sm"><span class="en">Live the same day</span><span class="tr">Aynı gün yayında</span></div>
+                  <p><span class="en">About 28 hours of joint work in total, measured from the session logs. The site itself is the evidence.</span><span class="tr">Oturum kayıtlarından ölçülen toplam ~28 saatlik ortak çalışma. Kanıt sitenin kendisi.</span></p>
+                </li>
+              </ol>
+            </article>
+            <article class="chain-slide">
+              <h3 class="chain-slide-title">
+                <span class="en">A 36-slide masterclass from one brief</span>
+                <span class="tr">Tek brief'ten 36 slaytlık masterclass</span>
+              </h3>
+              <p class="usecase-intro">
+                <span class="en">Audience, length, format and goal in one paragraph. Research, structure, 36 slides with speaker notes, a timer and a lab guide — published here in EN and TR behind the gate (nav → Masterclass).</span>
+                <span class="tr">Kitle, süre, format ve amaç tek paragrafta. Araştırma, kurgu, sunucu notlu 36 slayt, kronometre ve lab kılavuzu — burada EN/TR olarak kapının arkasında yayında (menü → Masterclass).</span>
+              </p>
+              <ol class="chain">
+                <li class="chain-step">
+                  <div class="chain-skills"><span class="skill" data-skill="asimo-marketing">asimo-marketing</span></div>
+                  <h3><span class="en">Brief</span><span class="tr">Brief</span></h3>
+                  <p><span class="en">Who is in the room, how long, in what format, to what end — four answers, one paragraph.</span><span class="tr">Salonda kim var, ne kadar süre, hangi formatta, hangi amaçla — dört cevap, tek paragraf.</span></p>
+                </li>
+                <li class="chain-step">
+                  <div class="chain-skills"><span class="skill" data-skill="consulting-deck-style">consulting-deck-style</span><span class="skill">pptx</span></div>
+                  <h3><span class="en">Research → structure → slides</span><span class="tr">Araştırma → kurgu → slaytlar</span></h3>
+                  <p><span class="en">Consulting-style storyline first, then the slides: one message per slide, evidence under it, no decoration.</span><span class="tr">Önce danışmanlık tarzı hikâye akışı, sonra slaytlar: her slaytta tek mesaj, altında kanıt, süs yok.</span></p>
+                </li>
+                <li class="chain-step">
+                  <div class="chain-skills"><span class="skill" data-skill="asimo-software">asimo-software</span></div>
+                  <h3><span class="en">Speaker notes, timer, lab guide</span><span class="tr">Sunucu notları, kronometre, lab kılavuzu</span></h3>
+                  <p><span class="en">Notes for the speaker, a clock on every section, a hands-on guide for the lab part — and an HTML deck that runs in the browser, EN and TR.</span><span class="tr">Sunucuya notlar, her bölümde saat, uygulama kısmı için kılavuz — ve tarayıcıda çalışan EN/TR bir HTML deck.</span></p>
+                </li>
+                <li class="chain-step chain-result">
+                  <div class="chain-skills"><span class="skill skill-result"><span class="en">Outcome</span><span class="tr">Sonuç</span></span></div>
+                  <div class="chain-num chain-num-sm"><span class="en">1 brief → 36 slides, ~20 min</span><span class="tr">1 brief → 36 slayt, ~20 dk</span></div>
+                  <p><span class="en">The deck's own slide says it: “I did not make this presentation.”</span><span class="tr">Deck'in kendi slaydı söylüyor: “Bu sunumu ben yapmadım.”</span></p>
                 </li>
               </ol>
             </article>

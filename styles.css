@@ -931,6 +931,10 @@ select:invalid {
 .chain-track {
   display: flex;
   overflow-x: auto;
+  /* a single-line flex row's min-content is the SUM of its slides; with many
+     slides that would stretch the stacked hero grid wider than the viewport */
+  contain: inline-size;
+  min-width: 0;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   gap: 0;
@@ -1432,7 +1436,7 @@ select:invalid {
    ============================================================ */
 @media (max-width: 960px) {
   .hero {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     min-height: 0;
     gap: 3rem;
   }
