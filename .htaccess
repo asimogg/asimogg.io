@@ -38,6 +38,12 @@ ServerSignature Off
   Header always set Content-Security-Policy "default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://i.ytimg.com https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://*.google-analytics.com https://www.googletagmanager.com; frame-src 'self'; media-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
 </IfModule>
 
+# One error page for everything that goes wrong (missing, forbidden, server error)
+ErrorDocument 404 /404.html
+ErrorDocument 403 /404.html
+ErrorDocument 500 /404.html
+ErrorDocument 503 /404.html
+
 # Force HTTPS (host already redirects; this covers any bypass)
 <IfModule mod_rewrite.c>
   RewriteEngine On

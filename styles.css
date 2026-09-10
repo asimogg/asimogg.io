@@ -555,13 +555,57 @@ html[data-lang="tr"] .legal div.en {
 }
 
 .mark {
-  color: var(--accent);
   display: inline-flex;
+  align-items: center;
   transition: transform 0.5s var(--ease-out);
 }
 
+.mark-logo {
+  display: block;
+  height: 2.6rem;
+  width: auto;
+}
+
 .mark:hover {
-  transform: rotate(45deg);
+  transform: scale(1.06);
+}
+
+/* error page */
+.err-main {
+  min-height: 60vh;
+  display: grid;
+  place-items: center;
+  padding: clamp(3rem, 10vh, 7rem) var(--pad-x);
+  text-align: center;
+}
+
+.err-logo {
+  height: clamp(6rem, 18vh, 9rem);
+  width: auto;
+  margin: 0 auto 1.5rem;
+  display: block;
+}
+
+.err-code {
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-size: 0.9375rem;
+  margin: 0 0 0.6rem;
+}
+
+.err-title {
+  font-variation-settings: "wdth" 120;
+  font-weight: 640;
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  letter-spacing: -0.02em;
+  margin: 0 0 0.8rem;
+}
+
+.err-text {
+  color: var(--ink-muted);
+  max-width: 34rem;
+  margin: 0 auto 1.6rem;
 }
 
 .topbar-right {
