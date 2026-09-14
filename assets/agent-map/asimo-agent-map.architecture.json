@@ -2,7 +2,7 @@
   "schema_version": 1,
   "diagram_type": "architecture",
   "meta": {
-    "title": "Asimo Agent Map v1.5",
+    "title": "Asimo Agent Map v1.6",
     "output": "asimo-agent-map.html",
     "quality_profile": "standard",
     "visual_preset": "signal-flow",
@@ -47,12 +47,13 @@
         "label": "Video production under asimo-marketing",
         "focus": [
           "marketing",
+          "stickman",
           "manim",
           "openmontage",
           "topview",
           "higgsfield"
         ],
-        "note": "OpenMontage now lives at Design/OpenMontage and serves every video job."
+        "note": "Stickman briefs go through stickman-video-director first (Phase A approval → six Omni Flash prompts), then clips are assembled in OpenMontage."
       },
       {
         "id": "software",
@@ -438,6 +439,21 @@
         140,
         60
       ]
+    },
+    {
+      "id": "stickman",
+      "type": "backend",
+      "label": "stickman-video-director",
+      "sublabel": "6× Omni Flash prompts",
+      "pos": [
+        1020,
+        570
+      ],
+      "size": [
+        140,
+        60
+      ],
+      "tag": "new"
     }
   ],
   "boundaries": [
@@ -473,7 +489,8 @@
         "manim",
         "openmontage",
         "topview",
-        "higgsfield"
+        "higgsfield",
+        "stickman"
       ]
     },
     {
@@ -760,14 +777,60 @@
           1180
         ]
       ]
+    },
+    {
+      "id": "marketing-stickman",
+      "from": "marketing",
+      "to": "stickman",
+      "label": "stickman brief",
+      "fromSide": "top",
+      "toSide": "top",
+      "via": [
+        [
+          490,
+          415
+        ],
+        [
+          1090,
+          415
+        ]
+      ],
+      "labelAt": [
+        990,
+        404
+      ]
+    },
+    {
+      "id": "stickman-openmontage",
+      "from": "stickman",
+      "to": "openmontage",
+      "label": "6 clips → assembly",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "bottom",
+      "via": [
+        [
+          1090,
+          660
+        ],
+        [
+          690,
+          660
+        ]
+      ],
+      "labelAt": [
+        890,
+        650
+      ]
     }
   ],
   "cards": [
     {
       "dot": "violet",
-      "title": "v1.5 changes",
+      "title": "v1.6 changes",
       "items": [
-        "gate-analysis under asimo-portfolio: Asana project × SG_PR_0010 five-gate audit, role fit, unrecorded closures, HTML + PDF",
+        "stickman-video-director under asimo-marketing: source + ratio + theme gate → Phase A director proposal (approval) → Phase B six Gemini Omni Flash prompts → OpenMontage assembly",
+        "v1.5: gate-analysis under asimo-portfolio",
         "v1.4: newton physics referee under asimo-rd"
       ]
     },
