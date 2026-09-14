@@ -469,11 +469,11 @@
       "label": "scientific-brainstorming",
       "sublabel": "idea test · claim ledger",
       "pos": [
-        220,
+        20,
         560
       ],
       "size": [
-        140,
+        180,
         60
       ],
       "tag": "new"
@@ -484,11 +484,11 @@
       "label": "scientific-critical-thinking",
       "sublabel": "evidence grade · bias",
       "pos": [
-        620,
+        20,
         330
       ],
       "size": [
-        140,
+        200,
         60
       ],
       "tag": "new"
@@ -499,7 +499,7 @@
       "label": "citation-management",
       "sublabel": "DOI → BibTeX · validate",
       "pos": [
-        1220,
+        1440,
         40
       ],
       "size": [
@@ -514,7 +514,7 @@
       "label": "hypothesis-generation",
       "sublabel": "rivals · predictions",
       "pos": [
-        820,
+        840,
         240
       ],
       "size": [
@@ -529,7 +529,7 @@
       "label": "experimental-design",
       "sublabel": "DOE matrix · run order",
       "pos": [
-        1020,
+        1240,
         240
       ],
       "size": [
@@ -544,7 +544,7 @@
       "label": "statistical-power",
       "sublabel": "replicates n",
       "pos": [
-        1220,
+        1440,
         240
       ],
       "size": [
@@ -559,7 +559,7 @@
       "label": "pymoo",
       "sublabel": "Pareto ranking",
       "pos": [
-        820,
+        1040,
         330
       ],
       "size": [
@@ -574,8 +574,8 @@
       "label": "statistical-analysis",
       "sublabel": "lab data · effect size",
       "pos": [
-        1020,
-        330
+        1040,
+        240
       ],
       "size": [
         140,
@@ -635,10 +635,10 @@
       "label": "newton toolkit (K-Dense)",
       "wraps": [
         "hypo",
+        "stats",
         "expdesign",
         "power",
-        "pymoo",
-        "stats"
+        "pymoo"
       ]
     }
   ],
@@ -812,8 +812,16 @@
       "toSide": "bottom",
       "via": [
         [
-          1090,
+          1000,
           360
+        ],
+        [
+          1000,
+          200
+        ],
+        [
+          1090,
+          200
         ]
       ]
     },
@@ -969,7 +977,21 @@
       "label": "idea test",
       "variant": "emphasis",
       "fromSide": "top",
-      "toSide": "bottom"
+      "toSide": "bottom",
+      "via": [
+        [
+          290,
+          650
+        ],
+        [
+          110,
+          650
+        ]
+      ],
+      "labelAt": [
+        200,
+        640
+      ]
     },
     {
       "id": "rd-critical",
@@ -977,20 +999,33 @@
       "to": "critical",
       "label": "evidence grade",
       "variant": "dashed",
-      "fromSide": "bottom",
-      "toSide": "left",
+      "fromSide": "left",
+      "toSide": "top",
       "via": [
         [
-          490,
-          360
+          390,
+          160
+        ],
+        [
+          390,
+          300
+        ],
+        [
+          120,
+          300
         ]
+      ],
+      "labelAt": [
+        255,
+        286
       ]
     },
     {
       "id": "strategist-critical",
       "from": "strategist",
       "to": "critical",
-      "label": "signal grade"
+      "fromSide": "left",
+      "toSide": "right"
     },
     {
       "id": "lens-citation",
@@ -999,12 +1034,20 @@
       "label": "validate DOIs",
       "variant": "dashed",
       "fromSide": "top",
-      "toSide": "left",
+      "toSide": "bottom",
       "via": [
         [
           1090,
-          70
+          115
+        ],
+        [
+          1510,
+          115
         ]
+      ],
+      "labelAt": [
+        1300,
+        105
       ]
     },
     {
@@ -1013,7 +1056,11 @@
       "to": "hypo",
       "label": "0 · rivals first",
       "fromSide": "bottom",
-      "toSide": "top"
+      "toSide": "top",
+      "labelAt": [
+        960,
+        208
+      ]
     },
     {
       "id": "newton-expdesign",
@@ -1026,44 +1073,68 @@
       "via": [
         [
           890,
-          215
+          228
         ],
         [
-          1090,
-          215
+          1310,
+          228
         ]
+      ],
+      "labelAt": [
+        1200,
+        212
       ]
     },
     {
       "id": "expdesign-power",
       "from": "expdesign",
       "to": "power",
-      "label": "n per run"
+      "label": "n per run",
+      "labelAt": [
+        1410,
+        232
+      ]
     },
     {
       "id": "hypo-pymoo",
       "from": "hypo",
       "to": "pymoo",
       "label": "ranking",
-      "variant": "dashed"
-    },
-    {
-      "id": "stats-rd",
-      "from": "stats",
-      "to": "rd",
-      "label": "results back",
       "variant": "dashed",
       "fromSide": "bottom",
+      "toSide": "left",
+      "via": [
+        [
+          910,
+          360
+        ]
+      ],
+      "labelAt": [
+        975,
+        350
+      ]
+    },
+    {
+      "id": "stats-newton",
+      "from": "stats",
+      "to": "newton",
+      "label": "lab results",
+      "variant": "dashed",
+      "fromSide": "top",
       "toSide": "bottom",
       "via": [
         [
-          1090,
-          415
+          1110,
+          222
         ],
         [
-          490,
-          415
+          890,
+          222
         ]
+      ],
+      "labelAt": [
+        1130,
+        205
       ]
     }
   ],
