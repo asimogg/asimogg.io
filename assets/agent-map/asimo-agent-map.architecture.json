@@ -53,7 +53,7 @@
           "topview",
           "higgsfield"
         ],
-        "note": "Stickman briefs go through stickman-video-director first (Phase A approval → six Omni Flash prompts), then clips are assembled in OpenMontage."
+        "note": "Stickman briefs: stickman-video-director first (Phase A approval → six Omni Flash prompts), then OpenMontage assembly."
       },
       {
         "id": "software",
