@@ -446,11 +446,11 @@
       "label": "stickman-video-director",
       "sublabel": "6× Omni Flash prompts",
       "pos": [
-        1020,
+        1000,
         570
       ],
       "size": [
-        140,
+        170,
         60
       ],
       "tag": "new"
@@ -791,7 +791,7 @@
           415
         ],
         [
-          1090,
+          1085,
           415
         ]
       ],
@@ -810,7 +810,7 @@
       "toSide": "bottom",
       "via": [
         [
-          1090,
+          1085,
           660
         ],
         [
