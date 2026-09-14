@@ -1,0 +1,73 @@
+{
+ "versions": [
+  {
+   "version": "v1.8",
+   "date": "2026-09-14",
+   "items": [
+    "manim linked to asimo-rd (ask-first rule for scientific visuals); still under asimo-marketing for video"
+   ]
+  },
+  {
+   "version": "v1.7",
+   "date": "2026-09-14",
+   "items": [
+    "K-Dense skills wired: scientific-brainstorming (ceo idea test), hypothesis-generation / experimental-design / statistical-power / pymoo (newton toolkit), statistical-analysis (rd), scientific-critical-thinking (rd + strategist), citation-management (lens)",
+    "Research chain is now 7 steps: sci → hypothesis-generation → newton + pymoo → lens-research + DOI validation → experimental-design + statistical-power → eu-project-research → academic-shield, results back via statistical-analysis"
+   ]
+  },
+  {
+   "version": "v1.6",
+   "date": "2026-09-14",
+   "items": [
+    "stickman-video-director under asimo-marketing: source + ratio + theme gate → Phase A director proposal (approval) → Phase B six Gemini Omni Flash prompts → OpenMontage assembly"
+   ]
+  },
+  {
+   "version": "v1.5",
+   "date": "2026-09-06",
+   "items": [
+    "gate-analysis under asimo-portfolio: Asana project × five-gate innovation audit, role fit, unrecorded closures, HTML + PDF"
+   ]
+  },
+  {
+   "version": "v1.4",
+   "date": "2026-09-05",
+   "items": [
+    "newton under asimo-rd: physics referee (JKR, Kendall, Dahlquist, WLF…), polymer ranking, DOE Excel",
+    "Research chain is now 5 steps: sci → newton → lens → eu → academic-shield"
+   ]
+  },
+  {
+   "version": "v1.3",
+   "date": "2026-09-05",
+   "items": [
+    "eu-project-research under asimo-rd (CORDIS, M-ERA.NET, EUREKA; partners, sites, funding, gap analysis)",
+    "archify owned by asimo-portfolio: maps all skills, agents, jobs",
+    "OpenMontage moved to Design/OpenMontage, global skill for all video work"
+   ]
+  },
+  {
+   "version": "v1.2",
+   "date": "2026-09-05",
+   "items": [
+    "Hierarchy: asimo-rd → asimo-sci → lens-research → academic-shield; asimo-marketing → manim · OpenMontage · TopView · Higgsfield; asimo-software (subsystem) → gstack · security; asimo-portfolio ← Asana + Obsidian, daily",
+    "Consumers of the portfolio summary: asimo-ceo (required input), asimo-hr capacity, asimo-sales pipeline, asimo-finance timelines"
+   ]
+  },
+  {
+   "version": "v1.1",
+   "date": "2026-09-05",
+   "items": [
+    "ceo → archify map via asimo-ecosystem procedure",
+    "portfolio → ceo required input",
+    "finance → xlsx workbooks",
+    "hr, sales → Asana MCP",
+    "strategist, rd → lens-research",
+    "sci ↔ brain declared one vault",
+    "software → real gstack bridge",
+    "archify installed as map layer",
+    "portfolio pulls Asana daily"
+   ]
+  }
+ ]
+}

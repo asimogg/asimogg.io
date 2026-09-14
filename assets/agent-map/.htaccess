@@ -10,3 +10,9 @@
   Require all granted
   Header set Content-Type "application/json; charset=utf-8"
 </Files>
+# The public change log shown by the page's Log button.
+<Files "log.json">
+  Require all granted
+  Header set Content-Type "application/json; charset=utf-8"
+  Header set Cache-Control "no-cache, must-revalidate"
+</Files>

@@ -28,7 +28,19 @@
     .map-frame{width:100%;aspect-ratio:16/10;min-height:560px;border:1px solid var(--line);border-radius:20px;background:#0f1117;overflow:hidden}
     .map-frame iframe{width:100%;height:100%;border:0;display:block}
     .map-actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1rem;align-items:center}
-    .btn-ghost{display:inline-block;padding:.85rem 1.6rem;border:1px solid var(--line);border-radius:999px;color:var(--ink);text-decoration:none;font-weight:600;font-size:.95rem}
+    .btn-ghost{display:inline-block;padding:.85rem 1.6rem;border:1px solid var(--line);border-radius:999px;color:var(--ink);text-decoration:none;font-weight:600;font-size:.95rem;background:transparent;font-family:inherit;cursor:pointer}
+    .log-modal{width:min(92vw,44rem)}
+    .log-body{padding:clamp(1.75rem,4vw,2.5rem)}
+    .log-lead{color:var(--ink-muted);font-size:.9375rem;margin:.4rem 0 1.4rem}
+    .log-list{list-style:none;margin:0;padding:0;max-height:min(60vh,34rem);overflow:auto}
+    .log-list li{padding:1rem 0;border-top:1px solid var(--line-soft)}
+    .log-list li:first-child{border-top:0;padding-top:0}
+    .log-head{display:flex;align-items:baseline;gap:.8rem;margin-bottom:.45rem}
+    .log-ver{font-weight:640;font-size:1.0625rem;font-variation-settings:"wdth" 116}
+    .log-date{color:var(--accent);font-size:.875rem;font-variant-numeric:tabular-nums}
+    .log-items{margin:0;padding-left:1.1rem;color:var(--ink-muted);font-size:.9375rem;line-height:1.55}
+    .log-items li{padding:.15rem 0;border:0}
+    .log-empty{color:var(--ink-muted)}
     .btn-ghost:hover{border-color:var(--ink)}
     @media (max-width:700px){.map-frame{min-height:420px;aspect-ratio:auto;height:70vh}}
   </style>
@@ -71,16 +83,19 @@
 
     <section class="map-block map-block-first" id="agent-map">
       <div class="map-bar">
-        <h2><span class="en">Agent Map v1.5</span><span class="tr">Ajan Haritası v1.5</span></h2>
+        <h2><span class="en">Agent Map <span data-map-version></span></span><span class="tr">Ajan Haritası <span data-map-version></span></span></h2>
         <span class="map-meta" id="map-updated"><span class="en">Rendered with archify · updated </span><span class="tr">archify ile üretildi · güncelleme </span><time data-map-date></time></span>
       </div>
       <div class="map-frame">
         <iframe src="../assets/agent-map/asimo-agent-map.html?theme=dark&amp;present=1" title="Asimo Agent Map" loading="lazy"></iframe>
       </div>
       <div class="map-actions">
-        <a class="btn btn-primary" href="../assets/agent-map/asimo-agent-map.html?theme=dark" target="_blank" rel="noopener">
+        <a class="btn btn-primary" href="../assets/agent-map/asimo-agent-map.html?theme=dark&amp;present=1" target="_blank" rel="noopener">
           <span class="en">Open full screen</span><span class="tr">Tam ekran aç</span>
         </a>
+        <button type="button" class="btn-ghost" id="map-log-open">
+          <span class="en">Log</span><span class="tr">Log</span>
+        </button>
         <a class="btn-ghost" href="../assets/agent-map/asimo-agent-map.architecture.json" target="_blank" rel="noopener">
           <span class="en">Typed source (JSON)</span><span class="tr">Kaynak (JSON)</span>
         </a>
@@ -90,6 +105,21 @@
     </section>
   </main>
 
+  <!-- change log: every map version with its date, newest first -->
+  <dialog class="video-modal log-modal" id="map-log" aria-labelledby="map-log-title">
+    <button type="button" class="video-close" id="map-log-close" aria-label="Close">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M3 3l12 12M15 3 3 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <div class="log-body">
+      <h2 class="gate-title" id="map-log-title"><span class="en">Agent Map log</span><span class="tr">Ajan Haritası logu</span></h2>
+      <p class="log-lead"><span class="en">What changed in each version, with the deploy date. The map itself only shows the current state.</span><span class="tr">Her sürümde ne değişti, yayın tarihiyle. Haritanın kendisi yalnızca güncel durumu gösterir.</span></p>
+      <ol class="log-list" id="map-log-list"></ol>
+      <p class="log-empty" id="map-log-empty" hidden><span class="en">The log could not be loaded.</span><span class="tr">Log yüklenemedi.</span></p>
+    </div>
+  </dialog>
+
   <footer class="footer">
     <p class="footer-line">
       <span class="en">© <span data-year></span> — AI automations for real businesses.</span>
@@ -98,6 +128,6 @@
     </p>
   </footer>
   <script src="../script.js?v=25"></script>
-  <script src="agentmap.js?v=1"></script>
+  <script src="agentmap.js?v=2"></script>
   </body>
 </html>
