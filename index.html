@@ -66,7 +66,7 @@
   </script>
   <link rel="preload" href="fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/archivo-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=37">
+  <link rel="stylesheet" href="styles.css?v=38">
 </head>
 <body class="entrance">
 <!--
@@ -139,6 +139,9 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
           </button>
           <input type="range" class="stickman-seek" id="stickman-seek" min="0" max="1000" value="0" step="1" aria-label="Position">
           <span class="stickman-time" id="stickman-time">0:00 / 1:00</span>
+          <button type="button" class="stickman-btn" id="stickman-full" aria-label="Enlarge" title="Enlarge">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1.5 5V1.5H5M9 1.5h3.5V5M12.5 9v3.5H9M5 12.5H1.5V9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
           <button type="button" class="stickman-sound" id="stickman-sound" aria-pressed="false">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 6h3l4-3v10l-4-3H2z" fill="currentColor"/><path class="snd-wave" d="M11 5.5c1.3 1.4 1.3 3.6 0 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
             <span class="en">Sound on</span><span class="tr">Sesi aç</span>
@@ -747,7 +750,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   </div>
 
   <script src="config.php"></script>
-  <script src="script.js?v=28"></script>
+  <script src="script.js?v=29"></script>
   <script src="skills.js?v=5"></script>
 </body>
 </html>

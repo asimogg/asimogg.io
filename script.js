@@ -409,6 +409,21 @@
       stick.addEventListener("pause", syncPlay);
       syncPlay();
     }
+    var fullBtn = document.getElementById("stickman-full");
+    var frame = stick.closest(".stickman-frame");
+    if (fullBtn && frame) {
+      fullBtn.addEventListener("click", function () {
+        if (document.fullscreenElement) { document.exitFullscreen(); return; }
+        if (frame.requestFullscreen) { frame.requestFullscreen().catch(function () { /* ignore */ }); }
+        else if (stick.webkitEnterFullscreen) { stick.webkitEnterFullscreen(); } // iPhone Safari: native player
+        gaEvent("stickman_fullscreen", { lang: currentLang() });
+      });
+      document.addEventListener("fullscreenchange", function () {
+        var on = document.fullscreenElement === frame;
+        fullBtn.setAttribute("aria-label", on ? "Exit full screen" : "Enlarge");
+        fullBtn.title = on ? "Exit full screen" : "Enlarge";
+      });
+    }
     var seeking = false;
     if (seek) {
       seek.addEventListener("input", function () { seeking = true; if (stick.duration) stick.currentTime = (Number(seek.value) / 1000) * stick.duration; });
