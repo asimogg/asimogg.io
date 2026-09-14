@@ -58,7 +58,7 @@ $area    = (string) ($_POST['area'] ?? '');
 $message = $clean((string) ($_POST['message'] ?? ''), 5000);
 $lang    = ($_POST['_language'] ?? 'en') === 'tr' ? 'tr' : 'en';
 
-$areas = ['sales-quoting', 'operations-orders', 'support-followup', 'reporting-data', 'not-sure'];
+$areas = ['sales-quoting', 'operations-orders', 'support-followup', 'reporting-data', 'scientific-project', 'not-sure'];
 
 if (($_POST['consent'] ?? '') !== 'yes') {
     respond(422, ['ok' => false, 'error' => 'consent']);

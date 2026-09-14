@@ -66,7 +66,7 @@
   </script>
   <link rel="preload" href="fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/archivo-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=34">
+  <link rel="stylesheet" href="styles.css?v=37">
 </head>
 <body class="entrance">
 <!--
@@ -125,64 +125,36 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
         </div>
       </div>
 
-      <div class="form-panel" id="inquiry">
-        <h2 class="form-title">
-          <span class="en">Start a project</span>
-          <span class="tr">Proje başlat</span>
-        </h2>
-        <form id="inquiry-form" action="send.php" method="POST" novalidate>
-          <div class="field-row">
-            <div class="field">
-              <label for="f-name"><span class="en">Name</span><span class="tr">Ad Soyad</span> <span class="req" aria-hidden="true">*</span></label>
-              <input id="f-name" name="name" type="text" required autocomplete="name" placeholder="Your full name" data-ph-en="Your full name" data-ph-tr="Adınız soyadınız">
-            </div>
-            <div class="field">
-              <label for="f-email"><span class="en">Email</span><span class="tr">E-posta</span> <span class="req" aria-hidden="true">*</span></label>
-              <input id="f-email" name="email" type="email" required autocomplete="email" placeholder="you@company.com" data-ph-en="you@company.com" data-ph-tr="siz@sirket.com">
-            </div>
-          </div>
-          <div class="field">
-            <label for="f-area"><span class="en">Where does the manual work live?</span><span class="tr">Manuel iş en çok nerede?</span> <span class="req" aria-hidden="true">*</span></label>
-            <div class="select-wrap">
-              <select id="f-area" name="area" required>
-                <option value="" disabled selected data-en="Select one" data-tr="Birini seç">Select one</option>
-                <option value="sales-quoting" data-en="Sales &amp; quoting" data-tr="Satış ve teklif">Sales &amp; quoting</option>
-                <option value="operations-orders" data-en="Operations &amp; orders" data-tr="Operasyon ve sipariş">Operations &amp; orders</option>
-                <option value="support-followup" data-en="Customer support &amp; follow-up" data-tr="Müşteri desteği ve takip">Customer support &amp; follow-up</option>
-                <option value="reporting-data" data-en="Reporting &amp; data" data-tr="Raporlama ve veri">Reporting &amp; data</option>
-                <option value="not-sure" data-en="Not sure yet" data-tr="Henüz emin değilim">Not sure yet</option>
-              </select>
-              <svg class="select-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true">
-                <path d="M1 1.5 6 6.5 11 1.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-          <div class="field">
-            <label for="f-message"><span class="en">What eats your team's time?</span><span class="tr">Ekibinizin zamanını ne yiyor?</span></label>
-            <textarea id="f-message" name="message" rows="3" placeholder="A few lines is enough." data-ph-en="A few lines is enough." data-ph-tr="Birkaç satır yeter."></textarea>
-          </div>
-          <label class="consent-check">
-            <input type="checkbox" name="consent" value="yes" required>
-            <span><span class="en">I have read the <a href="privacy.html" target="_blank" rel="noopener">privacy notice</a> and give explicit consent to my data being processed and stored on Google servers abroad.</span><span class="tr"><a href="privacy.html" target="_blank" rel="noopener">KVKK aydınlatma metnini</a> okudum; verilerimin işlenmesine ve yurt dışındaki Google sunucularında saklanmasına açık rıza veriyorum.</span></span>
-          </label>
-          <input type="hidden" name="_language" value="en">
-          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" value="">
-          <button class="btn btn-primary btn-submit" type="submit">
-            <span class="btn-label">
-              <span class="en">Send inquiry</span>
-              <span class="tr">Talebi gönder</span>
-            </span>
-            <span class="btn-busy" aria-hidden="true">
-              <span class="en">Sending…</span>
-              <span class="tr">Gönderiliyor…</span>
-            </span>
+      <div class="hero-video" id="hero-video">
+        <div class="stickman-frame">
+          <video id="stickman" class="stickman" playsinline muted autoplay loop preload="metadata" poster="assets/stickman-poster.jpg" width="720" height="720"
+                 data-src-en="assets/stickman-en.mp4" data-src-tr="assets/stickman-tr.mp4"
+                 aria-label="Distilled, not diluted: a one-minute stick-figure film about the automations on this site"></video>
+          <p class="stickman-cap" id="stickman-cap" aria-live="off"></p>
+        </div>
+        <div class="stickman-controls" role="group" aria-label="Player">
+          <button type="button" class="stickman-btn" id="stickman-play" aria-label="Pause" aria-pressed="true">
+            <svg class="ico-play" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"/></svg>
+            <svg class="ico-pause" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5h3v11H3zM8 1.5h3v11H8z" fill="currentColor"/></svg>
           </button>
-          <p class="form-status" role="status" aria-live="polite"></p>
-          <p class="form-note">
-            <span class="en">You'll get a reply from a person, not a bot.</span>
-            <span class="tr">Cevabı bot değil, insan yazar.</span>
-          </p>
-        </form>
+          <input type="range" class="stickman-seek" id="stickman-seek" min="0" max="1000" value="0" step="1" aria-label="Position">
+          <span class="stickman-time" id="stickman-time">0:00 / 1:00</span>
+          <button type="button" class="stickman-sound" id="stickman-sound" aria-pressed="false">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 6h3l4-3v10l-4-3H2z" fill="currentColor"/><path class="snd-wave" d="M11 5.5c1.3 1.4 1.3 3.6 0 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <span class="en">Sound on</span><span class="tr">Sesi aç</span>
+          </button>
+        </div>
+        <p class="stickman-line">
+          <span class="en"><span class="brush">Distilled</span>, not diluted — sixty seconds on what I build and why I teach it.</span>
+          <span class="tr"><span class="brush">Damıtılmış</span>, sulandırılmamış — ne kurduğumu ve neden öğrettiğimi altmış saniyede anlatıyor.</span>
+        </p>
+        <div class="stickman-actions">
+          <button type="button" class="btn btn-primary" id="open-inquiry">
+            <span class="en">Start a project</span>
+            <span class="tr">Proje başlat</span>
+          </button>
+          <span class="stickman-note"><span class="en">Opens a short form. A person replies.</span><span class="tr">Kısa bir form açılır. Cevabı insan yazar.</span></span>
+        </div>
       </div>
 
       <!-- use-case carousel: one slide per real use case; add a new .chain-slide to extend -->
@@ -193,6 +165,10 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
               <span class="en">Real use cases</span>
               <span class="tr">Gerçek kullanım örnekleri</span>
             </h2>
+            <svg class="chain-hint" viewBox="0 0 200 40" preserveAspectRatio="none" aria-hidden="true">
+              <path class="chain-hint-line" d="M4 30 C 50 4, 110 42, 160 18 L 188 12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+              <path class="chain-hint-head" d="M176 4 L 190 11 L 178 22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
             <div class="chain-nav" aria-label="Use cases">
               <button type="button" class="chain-arrow" data-dir="-1" aria-label="Previous">&#8592;</button>
               <span class="chain-count" aria-live="polite"><b>1</b> / <span>1</span></span>
@@ -616,6 +592,75 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
     </p>
   </footer>
 
+  <!-- Inquiry form: opened from "Start a project" (the hero slot now holds the film) -->
+  <dialog class="video-modal form-modal" id="inquiry-modal" aria-labelledby="form-title">
+    <button type="button" class="video-close" id="inquiry-close" aria-label="Close">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M3 3l12 12M15 3 3 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+      <div class="form-panel" id="inquiry">
+        <h2 class="form-title" id="form-title">
+          <span class="en">Start a project</span>
+          <span class="tr">Proje başlat</span>
+        </h2>
+        <form id="inquiry-form" action="send.php" method="POST" novalidate>
+          <div class="field-row">
+            <div class="field">
+              <label for="f-name"><span class="en">Name</span><span class="tr">Ad Soyad</span> <span class="req" aria-hidden="true">*</span></label>
+              <input id="f-name" name="name" type="text" required autocomplete="name" placeholder="Your full name" data-ph-en="Your full name" data-ph-tr="Adınız soyadınız">
+            </div>
+            <div class="field">
+              <label for="f-email"><span class="en">Email</span><span class="tr">E-posta</span> <span class="req" aria-hidden="true">*</span></label>
+              <input id="f-email" name="email" type="email" required autocomplete="email" placeholder="you@company.com" data-ph-en="you@company.com" data-ph-tr="siz@sirket.com">
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-area"><span class="en">Where does the manual work live?</span><span class="tr">Manuel iş en çok nerede?</span> <span class="req" aria-hidden="true">*</span></label>
+            <div class="select-wrap">
+              <select id="f-area" name="area" required>
+                <option value="" disabled selected data-en="Select one" data-tr="Birini seç">Select one</option>
+                <option value="sales-quoting" data-en="Sales &amp; quoting" data-tr="Satış ve teklif">Sales &amp; quoting</option>
+                <option value="operations-orders" data-en="Operations &amp; orders" data-tr="Operasyon ve sipariş">Operations &amp; orders</option>
+                <option value="support-followup" data-en="Customer support &amp; follow-up" data-tr="Müşteri desteği ve takip">Customer support &amp; follow-up</option>
+                <option value="reporting-data" data-en="Reporting &amp; data" data-tr="Raporlama ve veri">Reporting &amp; data</option>
+                <option value="scientific-project" data-en="Scientific / Project" data-tr="Bilimsel / Proje">Scientific / Project</option>
+                <option value="not-sure" data-en="Not sure yet" data-tr="Henüz emin değilim">Not sure yet</option>
+              </select>
+              <svg class="select-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+                <path d="M1 1.5 6 6.5 11 1.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-message"><span class="en">What eats your team's time?</span><span class="tr">Ekibinizin zamanını ne yiyor?</span></label>
+            <textarea id="f-message" name="message" rows="3" placeholder="A few lines is enough." data-ph-en="A few lines is enough." data-ph-tr="Birkaç satır yeter."></textarea>
+          </div>
+          <label class="consent-check">
+            <input type="checkbox" name="consent" value="yes" required>
+            <span><span class="en">I have read the <a href="privacy.html" target="_blank" rel="noopener">privacy notice</a> and give explicit consent to my data being processed and stored on Google servers abroad.</span><span class="tr"><a href="privacy.html" target="_blank" rel="noopener">KVKK aydınlatma metnini</a> okudum; verilerimin işlenmesine ve yurt dışındaki Google sunucularında saklanmasına açık rıza veriyorum.</span></span>
+          </label>
+          <input type="hidden" name="_language" value="en">
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" value="">
+          <button class="btn btn-primary btn-submit" type="submit">
+            <span class="btn-label">
+              <span class="en">Send inquiry</span>
+              <span class="tr">Talebi gönder</span>
+            </span>
+            <span class="btn-busy" aria-hidden="true">
+              <span class="en">Sending…</span>
+              <span class="tr">Gönderiliyor…</span>
+            </span>
+          </button>
+          <p class="form-status" role="status" aria-live="polite"></p>
+          <p class="form-note">
+            <span class="en">You'll get a reply from a person, not a bot.</span>
+            <span class="tr">Cevabı bot değil, insan yazar.</span>
+          </p>
+        </form>
+      </div>
+  </dialog>
+
   <!-- Saphire film: shown only in this popup, no download affordance -->
   <dialog class="video-modal" id="saphire-modal" aria-label="Saphire film">
     <button type="button" class="video-close" id="saphire-close" aria-label="Close">
@@ -702,7 +747,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   </div>
 
   <script src="config.php"></script>
-  <script src="script.js?v=25"></script>
-  <script src="skills.js?v=4"></script>
+  <script src="script.js?v=28"></script>
+  <script src="skills.js?v=5"></script>
 </body>
 </html>

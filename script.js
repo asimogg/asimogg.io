@@ -45,6 +45,7 @@
   document.querySelectorAll(".lang-btn").forEach(function (btn) {
     btn.addEventListener("click", function () {
       applyLang(btn.dataset.setLang);
+      document.dispatchEvent(new Event("langchange"));
     });
   });
 
@@ -342,6 +343,7 @@
     }
     arrows.forEach(function (btn) {
       btn.addEventListener("click", function () {
+        carousel.classList.add("used"); // the hint arrow has done its job
         var next = Math.max(0, Math.min(slides.length - 1, index() + Number(btn.dataset.dir)));
         track.scrollTo({ left: next * track.clientWidth, behavior: "smooth" });
       });
@@ -359,8 +361,97 @@
   // deep links (?play=, ?locked=) need the popup above, so they run last
   if (landing) landing();
 
-  /* ---------- inquiry form ---------- */
+  /* ---------- hero film: language-matched narration, sound toggle, timed captions ---------- */
+  var stick = document.getElementById("stickman");
+  if (stick) {
+    var soundBtn = document.getElementById("stickman-sound");
+    var capEl = document.getElementById("stickman-cap");
+    var CAPS = {
+      en: [[12, 19, "Distilled information"], [42, 49, "AI \u2194 real business"], [52, 59, "Allowed, not everything"]],
+      tr: [[12, 19, "Dam\u0131t\u0131lm\u0131\u015f bilgi"], [42, 49, "Yapay zek\u00e2 \u2194 ger\u00e7ek i\u015f"], [52, 59, "\u0130zinli olan, her \u015fey de\u011fil"]]
+    };
+    function stickSrc() { return stick.getAttribute("data-src-" + currentLang()); }
+    function loadStick(keepTime) {
+      var want = stickSrc();
+      if (stick.getAttribute("src") === want) return;
+      var t = keepTime ? stick.currentTime : 0;
+      var wasPaused = stick.paused;
+      stick.setAttribute("src", want);
+      stick.load();
+      // the seek only sticks once the new file's metadata is in
+      stick.addEventListener("loadedmetadata", function once() {
+        stick.removeEventListener("loadedmetadata", once);
+        if (t > 0) stick.currentTime = t;
+        if (!wasPaused) { var p = stick.play(); if (p && p.catch) p.catch(function () { /* user presses play */ }); }
+      });
+    }
+    loadStick(false);
+    document.addEventListener("langchange", function () { loadStick(true); });
+    if (soundBtn) {
+      soundBtn.addEventListener("click", function () {
+        var on = stick.muted;
+        stick.muted = !on;
+        soundBtn.setAttribute("aria-pressed", on ? "true" : "false");
+        if (on) { stick.currentTime = 0; var p = stick.play(); if (p && p.catch) p.catch(function () { /* ignore */ }); gaEvent("stickman_sound_on", { lang: currentLang() }); }
+      });
+    }
+    // player bar: play/pause, seek, time
+    var playBtn = document.getElementById("stickman-play");
+    var seek = document.getElementById("stickman-seek");
+    var timeEl = document.getElementById("stickman-time");
+    function fmt(sec) { sec = Math.max(0, Math.floor(sec || 0)); return Math.floor(sec / 60) + ":" + ("0" + (sec % 60)).slice(-2); }
+    function syncPlay() { if (playBtn) { playBtn.setAttribute("aria-pressed", stick.paused ? "false" : "true"); playBtn.setAttribute("aria-label", stick.paused ? "Play" : "Pause"); } }
+    if (playBtn) {
+      playBtn.addEventListener("click", function () {
+        if (stick.paused) { var p = stick.play(); if (p && p.catch) p.catch(function () { /* ignore */ }); } else stick.pause();
+      });
+      stick.addEventListener("play", syncPlay);
+      stick.addEventListener("pause", syncPlay);
+      syncPlay();
+    }
+    var seeking = false;
+    if (seek) {
+      seek.addEventListener("input", function () { seeking = true; if (stick.duration) stick.currentTime = (Number(seek.value) / 1000) * stick.duration; });
+      seek.addEventListener("change", function () { seeking = false; });
+    }
+    stick.addEventListener("timeupdate", function () {
+      if (seek && !seeking && stick.duration) seek.value = String(Math.round((stick.currentTime / stick.duration) * 1000));
+      if (timeEl) timeEl.textContent = fmt(stick.currentTime) + " / " + fmt(stick.duration || 60);
+    });
+    if (capEl) {
+      stick.addEventListener("timeupdate", function () {
+        var t = stick.currentTime, list = CAPS[currentLang()], text = "";
+        for (var i = 0; i < list.length; i++) if (t >= list[i][0] && t < list[i][1]) text = list[i][2];
+        if (text !== capEl.textContent) capEl.textContent = text;
+        capEl.classList.toggle("on", text !== "");
+      });
+    }
+  }
+
+  /* ---------- inquiry form (lives in a dialog, opened by "Start a project") ---------- */
   var form = document.getElementById("inquiry-form");
+  var inquiryModal = document.getElementById("inquiry-modal");
+  function openInquiry() {
+    if (!inquiryModal || typeof inquiryModal.showModal !== "function") { window.location.hash = "inquiry"; return; }
+    if (!inquiryModal.open) inquiryModal.showModal();
+    var first = document.getElementById("f-name");
+    if (first && !document.getElementById("f-message").value) setTimeout(function () { first.focus(); }, 60);
+    gaEvent("inquiry_open", { lang: currentLang() });
+  }
+  window.openInquiry = openInquiry;
+  if (inquiryModal) {
+    document.querySelectorAll('#open-inquiry, a[href="#inquiry"]').forEach(function (el) {
+      el.addEventListener("click", function (e) { e.preventDefault(); openInquiry(); });
+    });
+    var inqClose = document.getElementById("inquiry-close");
+    if (inqClose) inqClose.addEventListener("click", function () { inquiryModal.close(); });
+    inquiryModal.addEventListener("click", function (e) {
+      var r = inquiryModal.getBoundingClientRect();
+      var inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+      if (!inside) inquiryModal.close();
+    });
+    if (window.location.hash === "#inquiry") { history.replaceState(null, "", window.location.pathname); openInquiry(); }
+  }
   if (!form) return;
 
   var statusEl = form.querySelector(".form-status");

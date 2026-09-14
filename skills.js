@@ -324,8 +324,9 @@
     if (msg) {
       if (msg.value.indexOf(line) === -1) msg.value = (msg.value ? msg.value + "\n" : "") + line;
       hide();
-      document.getElementById("inquiry").scrollIntoView({ behavior: "smooth", block: "start" });
-      setTimeout(function () { msg.focus(); }, 500);
+      if (window.openInquiry) window.openInquiry();
+      else document.getElementById("inquiry").scrollIntoView({ behavior: "smooth", block: "start" });
+      setTimeout(function () { msg.focus(); }, 300);
     } else {
       window.location.href = "../?skill=" + encodeURIComponent(key) + "#inquiry";
     }

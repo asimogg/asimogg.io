@@ -1694,3 +1694,232 @@ select:invalid {
     font-size: clamp(2.25rem, 10vw, 2.9rem);
   }
 }
+
+
+/* ---------- hero film (replaces the inline form) ---------- */
+.hero-video {
+  display: grid;
+  gap: 1rem;
+}
+
+.stickman-frame {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--bg);
+  border: 1px solid var(--line-soft);
+  box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.9);
+}
+
+.stickman {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  background: var(--bg);
+}
+
+.stickman-cap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1.4rem;
+  margin: 0;
+  text-align: center;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9);
+}
+
+.stickman-cap.on {
+  opacity: 1;
+}
+
+.stickman-sound {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid rgba(244, 241, 235, 0.35);
+  border-radius: 999px;
+  background: rgba(10, 10, 9, 0.7);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.stickman-sound:hover,
+.stickman-sound[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.stickman-sound[aria-pressed="true"] .snd-wave {
+  opacity: 1;
+}
+
+.stickman-sound .snd-wave {
+  opacity: 0.35;
+}
+
+.stickman-line {
+  color: var(--ink-muted);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.stickman-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+}
+
+.stickman-note {
+  color: var(--ink-muted);
+  font-size: 0.8125rem;
+}
+
+.form-modal {
+  width: min(92vw, 40rem);
+}
+
+.form-modal .form-panel {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  scroll-margin-top: 0;
+}
+
+@media (max-width: 960px) {
+  .hero-video {
+    max-width: 34rem;
+  }
+}
+
+
+/* ---------- carousel hint: an arrow runs from the title to the buttons now and then ---------- */
+.chain-hint {
+  flex: 1 1 auto;
+  height: 2.5rem;
+  min-width: 6rem;
+  margin: 0 1rem;
+  color: var(--accent);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.chain-hint-line,
+.chain-hint-head {
+  stroke-dasharray: 320;
+  stroke-dashoffset: 320;
+}
+
+.chain-carousel:not(.used) .chain-hint {
+  animation: hint-fade 9s ease-in-out 2s infinite;
+}
+
+.chain-carousel:not(.used) .chain-hint-line {
+  animation: hint-draw 9s ease-out 2s infinite;
+}
+
+.chain-carousel:not(.used) .chain-hint-head {
+  animation: hint-draw-head 9s ease-out 2s infinite;
+}
+
+@keyframes hint-fade {
+  0%, 4% { opacity: 0; }
+  10%, 36% { opacity: 1; }
+  44%, 100% { opacity: 0; }
+}
+
+@keyframes hint-draw {
+  0%, 4% { stroke-dashoffset: 320; }
+  24%, 100% { stroke-dashoffset: 0; }
+}
+
+@keyframes hint-draw-head {
+  0%, 20% { stroke-dashoffset: 320; }
+  30%, 100% { stroke-dashoffset: 0; }
+}
+
+@media (max-width: 560px) {
+  .chain-hint {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chain-carousel:not(.used) .chain-hint,
+  .chain-carousel:not(.used) .chain-hint-line,
+  .chain-carousel:not(.used) .chain-hint-head {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+
+/* player bar under the film */
+.stickman-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: -0.2rem;
+}
+
+.stickman-btn {
+  width: 2.4rem;
+  height: 2.4rem;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(244, 241, 235, 0.35);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.stickman-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.stickman-btn .ico-play { display: none; }
+.stickman-btn .ico-pause { display: block; }
+.stickman-btn[aria-pressed="false"] .ico-play { display: block; }
+.stickman-btn[aria-pressed="false"] .ico-pause { display: none; }
+
+.stickman-seek {
+  flex: 1 1 auto;
+  min-width: 4rem;
+  height: 0.3rem;
+  margin: 0;
+  padding: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.stickman-time {
+  flex: 0 0 auto;
+  font-size: 0.8125rem;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.stickman-controls .stickman-sound {
+  flex: 0 0 auto;
+}
