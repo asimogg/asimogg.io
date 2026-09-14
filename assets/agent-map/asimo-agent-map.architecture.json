@@ -2,7 +2,7 @@
   "schema_version": 1,
   "diagram_type": "architecture",
   "meta": {
-    "title": "Asimo Agent Map v1.6",
+    "title": "Asimo Agent Map v1.7",
     "output": "asimo-agent-map.html",
     "quality_profile": "standard",
     "visual_preset": "signal-flow",
@@ -23,9 +23,10 @@
           "finance",
           "hr",
           "sales",
-          "software"
+          "software",
+          "brainstorm"
         ],
-        "note": "Portfolio scans Asana + Obsidian daily, feeds the CEO, maintains the archify map and audits projects against the five-gate procedure."
+        "note": "Portfolio scans Asana + Obsidian daily and feeds the CEO; every new idea passes the scientific-brainstorming Idea Test first."
       },
       {
         "id": "research",
@@ -38,9 +39,16 @@
           "eu",
           "academic",
           "strategist",
-          "brain"
+          "brain",
+          "hypo",
+          "expdesign",
+          "power",
+          "pymoo",
+          "stats",
+          "critical",
+          "citation"
         ],
-        "note": "Own library → newton physics verdict and material ranking → papers + patents → funded landscape with gap analysis → proposal writing."
+        "note": "Library → rival hypotheses → newton verdict + Pareto → papers/patents (DOIs validated) → DOE + n → funding gap → proposal."
       },
       {
         "id": "video",
@@ -454,6 +462,126 @@
         60
       ],
       "tag": "new"
+    },
+    {
+      "id": "brainstorm",
+      "type": "backend",
+      "label": "scientific-brainstorming",
+      "sublabel": "idea test · claim ledger",
+      "pos": [
+        220,
+        560
+      ],
+      "size": [
+        140,
+        60
+      ],
+      "tag": "new"
+    },
+    {
+      "id": "critical",
+      "type": "backend",
+      "label": "scientific-critical-thinking",
+      "sublabel": "evidence grade · bias",
+      "pos": [
+        620,
+        330
+      ],
+      "size": [
+        140,
+        60
+      ],
+      "tag": "new"
+    },
+    {
+      "id": "citation",
+      "type": "backend",
+      "label": "citation-management",
+      "sublabel": "DOI → BibTeX · validate",
+      "pos": [
+        1220,
+        40
+      ],
+      "size": [
+        140,
+        60
+      ],
+      "tag": "new"
+    },
+    {
+      "id": "hypo",
+      "type": "backend",
+      "label": "hypothesis-generation",
+      "sublabel": "rivals · predictions",
+      "pos": [
+        820,
+        240
+      ],
+      "size": [
+        140,
+        60
+      ],
+      "tag": "new"
+    },
+    {
+      "id": "expdesign",
+      "type": "backend",
+      "label": "experimental-design",
+      "sublabel": "DOE matrix · run order",
+      "pos": [
+        1020,
+        240
+      ],
+      "size": [
+        140,
+        60
+      ],
+      "tag": "new"
+    },
+    {
+      "id": "power",
+      "type": "backend",
+      "label": "statistical-power",
+      "sublabel": "replicates n",
+      "pos": [
+        1220,
+        240
+      ],
+      "size": [
+        140,
+        60
+      ],
+      "tag": "new"
+    },
+    {
+      "id": "pymoo",
+      "type": "backend",
+      "label": "pymoo",
+      "sublabel": "Pareto ranking",
+      "pos": [
+        820,
+        330
+      ],
+      "size": [
+        140,
+        60
+      ],
+      "tag": "new"
+    },
+    {
+      "id": "stats",
+      "type": "backend",
+      "label": "statistical-analysis",
+      "sublabel": "lab data · effect size",
+      "pos": [
+        1020,
+        330
+      ],
+      "size": [
+        140,
+        60
+      ],
+      "tag": "new"
     }
   ],
   "boundaries": [
@@ -500,6 +628,17 @@
         "software",
         "gstack",
         "cso"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "newton toolkit (K-Dense)",
+      "wraps": [
+        "hypo",
+        "expdesign",
+        "power",
+        "pymoo",
+        "stats"
       ]
     }
   ],
@@ -822,16 +961,120 @@
         890,
         650
       ]
+    },
+    {
+      "id": "ceo-brainstorm",
+      "from": "ceo",
+      "to": "brainstorm",
+      "label": "idea test",
+      "variant": "emphasis",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "rd-critical",
+      "from": "rd",
+      "to": "critical",
+      "label": "evidence grade",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "left",
+      "via": [
+        [
+          490,
+          360
+        ]
+      ]
+    },
+    {
+      "id": "strategist-critical",
+      "from": "strategist",
+      "to": "critical",
+      "label": "signal grade"
+    },
+    {
+      "id": "lens-citation",
+      "from": "lens",
+      "to": "citation",
+      "label": "validate DOIs",
+      "variant": "dashed",
+      "fromSide": "top",
+      "toSide": "left",
+      "via": [
+        [
+          1090,
+          70
+        ]
+      ]
+    },
+    {
+      "id": "newton-hypo",
+      "from": "newton",
+      "to": "hypo",
+      "label": "0 · rivals first",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "newton-expdesign",
+      "from": "newton",
+      "to": "expdesign",
+      "label": "DOE matrix",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "via": [
+        [
+          890,
+          215
+        ],
+        [
+          1090,
+          215
+        ]
+      ]
+    },
+    {
+      "id": "expdesign-power",
+      "from": "expdesign",
+      "to": "power",
+      "label": "n per run"
+    },
+    {
+      "id": "hypo-pymoo",
+      "from": "hypo",
+      "to": "pymoo",
+      "label": "ranking",
+      "variant": "dashed"
+    },
+    {
+      "id": "stats-rd",
+      "from": "stats",
+      "to": "rd",
+      "label": "results back",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "bottom",
+      "via": [
+        [
+          1090,
+          415
+        ],
+        [
+          490,
+          415
+        ]
+      ]
     }
   ],
   "cards": [
     {
       "dot": "violet",
-      "title": "v1.6 changes",
+      "title": "v1.7 changes",
       "items": [
-        "stickman-video-director under asimo-marketing: source + ratio + theme gate → Phase A director proposal (approval) → Phase B six Gemini Omni Flash prompts → OpenMontage assembly",
-        "v1.5: gate-analysis under asimo-portfolio",
-        "v1.4: newton physics referee under asimo-rd"
+        "K-Dense skills wired: scientific-brainstorming (ceo idea test), hypothesis-generation / experimental-design / statistical-power / pymoo (newton toolkit), statistical-analysis (rd), scientific-critical-thinking (rd + strategist), citation-management (lens)",
+        "v1.6: stickman-video-director under asimo-marketing",
+        "v1.5: gate-analysis under asimo-portfolio"
       ]
     },
     {
@@ -839,10 +1082,12 @@
       "title": "Research chain",
       "items": [
         "1 asimo-sci own library",
-        "2 newton prove / partial / refute + material choice",
-        "3 lens-research papers + patents, fit rating",
-        "4 eu-project-research funded landscape + gap",
-        "5 academic-shield human-quality proposal"
+        "2 hypothesis-generation rivals + predictions",
+        "3 newton prove / partial / refute + pymoo Pareto",
+        "4 lens-research papers + patents + DOI validation",
+        "5 experimental-design DOE + statistical-power n",
+        "6 eu-project-research funded landscape + gap",
+        "7 academic-shield proposal · results back via statistical-analysis"
       ]
     },
     {
