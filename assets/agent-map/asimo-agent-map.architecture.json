@@ -2,7 +2,7 @@
   "schema_version": 1,
   "diagram_type": "architecture",
   "meta": {
-    "title": "Asimo Agent Map v1.7",
+    "title": "Asimo Agent Map v1.8",
     "output": "asimo-agent-map.html",
     "quality_profile": "standard",
     "visual_preset": "signal-flow",
@@ -46,7 +46,8 @@
           "pymoo",
           "stats",
           "critical",
-          "citation"
+          "citation",
+          "manim"
         ],
         "note": "Library → rival hypotheses → newton verdict + Pareto → papers/patents (DOIs validated) → DOE + n → funding gap → proposal."
       },
@@ -340,7 +341,7 @@
       "id": "manim",
       "type": "backend",
       "label": "manim",
-      "sublabel": "scientific video",
+      "sublabel": "scientific video · shared",
       "pos": [
         620,
         480
@@ -348,7 +349,8 @@
       "size": [
         140,
         60
-      ]
+      ],
+      "tag": "rd + marketing"
     },
     {
       "id": "openmontage",
@@ -1136,13 +1138,45 @@
         1130,
         205
       ]
+    },
+    {
+      "id": "rd-manim",
+      "from": "rd",
+      "to": "manim",
+      "label": "scientific visual? ask first",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "via": [
+        [
+          490,
+          315
+        ],
+        [
+          800,
+          315
+        ],
+        [
+          800,
+          430
+        ],
+        [
+          690,
+          430
+        ]
+      ],
+      "labelAt": [
+        700,
+        305
+      ]
     }
   ],
   "cards": [
     {
       "dot": "violet",
-      "title": "v1.7 changes",
+      "title": "v1.8 changes",
       "items": [
+        "v1.8: manim linked to asimo-rd (ask-first rule for scientific visuals); still under asimo-marketing for video",
         "K-Dense skills wired: scientific-brainstorming (ceo idea test), hypothesis-generation / experimental-design / statistical-power / pymoo (newton toolkit), statistical-analysis (rd), scientific-critical-thinking (rd + strategist), citation-management (lens)",
         "v1.6: stickman-video-director under asimo-marketing",
         "v1.5: gate-analysis under asimo-portfolio"
