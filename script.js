@@ -409,20 +409,55 @@
       stick.addEventListener("pause", syncPlay);
       syncPlay();
     }
+    // enlarge: the same film plays in a popup in front of the page, with sound
     var fullBtn = document.getElementById("stickman-full");
-    var frame = stick.closest(".stickman-frame");
-    if (fullBtn && frame) {
+    var bigModal = document.getElementById("stickman-modal");
+    var big = document.getElementById("stickman-big");
+    var capBig = document.getElementById("stickman-cap-big");
+    function captionFor(t) {
+      var list = CAPS[currentLang()];
+      for (var i = 0; i < list.length; i++) if (t >= list[i][0] && t < list[i][1]) return list[i][2];
+      return "";
+    }
+    if (fullBtn && bigModal && big && typeof bigModal.showModal === "function") {
+      function loadBig(t) {
+        var want = stickSrc();
+        if (big.getAttribute("src") !== want) { big.setAttribute("src", want); big.load(); }
+        big.addEventListener("loadedmetadata", function once() {
+          big.removeEventListener("loadedmetadata", once);
+          big.currentTime = t;
+          var p = big.play(); if (p && p.catch) p.catch(function () { /* user presses play */ });
+        });
+        if (big.readyState >= 1 && big.getAttribute("src") === want) { big.currentTime = t; var p2 = big.play(); if (p2 && p2.catch) p2.catch(function () { /* ignore */ }); }
+      }
+      function closeBig() {
+        if (!bigModal.open) return;
+        big.pause();
+        stick.currentTime = big.currentTime;
+        bigModal.close();
+        var p = stick.play(); if (p && p.catch) p.catch(function () { /* ignore */ });
+      }
       fullBtn.addEventListener("click", function () {
-        if (document.fullscreenElement) { document.exitFullscreen(); return; }
-        if (frame.requestFullscreen) { frame.requestFullscreen().catch(function () { /* ignore */ }); }
-        else if (stick.webkitEnterFullscreen) { stick.webkitEnterFullscreen(); } // iPhone Safari: native player
-        gaEvent("stickman_fullscreen", { lang: currentLang() });
+        stick.pause();
+        big.muted = false;
+        bigModal.showModal();
+        loadBig(stick.currentTime);
+        gaEvent("stickman_enlarge", { lang: currentLang() });
       });
-      document.addEventListener("fullscreenchange", function () {
-        var on = document.fullscreenElement === frame;
-        fullBtn.setAttribute("aria-label", on ? "Exit full screen" : "Enlarge");
-        fullBtn.title = on ? "Exit full screen" : "Enlarge";
+      document.getElementById("stickman-modal-close").addEventListener("click", closeBig);
+      bigModal.addEventListener("cancel", function (e) { e.preventDefault(); closeBig(); });
+      bigModal.addEventListener("click", function (e) {
+        var r = bigModal.getBoundingClientRect();
+        var inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+        if (!inside) closeBig();
       });
+      big.addEventListener("timeupdate", function () {
+        if (!capBig) return;
+        var text = captionFor(big.currentTime);
+        if (text !== capBig.textContent) capBig.textContent = text;
+        capBig.classList.toggle("on", text !== "");
+      });
+      document.addEventListener("langchange", function () { if (bigModal.open) loadBig(big.currentTime); });
     }
     var seeking = false;
     if (seek) {
