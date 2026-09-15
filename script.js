@@ -589,3 +589,28 @@
     }
   });
 })();
+
+/* GitHub nav group: on touch screens (no hover) the first tap opens the
+   submenu, the second tap follows the link; a tap elsewhere closes it. */
+(function () {
+  var group = document.querySelector(".nav-group");
+  if (!group) return;
+  var link = group.querySelector(":scope > .nav-link");
+  var noHover = window.matchMedia("(hover: none)");
+
+  link.addEventListener("click", function (event) {
+    if (!noHover.matches) return;
+    if (!group.classList.contains("is-open")) {
+      event.preventDefault();
+      group.classList.add("is-open");
+      link.setAttribute("aria-expanded", "true");
+    }
+  });
+
+  document.addEventListener("click", function (event) {
+    if (!group.contains(event.target)) {
+      group.classList.remove("is-open");
+      link.setAttribute("aria-expanded", "false");
+    }
+  });
+})();
