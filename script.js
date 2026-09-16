@@ -33,11 +33,12 @@
     });
 
 
-    // document title + hidden form field
-    document.title =
-      lang === "tr"
+    // document title (pages can carry their own via data-title-en/tr on <html>) + hidden form field
+    var ownTitle = lang === "tr" ? html.getAttribute("data-title-tr") : html.getAttribute("data-title-en");
+    document.title = ownTitle ||
+      (lang === "tr"
         ? "Gerçek İş Yapan Yapay Zekâ Otomasyonları"
-        : "AI Automations That Do Real Work";
+        : "AI Automations That Do Real Work");
     var langField = document.querySelector('input[name="_language"]');
     if (langField) langField.value = lang;
   }
@@ -248,48 +249,6 @@
     range.addEventListener("input", set);
     set();
   });
-
-  /* ---------- Saphire video popup ---------- */
-  var modal = document.getElementById("saphire-modal");
-  var video = document.getElementById("saphire-video");
-  var closeBtn = document.getElementById("saphire-close");
-
-  function openVideo(url) {
-    if (!modal || typeof modal.showModal !== "function") return;
-    if (video.getAttribute("src") !== url) {
-      video.setAttribute("src", url);
-      video.load();
-    }
-    modal.showModal();
-    video.currentTime = 0;
-    var p = video.play();
-    if (p && p.catch) p.catch(function () { /* autoplay blocked: user presses play */ });
-  }
-  // the film is open to everyone: the nav button plays it straight away
-  var filmLink = document.getElementById("saphire-link");
-  if (filmLink && modal) {
-    filmLink.addEventListener("click", function () {
-      gaEvent("saphire_play", { lang: currentLang() });
-      openVideo("media.php");
-    });
-  }
-  function closeVideo() {
-    video.pause();
-    if (modal.open) modal.close();
-  }
-
-  if (modal && video && typeof modal.showModal === "function") {
-    closeBtn.addEventListener("click", closeVideo);
-    // click on the dimmed backdrop (outside the dialog box) closes it
-    modal.addEventListener("click", function (e) {
-      var r = modal.getBoundingClientRect();
-      var inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
-      if (!inside) closeVideo();
-    });
-    modal.addEventListener("close", function () { video.pause(); });
-    // no "save video as" menu
-    video.addEventListener("contextmenu", function (e) { e.preventDefault(); });
-  }
 
   /* ---------- use-case chains: each draws in once when scrolled into view ----------
      Safari does not reliably fire IntersectionObserver for targets inside a
