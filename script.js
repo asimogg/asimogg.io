@@ -250,6 +250,58 @@
     set();
   });
 
+  /* ---------- Concept Works: two films, each in its own popup player ---------- */
+  function popupPlayer(modalId, videoId, closeId) {
+    var modal = document.getElementById(modalId);
+    var video = document.getElementById(videoId);
+    var closeBtn = document.getElementById(closeId);
+    if (!modal || !video || typeof modal.showModal !== "function") return null;
+    function close() { video.pause(); if (modal.open) modal.close(); }
+    closeBtn.addEventListener("click", close);
+    // click on the dimmed backdrop (outside the dialog box) closes it
+    modal.addEventListener("click", function (e) {
+      var r = modal.getBoundingClientRect();
+      var inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+      if (!inside) close();
+    });
+    modal.addEventListener("close", function () { video.pause(); });
+    video.addEventListener("contextmenu", function (e) { e.preventDefault(); }); // no "save video as"
+    return {
+      modal: modal, video: video,
+      open: function (url, keepTime) {
+        var t = keepTime ? video.currentTime : 0, playing = keepTime ? !video.paused : true;
+        if (video.getAttribute("src") !== url) {
+          video.setAttribute("src", url);
+          video.load();
+          if (t > 0) video.addEventListener("loadedmetadata", function seek() { video.removeEventListener("loadedmetadata", seek); video.currentTime = t; }, { once: true });
+        }
+        if (!modal.open) modal.showModal();
+        if (!keepTime) video.currentTime = 0;
+        if (playing) { var p = video.play(); if (p && p.catch) p.catch(function () { /* autoplay blocked: user presses play */ }); }
+      }
+    };
+  }
+  // Saphire: streamed by media.php, open to everyone
+  var saphire = popupPlayer("saphire-modal", "saphire-video", "saphire-close");
+  var saphireLink = document.getElementById("saphire-link");
+  if (saphire && saphireLink) {
+    saphireLink.addEventListener("click", function () {
+      gaEvent("saphire_play", { lang: currentLang() });
+      saphire.open("media.php");
+    });
+  }
+  // Distilled, not diluted: the wide cut with the narration of the current language
+  var distilled = popupPlayer("distilled-modal", "distilled-video", "distilled-close");
+  var distilledLink = document.getElementById("distilled-link");
+  if (distilled && distilledLink) {
+    function distilledSrc() { return distilled.video.getAttribute("data-src-" + currentLang()); }
+    distilledLink.addEventListener("click", function () {
+      gaEvent("distilled_play", { lang: currentLang() });
+      distilled.open(distilledSrc());
+    });
+    document.addEventListener("langchange", function () { if (distilled.modal.open) distilled.open(distilledSrc(), true); });
+  }
+
   /* ---------- use-case chains: each draws in once when scrolled into view ----------
      Safari does not reliably fire IntersectionObserver for targets inside a
      scroll-snap track, so we observe the wrapper outside the track and keep a
@@ -549,27 +601,33 @@
   });
 })();
 
-/* GitHub nav group: on touch screens (no hover) the first tap opens the
-   submenu, the second tap follows the link; a tap elsewhere closes it. */
+/* Nav groups (Concept Works, GitHub): hover/focus opens the submenu on pointer
+   devices; on touch screens the first tap opens it, a tap elsewhere closes it.
+   A button-headed group (Concept Works) toggles on every tap or click. */
 (function () {
-  var group = document.querySelector(".nav-group");
-  if (!group) return;
-  var link = group.querySelector(":scope > .nav-link");
+  var groups = document.querySelectorAll(".nav-group");
+  if (!groups.length) return;
   var noHover = window.matchMedia("(hover: none)");
-
-  link.addEventListener("click", function (event) {
-    if (!noHover.matches) return;
-    if (!group.classList.contains("is-open")) {
-      event.preventDefault();
-      group.classList.add("is-open");
-      link.setAttribute("aria-expanded", "true");
-    }
+  function setOpen(group, link, open) {
+    group.classList.toggle("is-open", open);
+    link.setAttribute("aria-expanded", String(open));
+  }
+  groups.forEach(function (group) {
+    var link = group.querySelector(":scope > .nav-link");
+    var isButton = link.tagName === "BUTTON";
+    link.addEventListener("click", function (event) {
+      if (isButton) { setOpen(group, link, !group.classList.contains("is-open")); return; }
+      if (!noHover.matches) return;
+      if (!group.classList.contains("is-open")) { event.preventDefault(); setOpen(group, link, true); }
+    });
+    group.addEventListener("click", function (event) {
+      // choosing a film closes the menu
+      if (event.target.closest(".nav-sub-item")) setOpen(group, link, false);
+    });
   });
-
   document.addEventListener("click", function (event) {
-    if (!group.contains(event.target)) {
-      group.classList.remove("is-open");
-      link.setAttribute("aria-expanded", "false");
-    }
+    groups.forEach(function (group) {
+      if (!group.contains(event.target)) setOpen(group, group.querySelector(":scope > .nav-link"), false);
+    });
   });
 })();
