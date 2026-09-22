@@ -1,1215 +1,1245 @@
 {
-  "schema_version": 1,
-  "diagram_type": "architecture",
-  "meta": {
-    "title": "Asimo Agent Map v1.8",
-    "output": "asimo-agent-map.html",
-    "quality_profile": "standard",
-    "visual_preset": "signal-flow",
-    "views": [
-      {
-        "id": "orchestration",
-        "label": "CEO orchestration",
-        "focus": [
-          "asim",
-          "sources",
-          "portfolio",
-          "gate",
-          "archify",
-          "ceo",
-          "rd",
-          "strategist",
-          "marketing",
-          "finance",
-          "hr",
-          "sales",
-          "software",
-          "brainstorm"
-        ],
-        "note": "Portfolio scans Asana + Obsidian daily and feeds the CEO; every new idea passes the scientific-brainstorming Idea Test first."
-      },
-      {
-        "id": "research",
-        "label": "Research chain under asimo-rd",
-        "focus": [
-          "rd",
-          "sci",
-          "newton",
-          "lens",
-          "eu",
-          "academic",
-          "strategist",
-          "brain",
-          "hypo",
-          "expdesign",
-          "power",
-          "pymoo",
-          "stats",
-          "critical",
-          "citation",
-          "manim"
-        ],
-        "note": "Library → rival hypotheses → newton verdict + Pareto → papers/patents (DOIs validated) → DOE + n → funding gap → proposal."
-      },
-      {
-        "id": "video",
-        "label": "Video production under asimo-marketing",
-        "focus": [
-          "marketing",
-          "stickman",
-          "manim",
-          "openmontage",
-          "topview",
-          "higgsfield"
-        ],
-        "note": "Stickman briefs: stickman-video-director first (Phase A approval → six Omni Flash prompts), then OpenMontage assembly."
-      },
-      {
-        "id": "software",
-        "label": "Software subsystem",
-        "focus": [
-          "ceo",
-          "software",
-          "gstack",
-          "cso"
-        ],
-        "note": "gstack engineering factory plus mandatory security pass."
-      }
-    ]
-  },
-  "components": [
-    {
-      "id": "asim",
-      "type": "external",
-      "label": "Asım",
-      "sublabel": "final decisions",
-      "pos": [
-        40,
-        690
-      ],
-      "size": [
-        140,
-        60
-      ]
-    },
-    {
-      "id": "sources",
-      "type": "cloud",
-      "label": "Asana + Obsidian",
-      "sublabel": "MCP · vault",
-      "pos": [
-        40,
-        130
-      ],
-      "size": [
-        140,
-        60
-      ]
-    },
-    {
-      "id": "portfolio",
-      "type": "backend",
-      "label": "asimo-portfolio",
-      "sublabel": "daily scan · map owner",
-      "pos": [
-        220,
-        130
-      ],
-      "size": [
-        140,
-        60
-      ],
-      "tag": "≤24h"
-    },
-    {
-      "id": "archify",
-      "type": "frontend",
-      "label": "archify",
-      "sublabel": "map of all skills & jobs",
-      "pos": [
-        420,
-        40
-      ],
-      "size": [
-        140,
-        60
-      ],
-      "tag": "portfolio-owned"
-    },
-    {
-      "id": "gate",
-      "type": "backend",
-      "label": "gate-analysis",
-      "sublabel": "5-gate audit · HTML + PDF",
-      "pos": [
-        40,
-        40
-      ],
-      "size": [
-        140,
-        60
-      ],
-      "tag": "new"
-    },
-    {
-      "id": "ceo",
-      "type": "backend",
-      "label": "asimo-ceo",
-      "sublabel": "orchestrator",
-      "pos": [
-        220,
-        690
-      ],
-      "size": [
-        140,
-        60
-      ]
-    },
-    {
-      "id": "rd",
-      "type": "backend",
-      "label": "asimo-rd",
-      "sublabel": "research parent",
-      "pos": [
-        420,
-        130
-      ],
-      "size": [
-        140,
-        60
-      ]
-    },
-    {
-      "id": "strategist",
-      "type": "backend",
-      "label": "asimo-strategist",
-      "sublabel": "roadmap",
-      "pos": [
-        420,
-        330
-      ],
-      "size": [
-        140,
-        60
-      ]
-    },
-    {
-      "id": "marketing",
-      "type": "backend",
-      "label": "asimo-marketing",
-      "sublabel": "video parent",
-      "pos": [
-        420,
-        480
-      ],
-      "size": [
-        140,
-        60
-      ]
-    },
-    {
-      "id": "finance",
-      "type": "backend",
-      "label": "asimo-finance",
-      "sublabel": "NPV · budget",
-      "pos": [
-        420,
-        690
-      ],
-      "size": [
-        140,
-        60
-      ]
-    },
-    {
-      "id": "hr",
-      "type": "backend",
-      "label": "asimo-hr",
-      "sublabel": "capacity",
-      "pos": [
-        420,
-        800
-      ],
-      "size": [
-        140,
-        60
-      ]
-    },
-    {
-      "id": "sales",
-      "type": "backend",
-      "label": "asimo-sales",
-      "sublabel": "pipeline",
-      "pos": [
-        420,
-        910
-      ],
-      "size": [
-        140,
-        60
-      ]
-    },
-    {
-      "id": "software",
-      "type": "backend",
-      "label": "asimo-software",
-      "sublabel": "build · ship",
-      "pos": [
-        420,
-        1060
-      ],
-      "size": [
-        140,
-        60
-      ],
-      "tag": "subsystem"
-    },
-    {
-      "id": "sci",
-      "type": "database",
-      "label": "asimo-sci",
-      "sublabel": "own library",
-      "pos": [
-        620,
-        130
-      ],
-      "size": [
-        140,
-        60
-      ]
-    },
-    {
-      "id": "newton",
-      "type": "backend",
-      "label": "newton",
-      "sublabel": "physics · materials · DOE",
-      "pos": [
-        820,
-        130
-      ],
-      "size": [
-        140,
-        60
-      ],
-      "tag": "new"
-    },
-    {
-      "id": "lens",
-      "type": "backend",
-      "label": "lens-research",
-      "sublabel": "papers · patents",
-      "pos": [
-        1020,
-        130
-      ],
-      "size": [
-        140,
-        60
-      ],
-      "tag": "fit rating"
-    },
-    {
-      "id": "academic",
-      "type": "backend",
-      "label": "academic-shield",
-      "sublabel": "human writing",
-      "pos": [
-        1220,
-        130
-      ],
-      "size": [
-        140,
-        60
-      ]
-    },
-    {
-      "id": "eu",
-      "type": "backend",
-      "label": "eu-project-research",
-      "sublabel": "CORDIS · M-ERA · EUREKA",
-      "pos": [
-        620,
-        240
-      ],
-      "size": [
-        140,
-        60
-      ],
-      "tag": "gap analysis"
-    },
-    {
-      "id": "manim",
-      "type": "backend",
-      "label": "manim",
-      "sublabel": "scientific video · shared",
-      "pos": [
-        620,
-        480
-      ],
-      "size": [
-        140,
-        60
-      ],
-      "tag": "rd + marketing"
-    },
-    {
-      "id": "openmontage",
-      "type": "backend",
-      "label": "OpenMontage",
-      "sublabel": "Design/OpenMontage",
-      "pos": [
-        620,
-        570
-      ],
-      "size": [
-        140,
-        60
-      ]
-    },
-    {
-      "id": "topview",
-      "type": "cloud",
-      "label": "TopView MCP",
-      "sublabel": "image · video · voice",
-      "pos": [
-        820,
-        480
-      ],
-      "size": [
-        140,
-        60
-      ]
-    },
-    {
-      "id": "higgsfield",
-      "type": "cloud",
-      "label": "Higgsfield MCP",
-      "sublabel": "video · 3D · audio",
-      "pos": [
-        820,
-        570
-      ],
-      "size": [
-        140,
-        60
-      ]
-    },
-    {
-      "id": "xlsx",
-      "type": "backend",
-      "label": "xlsx skill",
-      "sublabel": "workbooks",
-      "pos": [
-        620,
-        690
-      ],
-      "size": [
-        140,
-        60
-      ]
-    },
-    {
-      "id": "gstack",
-      "type": "backend",
-      "label": "gstack",
-      "sublabel": "engineering factory",
-      "pos": [
-        620,
-        1060
-      ],
-      "size": [
-        140,
-        60
-      ]
-    },
-    {
-      "id": "cso",
-      "type": "security",
-      "label": "security",
-      "sublabel": "/cso · review",
-      "pos": [
-        620,
-        1150
-      ],
-      "size": [
-        140,
-        60
-      ]
-    },
-    {
-      "id": "brain",
-      "type": "database",
-      "label": "asimo-brain",
-      "sublabel": "galaxy · voice",
-      "pos": [
-        1020,
-        40
-      ],
-      "size": [
-        140,
-        60
-      ]
-    },
-    {
-      "id": "stickman",
-      "type": "backend",
-      "label": "stickman-video-director",
-      "sublabel": "6× Omni Flash prompts",
-      "pos": [
-        1000,
-        570
-      ],
-      "size": [
-        170,
-        60
-      ],
-      "tag": "new"
-    },
-    {
-      "id": "brainstorm",
-      "type": "backend",
-      "label": "scientific-brainstorming",
-      "sublabel": "idea test · claim ledger",
-      "pos": [
-        20,
-        560
-      ],
-      "size": [
-        180,
-        60
-      ],
-      "tag": "new"
-    },
-    {
-      "id": "critical",
-      "type": "backend",
-      "label": "scientific-critical-thinking",
-      "sublabel": "evidence grade · bias",
-      "pos": [
-        20,
-        330
-      ],
-      "size": [
-        200,
-        60
-      ],
-      "tag": "new"
-    },
-    {
-      "id": "citation",
-      "type": "backend",
-      "label": "citation-management",
-      "sublabel": "DOI → BibTeX · validate",
-      "pos": [
-        1440,
-        40
-      ],
-      "size": [
-        140,
-        60
-      ],
-      "tag": "new"
-    },
-    {
-      "id": "hypo",
-      "type": "backend",
-      "label": "hypothesis-generation",
-      "sublabel": "rivals · predictions",
-      "pos": [
-        840,
-        240
-      ],
-      "size": [
-        140,
-        60
-      ],
-      "tag": "new"
-    },
-    {
-      "id": "expdesign",
-      "type": "backend",
-      "label": "experimental-design",
-      "sublabel": "DOE matrix · run order",
-      "pos": [
-        1240,
-        240
-      ],
-      "size": [
-        140,
-        60
-      ],
-      "tag": "new"
-    },
-    {
-      "id": "power",
-      "type": "backend",
-      "label": "statistical-power",
-      "sublabel": "replicates n",
-      "pos": [
-        1440,
-        240
-      ],
-      "size": [
-        140,
-        60
-      ],
-      "tag": "new"
-    },
-    {
-      "id": "pymoo",
-      "type": "backend",
-      "label": "pymoo",
-      "sublabel": "Pareto ranking",
-      "pos": [
-        1040,
-        330
-      ],
-      "size": [
-        140,
-        60
-      ],
-      "tag": "new"
-    },
-    {
-      "id": "stats",
-      "type": "backend",
-      "label": "statistical-analysis",
-      "sublabel": "lab data · effect size",
-      "pos": [
-        1040,
-        240
-      ],
-      "size": [
-        140,
-        60
-      ],
-      "tag": "new"
-    }
-  ],
-  "boundaries": [
-    {
-      "kind": "region",
-      "label": "Cowork · decision layer",
-      "wraps": [
-        "portfolio",
-        "ceo",
-        "rd",
-        "strategist",
-        "marketing",
-        "finance",
-        "hr",
-        "sales"
-      ]
-    },
-    {
-      "kind": "region",
-      "label": "Research chain (asimo-rd)",
-      "wraps": [
-        "sci",
-        "newton",
-        "lens",
-        "academic",
-        "eu"
-      ]
-    },
-    {
-      "kind": "region",
-      "label": "Video production (asimo-marketing)",
-      "wraps": [
-        "manim",
-        "openmontage",
-        "topview",
-        "higgsfield",
-        "stickman"
-      ]
-    },
-    {
-      "kind": "region",
-      "label": "Software subsystem",
-      "wraps": [
-        "software",
-        "gstack",
-        "cso"
-      ]
-    },
-    {
-      "kind": "region",
-      "label": "newton toolkit (K-Dense)",
-      "wraps": [
-        "hypo",
-        "stats",
-        "expdesign",
-        "power",
-        "pymoo"
-      ]
-    }
-  ],
-  "connections": [
-    {
-      "id": "asim-ceo",
-      "from": "asim",
-      "to": "ceo",
-      "variant": "emphasis"
-    },
-    {
-      "id": "sources-portfolio",
-      "from": "sources",
-      "to": "portfolio",
-      "label": "daily scan",
-      "labelAt": [
-        200,
-        204
-      ]
-    },
-    {
-      "id": "portfolio-archify",
-      "from": "portfolio",
-      "to": "archify",
-      "label": "maps skills & jobs",
-      "variant": "dashed",
-      "fromSide": "top",
-      "toSide": "left",
-      "via": [
-        [
-          290,
-          70
-        ]
-      ]
-    },
-    {
-      "id": "portfolio-gate",
-      "from": "portfolio",
-      "to": "gate",
-      "label": "gate audit",
-      "fromSide": "top",
-      "toSide": "right",
-      "via": [
-        [
-          290,
-          70
-        ]
-      ],
-      "labelAt": [
-        235,
-        52
-      ]
-    },
-    {
-      "id": "portfolio-ceo",
-      "from": "portfolio",
-      "to": "ceo",
-      "label": "required input",
-      "variant": "emphasis",
-      "fromSide": "bottom",
-      "toSide": "top",
-      "labelAt": [
-        340,
-        430
-      ]
-    },
-    {
-      "id": "ceo-rd",
-      "from": "ceo",
-      "to": "rd"
-    },
-    {
-      "id": "ceo-strategist",
-      "from": "ceo",
-      "to": "strategist"
-    },
-    {
-      "id": "ceo-marketing",
-      "from": "ceo",
-      "to": "marketing"
-    },
-    {
-      "id": "ceo-finance",
-      "from": "ceo",
-      "to": "finance"
-    },
-    {
-      "id": "ceo-hr",
-      "from": "ceo",
-      "to": "hr"
-    },
-    {
-      "id": "ceo-sales",
-      "from": "ceo",
-      "to": "sales"
-    },
-    {
-      "id": "ceo-software",
-      "from": "ceo",
-      "to": "software",
-      "variant": "emphasis",
-      "fromSide": "bottom",
-      "toSide": "left",
-      "via": [
-        [
-          290,
-          1090
-        ]
-      ]
-    },
-    {
-      "id": "rd-sci",
-      "from": "rd",
-      "to": "sci",
-      "label": "1 · own library",
-      "labelAt": [
-        590,
-        204
-      ]
-    },
-    {
-      "id": "sci-newton",
-      "from": "sci",
-      "to": "newton",
-      "label": "2 · physics verdict",
-      "labelAt": [
-        790,
-        204
-      ]
-    },
-    {
-      "id": "newton-lens",
-      "from": "newton",
-      "to": "lens",
-      "label": "3 · papers + patents",
-      "labelAt": [
-        990,
-        204
-      ]
-    },
-    {
-      "id": "lens-academic",
-      "from": "lens",
-      "to": "academic",
-      "label": "5 · write",
-      "labelAt": [
-        1190,
-        204
-      ]
-    },
-    {
-      "id": "rd-eu",
-      "from": "rd",
-      "to": "eu",
-      "label": "4 · funding gap",
-      "fromSide": "bottom",
-      "toSide": "left",
-      "via": [
-        [
-          490,
-          270
-        ]
-      ]
-    },
-    {
-      "id": "strategist-lens",
-      "from": "strategist",
-      "to": "lens",
-      "variant": "dashed",
-      "fromSide": "right",
-      "toSide": "bottom",
-      "via": [
-        [
-          1000,
-          360
-        ],
-        [
-          1000,
-          200
-        ],
-        [
-          1090,
-          200
-        ]
-      ]
-    },
-    {
-      "id": "sci-brain",
-      "from": "sci",
-      "to": "brain",
-      "label": "same vault",
-      "variant": "emphasis",
-      "fromSide": "top",
-      "toSide": "left",
-      "via": [
-        [
-          690,
-          70
-        ]
-      ]
-    },
-    {
-      "id": "marketing-manim",
-      "from": "marketing",
-      "to": "manim"
-    },
-    {
-      "id": "marketing-openmontage",
-      "from": "marketing",
-      "to": "openmontage",
-      "variant": "emphasis",
-      "fromSide": "bottom",
-      "toSide": "left",
-      "via": [
-        [
-          490,
-          600
-        ]
-      ]
-    },
-    {
-      "id": "marketing-topview",
-      "from": "marketing",
-      "to": "topview",
-      "fromSide": "top",
-      "toSide": "top",
-      "via": [
-        [
-          490,
-          415
-        ],
-        [
-          890,
-          415
-        ]
-      ]
-    },
-    {
-      "id": "openmontage-higgsfield",
-      "from": "openmontage",
-      "to": "higgsfield",
-      "label": "provider"
-    },
-    {
-      "id": "openmontage-topview",
-      "from": "openmontage",
-      "to": "topview",
-      "variant": "dashed",
-      "fromSide": "top",
-      "toSide": "bottom",
-      "via": [
-        [
-          690,
-          555
-        ],
-        [
-          890,
-          555
-        ]
-      ]
-    },
-    {
-      "id": "finance-xlsx",
-      "from": "finance",
-      "to": "xlsx"
-    },
-    {
-      "id": "software-gstack",
-      "from": "software",
-      "to": "gstack",
-      "variant": "emphasis"
-    },
-    {
-      "id": "software-cso",
-      "from": "software",
-      "to": "cso",
-      "variant": "security",
-      "fromSide": "bottom",
-      "toSide": "left",
-      "via": [
-        [
-          490,
-          1180
-        ]
-      ]
-    },
-    {
-      "id": "marketing-stickman",
-      "from": "marketing",
-      "to": "stickman",
-      "label": "stickman brief",
-      "fromSide": "top",
-      "toSide": "top",
-      "via": [
-        [
-          490,
-          415
-        ],
-        [
-          1085,
-          415
-        ]
-      ],
-      "labelAt": [
-        990,
-        404
-      ]
-    },
-    {
-      "id": "stickman-openmontage",
-      "from": "stickman",
-      "to": "openmontage",
-      "label": "6 clips → assembly",
-      "variant": "dashed",
-      "fromSide": "bottom",
-      "toSide": "bottom",
-      "via": [
-        [
-          1085,
-          660
-        ],
-        [
-          690,
-          660
-        ]
-      ],
-      "labelAt": [
-        890,
-        650
-      ]
-    },
-    {
-      "id": "ceo-brainstorm",
-      "from": "ceo",
-      "to": "brainstorm",
-      "label": "idea test",
-      "variant": "emphasis",
-      "fromSide": "top",
-      "toSide": "bottom",
-      "via": [
-        [
-          290,
-          650
-        ],
-        [
-          110,
-          650
-        ]
-      ],
-      "labelAt": [
-        200,
-        640
-      ]
-    },
-    {
-      "id": "rd-critical",
-      "from": "rd",
-      "to": "critical",
-      "label": "evidence grade",
-      "variant": "dashed",
-      "fromSide": "left",
-      "toSide": "top",
-      "via": [
-        [
-          390,
-          160
-        ],
-        [
-          390,
-          300
-        ],
-        [
-          120,
-          300
-        ]
-      ],
-      "labelAt": [
-        255,
-        286
-      ]
-    },
-    {
-      "id": "strategist-critical",
-      "from": "strategist",
-      "to": "critical",
-      "fromSide": "left",
-      "toSide": "right"
-    },
-    {
-      "id": "lens-citation",
-      "from": "lens",
-      "to": "citation",
-      "label": "validate DOIs",
-      "variant": "dashed",
-      "fromSide": "top",
-      "toSide": "bottom",
-      "via": [
-        [
-          1090,
-          115
-        ],
-        [
-          1510,
-          115
-        ]
-      ],
-      "labelAt": [
-        1300,
-        105
-      ]
-    },
-    {
-      "id": "newton-hypo",
-      "from": "newton",
-      "to": "hypo",
-      "label": "0 · rivals first",
-      "fromSide": "bottom",
-      "toSide": "top",
-      "labelAt": [
-        960,
-        208
-      ]
-    },
-    {
-      "id": "newton-expdesign",
-      "from": "newton",
-      "to": "expdesign",
-      "label": "DOE matrix",
-      "variant": "emphasis",
-      "fromSide": "bottom",
-      "toSide": "top",
-      "via": [
-        [
-          890,
-          228
-        ],
-        [
-          1310,
-          228
-        ]
-      ],
-      "labelAt": [
-        1200,
-        212
-      ]
-    },
-    {
-      "id": "expdesign-power",
-      "from": "expdesign",
-      "to": "power",
-      "label": "n per run",
-      "labelAt": [
-        1410,
-        232
-      ]
-    },
-    {
-      "id": "hypo-pymoo",
-      "from": "hypo",
-      "to": "pymoo",
-      "label": "ranking",
-      "variant": "dashed",
-      "fromSide": "bottom",
-      "toSide": "left",
-      "via": [
-        [
-          910,
-          360
-        ]
-      ],
-      "labelAt": [
-        975,
-        350
-      ]
-    },
-    {
-      "id": "stats-newton",
-      "from": "stats",
-      "to": "newton",
-      "label": "lab results",
-      "variant": "dashed",
-      "fromSide": "top",
-      "toSide": "bottom",
-      "via": [
-        [
-          1110,
-          222
-        ],
-        [
-          890,
-          222
-        ]
-      ],
-      "labelAt": [
-        1130,
-        205
-      ]
-    },
-    {
-      "id": "rd-manim",
-      "from": "rd",
-      "to": "manim",
-      "label": "scientific visual? ask first",
-      "variant": "dashed",
-      "fromSide": "bottom",
-      "toSide": "top",
-      "via": [
-        [
-          490,
-          315
-        ],
-        [
-          800,
-          315
-        ],
-        [
-          800,
-          430
-        ],
-        [
-          690,
-          430
-        ]
-      ],
-      "labelAt": [
-        880,
-        372
-      ]
-    }
-  ],
-  "cards": [
-    {
-      "dot": "violet",
-      "title": "v1.8 changes",
-      "items": [
-        "v1.8: manim linked to asimo-rd (ask-first rule for scientific visuals); still under asimo-marketing for video",
-        "K-Dense skills wired: scientific-brainstorming (ceo idea test), hypothesis-generation / experimental-design / statistical-power / pymoo (newton toolkit), statistical-analysis (rd), scientific-critical-thinking (rd + strategist), citation-management (lens)",
-        "v1.6: stickman-video-director under asimo-marketing",
-        "v1.5: gate-analysis under asimo-portfolio"
-      ]
-    },
-    {
-      "dot": "emerald",
-      "title": "Research chain",
-      "items": [
-        "1 asimo-sci own library",
-        "2 hypothesis-generation rivals + predictions",
-        "3 newton prove / partial / refute + pymoo Pareto",
-        "4 lens-research papers + patents + DOI validation",
-        "5 experimental-design DOE + statistical-power n",
-        "6 eu-project-research funded landscape + gap",
-        "7 academic-shield proposal · results back via statistical-analysis"
-      ]
-    },
-    {
-      "dot": "amber",
-      "title": "Still open",
-      "items": [
-        "Figma, Notion, Slack MCPs need auth",
-        "gstack /review vs built-in code-review overlap"
-      ]
-    },
-    {
-      "dot": "slate",
-      "title": "Source",
-      "items": [
-        "Asimo-Sessions/asimo-agent-map.architecture.json",
-        "owner: asimo-portfolio · archify deliver --quality standard"
-      ]
-    }
+ "schema_version": 1,
+ "diagram_type": "architecture",
+ "meta": {
+  "title": "Asimo Agent Map v1.9",
+  "output": "asimo-agent-map.html",
+  "quality_profile": "standard",
+  "visual_preset": "signal-flow",
+  "views": [
+   {
+    "id": "orchestration",
+    "label": "CEO orchestration",
+    "focus": [
+     "asim",
+     "sources",
+     "portfolio",
+     "gate",
+     "archify",
+     "ceo",
+     "rd",
+     "strategist",
+     "marketing",
+     "finance",
+     "hr",
+     "sales",
+     "software",
+     "brainstorm"
+    ],
+    "note": "Portfolio scans Asana + Obsidian daily and feeds the CEO; every new idea passes the scientific-brainstorming Idea Test first."
+   },
+   {
+    "id": "research",
+    "label": "Research chain under asimo-rd",
+    "focus": [
+     "rd",
+     "sci",
+     "newton",
+     "lens",
+     "eu",
+     "academic",
+     "strategist",
+     "brain",
+     "hypo",
+     "expdesign",
+     "power",
+     "pymoo",
+     "stats",
+     "critical",
+     "citation",
+     "manim",
+     "jev"
+    ],
+    "note": "Library → hypotheses → newton + Pareto → Jev pre-screen → Fable reads survivors → DOIs validated → DOE + n → funding gap → proposal."
+   },
+   {
+    "id": "video",
+    "label": "Video production under asimo-marketing",
+    "focus": [
+     "marketing",
+     "stickman",
+     "manim",
+     "openmontage",
+     "topview",
+     "higgsfield"
+    ],
+    "note": "Stickman briefs: stickman-video-director first (Phase A approval → six Omni Flash prompts), then OpenMontage assembly."
+   },
+   {
+    "id": "software",
+    "label": "Software subsystem",
+    "focus": [
+     "ceo",
+     "software",
+     "gstack",
+     "cso"
+    ],
+    "note": "gstack engineering factory plus mandatory security pass."
+   }
   ]
+ },
+ "components": [
+  {
+   "id": "asim",
+   "type": "external",
+   "label": "Asım",
+   "sublabel": "final decisions",
+   "pos": [
+    40,
+    690
+   ],
+   "size": [
+    140,
+    60
+   ]
+  },
+  {
+   "id": "sources",
+   "type": "cloud",
+   "label": "Asana + Obsidian",
+   "sublabel": "MCP · vault",
+   "pos": [
+    40,
+    130
+   ],
+   "size": [
+    140,
+    60
+   ]
+  },
+  {
+   "id": "portfolio",
+   "type": "backend",
+   "label": "asimo-portfolio",
+   "sublabel": "daily scan · map owner",
+   "pos": [
+    220,
+    130
+   ],
+   "size": [
+    140,
+    60
+   ],
+   "tag": "≤24h"
+  },
+  {
+   "id": "archify",
+   "type": "frontend",
+   "label": "archify",
+   "sublabel": "map of all skills & jobs",
+   "pos": [
+    420,
+    40
+   ],
+   "size": [
+    140,
+    60
+   ],
+   "tag": "portfolio-owned"
+  },
+  {
+   "id": "gate",
+   "type": "backend",
+   "label": "gate-analysis",
+   "sublabel": "5-gate audit · HTML + PDF",
+   "pos": [
+    40,
+    40
+   ],
+   "size": [
+    140,
+    60
+   ],
+   "tag": "new"
+  },
+  {
+   "id": "ceo",
+   "type": "backend",
+   "label": "asimo-ceo",
+   "sublabel": "orchestrator",
+   "pos": [
+    220,
+    690
+   ],
+   "size": [
+    140,
+    60
+   ]
+  },
+  {
+   "id": "rd",
+   "type": "backend",
+   "label": "asimo-rd",
+   "sublabel": "research parent",
+   "pos": [
+    420,
+    130
+   ],
+   "size": [
+    140,
+    60
+   ]
+  },
+  {
+   "id": "strategist",
+   "type": "backend",
+   "label": "asimo-strategist",
+   "sublabel": "roadmap",
+   "pos": [
+    420,
+    330
+   ],
+   "size": [
+    140,
+    60
+   ]
+  },
+  {
+   "id": "marketing",
+   "type": "backend",
+   "label": "asimo-marketing",
+   "sublabel": "video parent",
+   "pos": [
+    420,
+    480
+   ],
+   "size": [
+    140,
+    60
+   ]
+  },
+  {
+   "id": "finance",
+   "type": "backend",
+   "label": "asimo-finance",
+   "sublabel": "NPV · budget",
+   "pos": [
+    420,
+    690
+   ],
+   "size": [
+    140,
+    60
+   ]
+  },
+  {
+   "id": "hr",
+   "type": "backend",
+   "label": "asimo-hr",
+   "sublabel": "capacity",
+   "pos": [
+    420,
+    800
+   ],
+   "size": [
+    140,
+    60
+   ]
+  },
+  {
+   "id": "sales",
+   "type": "backend",
+   "label": "asimo-sales",
+   "sublabel": "pipeline",
+   "pos": [
+    420,
+    910
+   ],
+   "size": [
+    140,
+    60
+   ]
+  },
+  {
+   "id": "software",
+   "type": "backend",
+   "label": "asimo-software",
+   "sublabel": "build · ship",
+   "pos": [
+    420,
+    1060
+   ],
+   "size": [
+    140,
+    60
+   ],
+   "tag": "subsystem"
+  },
+  {
+   "id": "sci",
+   "type": "database",
+   "label": "asimo-sci",
+   "sublabel": "own library",
+   "pos": [
+    620,
+    130
+   ],
+   "size": [
+    140,
+    60
+   ]
+  },
+  {
+   "id": "newton",
+   "type": "backend",
+   "label": "newton",
+   "sublabel": "physics · materials · DOE",
+   "pos": [
+    820,
+    130
+   ],
+   "size": [
+    140,
+    60
+   ],
+   "tag": "new"
+  },
+  {
+   "id": "lens",
+   "type": "backend",
+   "label": "lens-research",
+   "sublabel": "papers · patents",
+   "pos": [
+    1020,
+    130
+   ],
+   "size": [
+    140,
+    60
+   ],
+   "tag": "fit rating"
+  },
+  {
+   "id": "academic",
+   "type": "backend",
+   "label": "academic-shield",
+   "sublabel": "human writing",
+   "pos": [
+    1220,
+    130
+   ],
+   "size": [
+    140,
+    60
+   ]
+  },
+  {
+   "id": "eu",
+   "type": "backend",
+   "label": "eu-project-research",
+   "sublabel": "CORDIS · M-ERA · EUREKA",
+   "pos": [
+    620,
+    240
+   ],
+   "size": [
+    140,
+    60
+   ],
+   "tag": "gap analysis"
+  },
+  {
+   "id": "manim",
+   "type": "backend",
+   "label": "manim",
+   "sublabel": "scientific video · shared",
+   "pos": [
+    620,
+    480
+   ],
+   "size": [
+    140,
+    60
+   ],
+   "tag": "rd + marketing"
+  },
+  {
+   "id": "openmontage",
+   "type": "backend",
+   "label": "OpenMontage",
+   "sublabel": "Design/OpenMontage",
+   "pos": [
+    620,
+    570
+   ],
+   "size": [
+    140,
+    60
+   ]
+  },
+  {
+   "id": "topview",
+   "type": "cloud",
+   "label": "TopView MCP",
+   "sublabel": "image · video · voice",
+   "pos": [
+    820,
+    480
+   ],
+   "size": [
+    140,
+    60
+   ]
+  },
+  {
+   "id": "higgsfield",
+   "type": "cloud",
+   "label": "Higgsfield MCP",
+   "sublabel": "video · 3D · audio",
+   "pos": [
+    820,
+    570
+   ],
+   "size": [
+    140,
+    60
+   ]
+  },
+  {
+   "id": "xlsx",
+   "type": "backend",
+   "label": "xlsx skill",
+   "sublabel": "workbooks",
+   "pos": [
+    620,
+    690
+   ],
+   "size": [
+    140,
+    60
+   ]
+  },
+  {
+   "id": "gstack",
+   "type": "backend",
+   "label": "gstack",
+   "sublabel": "engineering factory",
+   "pos": [
+    620,
+    1060
+   ],
+   "size": [
+    140,
+    60
+   ]
+  },
+  {
+   "id": "cso",
+   "type": "security",
+   "label": "security",
+   "sublabel": "/cso · review",
+   "pos": [
+    620,
+    1150
+   ],
+   "size": [
+    140,
+    60
+   ]
+  },
+  {
+   "id": "brain",
+   "type": "database",
+   "label": "asimo-brain",
+   "sublabel": "galaxy · voice",
+   "pos": [
+    1020,
+    40
+   ],
+   "size": [
+    140,
+    60
+   ]
+  },
+  {
+   "id": "stickman",
+   "type": "backend",
+   "label": "stickman-video-director",
+   "sublabel": "6× Omni Flash prompts",
+   "pos": [
+    1000,
+    570
+   ],
+   "size": [
+    170,
+    60
+   ],
+   "tag": "new"
+  },
+  {
+   "id": "brainstorm",
+   "type": "backend",
+   "label": "scientific-brainstorming",
+   "sublabel": "idea test · claim ledger",
+   "pos": [
+    20,
+    560
+   ],
+   "size": [
+    180,
+    60
+   ],
+   "tag": "new"
+  },
+  {
+   "id": "critical",
+   "type": "backend",
+   "label": "scientific-critical-thinking",
+   "sublabel": "evidence grade · bias",
+   "pos": [
+    20,
+    330
+   ],
+   "size": [
+    200,
+    60
+   ],
+   "tag": "new"
+  },
+  {
+   "id": "citation",
+   "type": "backend",
+   "label": "citation-management",
+   "sublabel": "DOI → BibTeX · validate",
+   "pos": [
+    1440,
+    40
+   ],
+   "size": [
+    140,
+    60
+   ],
+   "tag": "new"
+  },
+  {
+   "id": "hypo",
+   "type": "backend",
+   "label": "hypothesis-generation",
+   "sublabel": "rivals · predictions",
+   "pos": [
+    840,
+    240
+   ],
+   "size": [
+    140,
+    60
+   ],
+   "tag": "new"
+  },
+  {
+   "id": "expdesign",
+   "type": "backend",
+   "label": "experimental-design",
+   "sublabel": "DOE matrix · run order",
+   "pos": [
+    1240,
+    240
+   ],
+   "size": [
+    140,
+    60
+   ],
+   "tag": "new"
+  },
+  {
+   "id": "power",
+   "type": "backend",
+   "label": "statistical-power",
+   "sublabel": "replicates n",
+   "pos": [
+    1440,
+    240
+   ],
+   "size": [
+    140,
+    60
+   ],
+   "tag": "new"
+  },
+  {
+   "id": "pymoo",
+   "type": "backend",
+   "label": "pymoo",
+   "sublabel": "Pareto ranking",
+   "pos": [
+    1040,
+    330
+   ],
+   "size": [
+    140,
+    60
+   ],
+   "tag": "new"
+  },
+  {
+   "id": "stats",
+   "type": "backend",
+   "label": "statistical-analysis",
+   "sublabel": "lab data · effect size",
+   "pos": [
+    1040,
+    240
+   ],
+   "size": [
+    140,
+    60
+   ],
+   "tag": "new"
+  },
+  {
+   "id": "jev",
+   "type": "cloud",
+   "label": "Jev · TypeSafe",
+   "sublabel": "pre-screen · public abstracts only",
+   "pos": [
+    1240,
+    40
+   ],
+   "size": [
+    160,
+    60
+   ],
+   "tag": "new"
+  }
+ ],
+ "boundaries": [
+  {
+   "kind": "region",
+   "label": "Cowork · decision layer",
+   "wraps": [
+    "portfolio",
+    "ceo",
+    "rd",
+    "strategist",
+    "marketing",
+    "finance",
+    "hr",
+    "sales"
+   ]
+  },
+  {
+   "kind": "region",
+   "label": "Research chain (asimo-rd)",
+   "wraps": [
+    "sci",
+    "newton",
+    "lens",
+    "academic",
+    "eu",
+    "jev"
+   ]
+  },
+  {
+   "kind": "region",
+   "label": "Video production (asimo-marketing)",
+   "wraps": [
+    "manim",
+    "openmontage",
+    "topview",
+    "higgsfield",
+    "stickman"
+   ]
+  },
+  {
+   "kind": "region",
+   "label": "Software subsystem",
+   "wraps": [
+    "software",
+    "gstack",
+    "cso"
+   ]
+  },
+  {
+   "kind": "region",
+   "label": "newton toolkit (K-Dense)",
+   "wraps": [
+    "hypo",
+    "stats",
+    "expdesign",
+    "power",
+    "pymoo"
+   ]
+  }
+ ],
+ "connections": [
+  {
+   "id": "asim-ceo",
+   "from": "asim",
+   "to": "ceo",
+   "variant": "emphasis"
+  },
+  {
+   "id": "sources-portfolio",
+   "from": "sources",
+   "to": "portfolio",
+   "label": "daily scan",
+   "labelAt": [
+    200,
+    204
+   ]
+  },
+  {
+   "id": "portfolio-archify",
+   "from": "portfolio",
+   "to": "archify",
+   "label": "maps skills & jobs",
+   "variant": "dashed",
+   "fromSide": "top",
+   "toSide": "left",
+   "via": [
+    [
+     290,
+     70
+    ]
+   ]
+  },
+  {
+   "id": "portfolio-gate",
+   "from": "portfolio",
+   "to": "gate",
+   "label": "gate audit",
+   "fromSide": "top",
+   "toSide": "right",
+   "via": [
+    [
+     290,
+     70
+    ]
+   ],
+   "labelAt": [
+    235,
+    52
+   ]
+  },
+  {
+   "id": "portfolio-ceo",
+   "from": "portfolio",
+   "to": "ceo",
+   "label": "required input",
+   "variant": "emphasis",
+   "fromSide": "bottom",
+   "toSide": "top",
+   "labelAt": [
+    340,
+    430
+   ]
+  },
+  {
+   "id": "ceo-rd",
+   "from": "ceo",
+   "to": "rd"
+  },
+  {
+   "id": "ceo-strategist",
+   "from": "ceo",
+   "to": "strategist"
+  },
+  {
+   "id": "ceo-marketing",
+   "from": "ceo",
+   "to": "marketing"
+  },
+  {
+   "id": "ceo-finance",
+   "from": "ceo",
+   "to": "finance"
+  },
+  {
+   "id": "ceo-hr",
+   "from": "ceo",
+   "to": "hr"
+  },
+  {
+   "id": "ceo-sales",
+   "from": "ceo",
+   "to": "sales"
+  },
+  {
+   "id": "ceo-software",
+   "from": "ceo",
+   "to": "software",
+   "variant": "emphasis",
+   "fromSide": "bottom",
+   "toSide": "left",
+   "via": [
+    [
+     290,
+     1090
+    ]
+   ]
+  },
+  {
+   "id": "rd-sci",
+   "from": "rd",
+   "to": "sci",
+   "label": "1 · own library",
+   "labelAt": [
+    590,
+    204
+   ]
+  },
+  {
+   "id": "sci-newton",
+   "from": "sci",
+   "to": "newton",
+   "label": "2 · physics verdict",
+   "labelAt": [
+    790,
+    204
+   ]
+  },
+  {
+   "id": "newton-lens",
+   "from": "newton",
+   "to": "lens",
+   "label": "3 · papers + patents",
+   "labelAt": [
+    990,
+    204
+   ]
+  },
+  {
+   "id": "lens-academic",
+   "from": "lens",
+   "to": "academic",
+   "label": "5 · write",
+   "labelAt": [
+    1190,
+    204
+   ]
+  },
+  {
+   "id": "rd-eu",
+   "from": "rd",
+   "to": "eu",
+   "label": "4 · funding gap",
+   "fromSide": "bottom",
+   "toSide": "left",
+   "via": [
+    [
+     490,
+     270
+    ]
+   ]
+  },
+  {
+   "id": "strategist-lens",
+   "from": "strategist",
+   "to": "lens",
+   "variant": "dashed",
+   "fromSide": "right",
+   "toSide": "bottom",
+   "via": [
+    [
+     1000,
+     360
+    ],
+    [
+     1000,
+     200
+    ],
+    [
+     1090,
+     200
+    ]
+   ]
+  },
+  {
+   "id": "sci-brain",
+   "from": "sci",
+   "to": "brain",
+   "label": "same vault",
+   "variant": "emphasis",
+   "fromSide": "top",
+   "toSide": "left",
+   "via": [
+    [
+     690,
+     70
+    ]
+   ]
+  },
+  {
+   "id": "marketing-manim",
+   "from": "marketing",
+   "to": "manim"
+  },
+  {
+   "id": "marketing-openmontage",
+   "from": "marketing",
+   "to": "openmontage",
+   "variant": "emphasis",
+   "fromSide": "bottom",
+   "toSide": "left",
+   "via": [
+    [
+     490,
+     600
+    ]
+   ]
+  },
+  {
+   "id": "marketing-topview",
+   "from": "marketing",
+   "to": "topview",
+   "fromSide": "top",
+   "toSide": "top",
+   "via": [
+    [
+     490,
+     415
+    ],
+    [
+     890,
+     415
+    ]
+   ]
+  },
+  {
+   "id": "openmontage-higgsfield",
+   "from": "openmontage",
+   "to": "higgsfield",
+   "label": "provider"
+  },
+  {
+   "id": "openmontage-topview",
+   "from": "openmontage",
+   "to": "topview",
+   "variant": "dashed",
+   "fromSide": "top",
+   "toSide": "bottom",
+   "via": [
+    [
+     690,
+     555
+    ],
+    [
+     890,
+     555
+    ]
+   ]
+  },
+  {
+   "id": "finance-xlsx",
+   "from": "finance",
+   "to": "xlsx"
+  },
+  {
+   "id": "software-gstack",
+   "from": "software",
+   "to": "gstack",
+   "variant": "emphasis"
+  },
+  {
+   "id": "software-cso",
+   "from": "software",
+   "to": "cso",
+   "variant": "security",
+   "fromSide": "bottom",
+   "toSide": "left",
+   "via": [
+    [
+     490,
+     1180
+    ]
+   ]
+  },
+  {
+   "id": "marketing-stickman",
+   "from": "marketing",
+   "to": "stickman",
+   "label": "stickman brief",
+   "fromSide": "top",
+   "toSide": "top",
+   "via": [
+    [
+     490,
+     415
+    ],
+    [
+     1085,
+     415
+    ]
+   ],
+   "labelAt": [
+    990,
+    404
+   ]
+  },
+  {
+   "id": "stickman-openmontage",
+   "from": "stickman",
+   "to": "openmontage",
+   "label": "6 clips → assembly",
+   "variant": "dashed",
+   "fromSide": "bottom",
+   "toSide": "bottom",
+   "via": [
+    [
+     1085,
+     660
+    ],
+    [
+     690,
+     660
+    ]
+   ],
+   "labelAt": [
+    890,
+    650
+   ]
+  },
+  {
+   "id": "ceo-brainstorm",
+   "from": "ceo",
+   "to": "brainstorm",
+   "label": "idea test",
+   "variant": "emphasis",
+   "fromSide": "top",
+   "toSide": "bottom",
+   "via": [
+    [
+     290,
+     650
+    ],
+    [
+     110,
+     650
+    ]
+   ],
+   "labelAt": [
+    200,
+    640
+   ]
+  },
+  {
+   "id": "rd-critical",
+   "from": "rd",
+   "to": "critical",
+   "label": "evidence grade",
+   "variant": "dashed",
+   "fromSide": "left",
+   "toSide": "top",
+   "via": [
+    [
+     390,
+     160
+    ],
+    [
+     390,
+     300
+    ],
+    [
+     120,
+     300
+    ]
+   ],
+   "labelAt": [
+    255,
+    286
+   ]
+  },
+  {
+   "id": "strategist-critical",
+   "from": "strategist",
+   "to": "critical",
+   "fromSide": "left",
+   "toSide": "right"
+  },
+  {
+   "id": "lens-citation",
+   "from": "lens",
+   "to": "citation",
+   "label": "validate DOIs",
+   "variant": "dashed",
+   "fromSide": "top",
+   "toSide": "bottom",
+   "via": [
+    [
+     1090,
+     115
+    ],
+    [
+     1510,
+     115
+    ]
+   ],
+   "labelAt": [
+    1470,
+    114
+   ]
+  },
+  {
+   "id": "newton-hypo",
+   "from": "newton",
+   "to": "hypo",
+   "label": "0 · rivals first",
+   "fromSide": "bottom",
+   "toSide": "top",
+   "labelAt": [
+    960,
+    208
+   ]
+  },
+  {
+   "id": "newton-expdesign",
+   "from": "newton",
+   "to": "expdesign",
+   "label": "DOE matrix",
+   "variant": "emphasis",
+   "fromSide": "bottom",
+   "toSide": "top",
+   "via": [
+    [
+     890,
+     228
+    ],
+    [
+     1310,
+     228
+    ]
+   ],
+   "labelAt": [
+    1200,
+    212
+   ]
+  },
+  {
+   "id": "expdesign-power",
+   "from": "expdesign",
+   "to": "power",
+   "label": "n per run",
+   "labelAt": [
+    1410,
+    232
+   ]
+  },
+  {
+   "id": "hypo-pymoo",
+   "from": "hypo",
+   "to": "pymoo",
+   "label": "ranking",
+   "variant": "dashed",
+   "fromSide": "bottom",
+   "toSide": "left",
+   "via": [
+    [
+     910,
+     360
+    ]
+   ],
+   "labelAt": [
+    975,
+    350
+   ]
+  },
+  {
+   "id": "stats-newton",
+   "from": "stats",
+   "to": "newton",
+   "label": "lab results",
+   "variant": "dashed",
+   "fromSide": "top",
+   "toSide": "bottom",
+   "via": [
+    [
+     1110,
+     222
+    ],
+    [
+     890,
+     222
+    ]
+   ],
+   "labelAt": [
+    1130,
+    205
+   ]
+  },
+  {
+   "id": "rd-manim",
+   "from": "rd",
+   "to": "manim",
+   "label": "scientific visual? ask first",
+   "variant": "dashed",
+   "fromSide": "bottom",
+   "toSide": "top",
+   "via": [
+    [
+     490,
+     315
+    ],
+    [
+     800,
+     315
+    ],
+    [
+     800,
+     430
+    ],
+    [
+     690,
+     430
+    ]
+   ],
+   "labelAt": [
+    880,
+    372
+   ]
+  },
+  {
+   "id": "lens-jev",
+   "from": "lens",
+   "to": "jev",
+   "label": "3a · Jev pre-screen ⇄ survivors",
+   "variant": "emphasis",
+   "labelAt": [
+    1200,
+    114
+   ]
+  }
+ ],
+ "cards": [
+  {
+   "dot": "violet",
+   "title": "v1.9 changes",
+   "items": [
+    "v1.9: Jev (TypeSafe System One) pre-screen under lens-research: every OpenAlex / PubMed / patent-list candidate gets a 0–4 relevance Score + axis Nouls in ~0.8 s; code keeps rel ≥ 3 or low-confidence items, Fable reads only those (−82…86% reading load, benchmarked on Gecko and Xmarit)",
+    "Rule: public abstracts only — Asana, Gmail, Drive and any Kalekim document never go to Jev; those need a local model",
+    "v1.8: manim linked to asimo-rd (ask-first rule for scientific visuals)",
+    "v1.7: K-Dense skills wired (brainstorming, hypothesis, DOE, power, pymoo, stats, critical thinking, citation)",
+    "v1.6: stickman-video-director under asimo-marketing · v1.5: gate-analysis under asimo-portfolio"
+   ]
+  },
+  {
+   "dot": "emerald",
+   "title": "Research chain",
+   "items": [
+    "1 asimo-sci own library",
+    "2 hypothesis-generation rivals + predictions",
+    "3 newton prove / partial / refute + pymoo Pareto",
+    "4 lens-research: Jev pre-screen → Fable reads survivors → papers + patents + DOI validation",
+    "5 experimental-design DOE + statistical-power n",
+    "6 eu-project-research funded landscape + gap",
+    "7 academic-shield proposal · results back via statistical-analysis"
+   ]
+  },
+  {
+   "dot": "amber",
+   "title": "Still open",
+   "items": [
+    "Figma, Notion, Slack MCPs need auth",
+    "gstack /review vs built-in code-review overlap",
+    "Jev for Kalekim-internal text (PolyTech Hammadde comments) blocked by privacy rule → local model (Ollama) candidate"
+   ]
+  },
+  {
+   "dot": "slate",
+   "title": "Source",
+   "items": [
+    "Asimo-Sessions/asimo-agent-map.architecture.json",
+    "owner: asimo-portfolio · archify deliver --quality standard"
+   ]
+  }
+ ]
 }

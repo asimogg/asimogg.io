@@ -1,6 +1,13 @@
 {
  "versions": [
   {
+   "version": "v1.9",
+   "date": "2026-09-22",
+   "items": [
+    "Rule: public abstracts only — Asana, Gmail, Drive and any Kalekim document never go to Jev; those need a local model"
+   ]
+  },
+  {
    "version": "v1.8",
    "date": "2026-09-14",
    "items": [
