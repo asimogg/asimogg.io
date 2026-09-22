@@ -18,6 +18,7 @@ Two research ideas became funded M-ERA.NET projects through a chain of Claude sk
 
 ## Other pages
 - Asimo Agent Map (multi-agent decision system, archify-rendered): https://asimogg.io/agentmap/
+- Idea Gate / Fikir Kapısı (five-gate idea game judged by Jev, a TypeSafe System One model; personal roadmap in ~1 s per turn): https://asimogg.io/fikir-kapisi/
 - Masterclass (AI handbook workshop deck, EN/TR): opens from the homepage through an e-mailed link. Concept Works (homepage menu) opens two films in a popup player: the asimo-stickman story film "Distilled, not diluted" and the Saphire GP Coating ad.
 - Privacy notice / KVKK: https://asimogg.io/privacy.html
 
