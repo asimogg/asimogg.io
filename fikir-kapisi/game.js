@@ -55,13 +55,16 @@
   function ask(question, hint, clar){
     renderGates(); const g = GATES[S.gate];
     $("#stage").innerHTML = `<div class="fk-card ${clar?'clar':''}"><div class="fk-hint">${T(...g.title)}${clar?T(' · clarification',' · netleştirme'):''}</div><p class="fk-q">${question}</p><p class="fk-hint">${hint||''}</p>
-      <textarea id="ans" placeholder="${T('Write your answer…','Cevabını yaz…')}"></textarea><br><button type="button" class="btn btn-primary fk-btn" id="go">${T('Pass the gate','Kapıdan geç')}</button><div class="fk-meta" id="meta"></div></div>${S.last?panel():''}`;
+      <textarea id="ans" placeholder="${T('Write your answer…','Cevabını yaz…')}"></textarea>${S.gate===0&&!clar?`<p class="fk-hint" style="margin-top:.6rem">${T('Optional: 2–4 English keywords to find what already exists — patents, papers and EU projects. Only these keywords are sent to the search engines, never your idea text.','İsteğe bağlı: karşılığını bulmak için 2–4 İngilizce anahtar kelime — patentler, makaleler ve AB projeleri. Arama motorlarına yalnızca bu kelimeler gider, fikir metnin gitmez.')}</p><input id="kw" class="fk-kw" placeholder="${T('e.g. gecko adhesive directional release','ör. gecko adhesive directional release')}" maxlength="120">`:''}<br><button type="button" class="btn btn-primary fk-btn" id="go">${T('Pass the gate','Kapıdan geç')}</button><div class="fk-meta" id="meta"></div></div>${S.last?panel():''}${landsPanel()}`;
     $("#go").onclick = submit; $("#ans").focus(); S.currentQ = question;
   }
   async function submit(){
     const ans = $("#ans").value.trim(); if(ans.length<3) return;
     $("#go").disabled = true; $("#meta").textContent = T("Jev is judging…","Jev puanlıyor…");
-    const g = GATES[S.gate]; if(S.gate===0 && !S.idea) S.idea = ans;
+    const g = GATES[S.gate];
+    if(S.gate===0 && !S.idea){ S.idea = ans; const kw=(($("#kw")||{}).value||"").trim();
+      if(kw){ S.landscape="loading";
+        fetch("landscape.php",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({idea:ans,keywords:kw})}).then(r=>r.json()).then(j=>{S.landscape=j.ok?j:{error:j.error}; const el=$("#lands"); if(el) el.outerHTML=landsPanel();}).catch(e=>{S.landscape={error:String(e)}; const el=$("#lands"); if(el) el.outerHTML=landsPanel();}); } }
     const body = {idea:S.idea, answers:S.answers, gate:g.id, question:S.currentQ, answer:ans};
     let r; try{ r = await (await fetch("api.php",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)})).json(); }
     catch(e){ $("#meta").textContent=T("Server error: ","Sunucu hatası: ")+e; $("#go").disabled=false; return; }
@@ -76,6 +79,23 @@
     S.clarified = false; S.gate++;
     if(S.gate>=GATES.length) return finish();
     ask(questionFor(S.gate), T(...GATES[S.gate].hint));
+  }
+
+  const KIND={ayni_cozum:["same solution","aynı çözüm"],kismi_ortusme:["partial overlap","kısmi örtüşme"],yakin_alan:["adjacent","yakın alan"],alakasiz:["unrelated","alakasız"]};
+  const SRC={patent:["Patents","Patentler"],makale:["Papers","Makaleler"],ab_projesi:["EU projects","AB projeleri"]};
+  function landsPanel(){
+    const l=S.landscape; if(!l) return "";
+    const head=`<p class="fk-q">${T("What already exists","Karşındakiler")}</p>`;
+    if(l==="loading") return `<div class="fk-card" id="lands">${head}<p class="fk-hint">${T("Searching patents, papers and EU projects; Jev is matching…","Patent, makale ve AB projeleri taranıyor, Jev eşleştiriyor…")}</p></div>`;
+    if(l.error){ const m={no_key:T("The judge is not configured yet.","Hakem henüz yapılandırılmamış."),rate:T("Search limit reached, try later.","Arama sınırı doldu, sonra dene.")}; return `<div class="fk-card" id="lands">${head}<p class="fk-hint">${m[l.error]||(T("Search failed: ","Arama başarısız: ")+l.error)}</p></div>`; }
+    let h=`<div class="fk-card" id="lands">${head}<p class="fk-hint">${T("Query","Sorgu")}: “${l.query}” · ${l.counts.patent} ${T("patents","patent")}, ${l.counts.makale} ${T("papers","makale")}, ${l.counts.ab_projesi} ${T("EU projects scanned","AB projesi tarandı")} · ${l.same_solution} ${T("marked “same solution”","tanesi “aynı çözüm”")} · ${(l.timing.fetch_s+l.timing.jev_s).toFixed(1)} s</p>`;
+    for(const k of ["patent","makale","ab_projesi"]){
+      const rows=l.top[k]||[];
+      h+=`<p style="margin:.75rem 0 .25rem"><b>${T(...SRC[k])}</b>${rows.length?"":T(" — no match above threshold"," — eşik üstü eşleşme yok")}</p>`;
+      for(const r of rows){ h+=`<div class="fk-step ${r.kind==='ayni_cozum'?'fk-same':''}"><a href="${r.url}" target="_blank" rel="noopener">${r.title}</a><div class="fk-meta">${r.year||""} · ${r.who||""} · ${T(...(KIND[r.kind]||[r.kind,r.kind]))} · ${T("match","uyum")} ${r.rel}/4</div></div>`; }
+    }
+    if(l.errors&&Object.keys(l.errors).length) h+=`<div class="fk-meta">${T("Source error","Kaynak hatası")}: ${Object.keys(l.errors).join(", ")}</div>`;
+    return h+"</div>";
   }
   const badge=(t,p)=>`<span class="fk-badge ${p>0.5?'on':''}">${t} ${Math.round(p*100)}%</span>`;
   const badges=f=>badge(T("Gave numbers","Sayı verdi"),f.sayi_var)+badge(T("Knows the competitor","Rakibi biliyor"),f.rakip_var)+badge(T("Aware of the risk","Riskin farkında"),f.risk_farkinda);
@@ -112,6 +132,7 @@
       <div style="margin-top:.6rem">${badges(f)}</div>
       <div class="fk-meta">${S.turns.length} ${T("turns","tur")} · Jev ${lat.toFixed(1)} s · ${tokens} token</div>
       <button type="button" class="btn btn-primary fk-btn" id="again">${T("New idea","Yeni fikir")}</button></div>`;
+    $("#stage").insertAdjacentHTML("beforeend", landsPanel());
     $("#again").onclick = () => location.reload();
   }
   document.addEventListener("click", e=>{ if(e.target.closest("[data-set-lang]")) setTimeout(()=>{ if(!S.last && S.gate===0){ ask(T(...GATES[0].q), T(...GATES[0].hint)); } }, 0); });

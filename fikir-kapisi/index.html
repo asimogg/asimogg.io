@@ -21,6 +21,9 @@
     .fk-q{font-size:1.3125rem;font-weight:620;line-height:1.25;margin:0 0 .35rem}
     .fk-hint{color:var(--ink-muted);font-size:.875rem;margin:0 0 .75rem}
     .fk-card textarea{width:100%;min-height:120px;border:1px solid var(--line);border-radius:10px;padding:.8rem .95rem;font:inherit;background:var(--bg);color:var(--ink);resize:vertical}
+    .fk-kw{width:100%;border:1px solid var(--line);border-radius:10px;padding:.8rem .95rem;font:inherit;background:var(--bg);color:var(--ink)}
+    .fk-same{border-left-color:var(--ink)}
+    .fk-step a{color:var(--ink)}
     .fk-btn{margin-top:.75rem}
     .fk-row{display:flex;gap:1rem;flex-wrap:wrap}.fk-row>*{flex:1;min-width:260px}
     .fk-badge{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:.875rem;margin:4px 6px 0 0;color:var(--ink-muted)}
@@ -58,8 +61,8 @@
       <p class="uc-eyebrow"><span class="en">A game that judges in a second</span><span class="tr">Bir saniyede karar veren oyun</span></p>
       <h1 class="uc-title"><span class="en">Idea Gate</span><span class="tr">Fikir Kapısı</span></h1>
       <p class="uc-lead">
-        <span class="en">Put your product or project idea through five gates. Each answer is judged in about a second by Jev, a System One model from TypeSafe: it returns typed scores and probabilities, not text. Code turns those into a roadmap that is yours alone. Nothing you write is stored.</span>
-        <span class="tr">Ürün veya proje fikrini beş kapıdan geçir. Her cevap, TypeSafe'in System One modeli Jev tarafından yaklaşık bir saniyede puanlanır: metin değil, tipli puan ve olasılık döner. Kod bunları sana özel bir yol haritasına çevirir. Yazdıkların saklanmaz.</span>
+        <span class="en">Put your product or project idea through five gates. Each answer is judged in about a second by Jev, a System One model from TypeSafe: it returns typed scores and probabilities, not text. Code turns those into a roadmap that is yours alone, and finds the patents, papers and EU projects that already correspond to your idea. Nothing you write is stored.</span>
+        <span class="tr">Ürün veya proje fikrini beş kapıdan geçir. Her cevap, TypeSafe'in System One modeli Jev tarafından yaklaşık bir saniyede puanlanır: metin değil, tipli puan ve olasılık döner. Kod bunları sana özel bir yol haritasına çevirir ve fikrinin karşılığı olan patent, makale ve AB projelerini bulur. Yazdıkların saklanmaz.</span>
       </p>
     </div>
     <div class="fk-gates" id="gates"></div>
@@ -75,6 +78,6 @@
   </footer>
 
   <script src="../script.js?v=32"></script>
-  <script src="game.js?v=1"></script>
+  <script src="game.js?v=2"></script>
 </body>
 </html>
