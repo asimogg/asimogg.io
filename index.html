@@ -66,7 +66,7 @@
   </script>
   <link rel="preload" href="fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/archivo-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=41">
+  <link rel="stylesheet" href="styles.css?v=43">
 </head>
 <body class="entrance">
 <!--
@@ -92,6 +92,29 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
         <span class="en">Idea Gate</span>
         <span class="tr">Fikir Kapısı</span>
       </a>
+      <div class="nav-group nav-group-games">
+        <button type="button" class="nav-link nav-btn" aria-haspopup="true" aria-expanded="false"><span class="en">Can you beat AI?</span><span class="tr">AI'ı yenebilir misin?</span></button>
+        <ul class="nav-sub" aria-label="Can you beat AI">
+          <li>
+            <button type="button" class="nav-sub-item" id="yon-link">
+              <span class="nav-sub-title"><span class="en">Direction — reflex round</span><span class="tr">Yön — refleks turu</span></span>
+              <span class="nav-sub-desc">
+                <span class="en">45 seconds of arrows against Jev's 0.75 s line; practice moves your curve</span>
+                <span class="tr">Jev'in 0,75 sn çizgisine karşı 45 saniye ok; antrenman eğrini oynatır</span>
+              </span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="nav-sub-item" id="sel-link">
+              <span class="nav-sub-title"><span class="en">The Flood — decision duel</span><span class="tr">Sel — karar düellosu</span></span>
+              <span class="nav-sub-desc">
+                <span class="en">A 60-second game: you against Jev, sorting the morning inbox</span>
+                <span class="tr">60 saniyelik oyun: sabah gelen kutusunu ayırırken sen Jev'e karşı</span>
+              </span>
+            </button>
+          </li>
+        </ul>
+      </div>
       <div class="nav-group nav-group-films">
         <button type="button" class="nav-link nav-btn" aria-haspopup="true" aria-expanded="false">Concept Works</button>
         <ul class="nav-sub" aria-label="Concept Works">
@@ -750,6 +773,65 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
     </p>
   </dialog>
 
+  <!-- Can you beat AI: "Direction" — the reflex round against Jev's measured line, 2D canvas -->
+  <dialog class="video-modal sel-modal" id="yon-modal" aria-label="Direction — reflex round">
+    <button type="button" class="video-close" id="yon-close" aria-label="Close">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M3 3l12 12M15 3 3 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <div class="sel-stage">
+      <canvas id="yon-canvas" width="1000" height="620" aria-label="Direction game board" role="img"></canvas>
+      <div class="sel-overlay" id="yon-intro">
+        <div class="sel-panel">
+          <p class="sel-eyebrow"><span class="en">Can you beat AI? · 45-second reflex round</span><span class="tr">AI'ı yenebilir misin? · 45 saniyelik refleks turu</span></p>
+          <h2 class="sel-title"><span class="en">Direction</span><span class="tr">Yön</span></h2>
+          <p class="sel-text">
+            <span class="en">An arrow appears; press its direction as fast as you can. Every fifteen seconds a new rule joins: an <b>orange frame</b> means the opposite direction, a <b>hollow arrow</b> or a <b>repeat</b> means press nothing. The pace adapts to you. Jev, a System One model by TypeSafe, answers the same stimulus as text in about 0.75 s; that is the line to beat.</span>
+            <span class="tr">Bir ok belirir; olabildiğince hızlı yönüne bas. Her on beş saniyede yeni bir kural eklenir: <b>turuncu çerçeve</b> ters yön demek, <b>içi boş ok</b> ya da <b>tekrar</b> basma demek. Tempo sana uyum sağlar. TypeSafe'in System One modeli Jev aynı uyaranı metin olarak yaklaşık 0,75 sn'de cevaplar; geçilecek çizgi bu.</span>
+          </p>
+          <p class="sel-hint">
+            <span class="en">Arrow keys or <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd>, or tap the side of the board. Your rounds stay in this browser only.</span>
+            <span class="tr">Ok tuşları ya da <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd>, ya da tahtanın kenarına dokun. Turların yalnızca bu tarayıcıda kalır.</span>
+          </p>
+          <button type="button" class="btn btn-primary" id="yon-start"><span class="en">Start</span><span class="tr">Başla</span></button>
+        </div>
+      </div>
+      <div class="sel-overlay" id="yon-end" hidden><div class="sel-panel sel-panel-end" id="yon-end-body"></div></div>
+    </div>
+  </dialog>
+
+  <!-- Can you beat AI: "The Flood" — the decision duel against Jev (TypeSafe), drawn on a 2D canvas -->
+  <dialog class="video-modal sel-modal" id="sel-modal" aria-label="The Flood — decision duel">
+    <button type="button" class="video-close" id="sel-close" aria-label="Close">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M3 3l12 12M15 3 3 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <div class="sel-stage">
+      <canvas id="sel-canvas" width="1000" height="620" aria-label="The Flood game board" role="img"></canvas>
+      <div class="sel-overlay" id="sel-intro">
+        <div class="sel-panel">
+          <p class="sel-eyebrow"><span class="en">Can you beat AI? · a 60-second game</span><span class="tr">AI'ı yenebilir misin? · 60 saniyelik oyun</span></p>
+          <h2 class="sel-title"><span class="en">The Flood</span><span class="tr">Sel</span></h2>
+          <p class="sel-text">
+            <span class="en">Cards fall from the top of your morning inbox. Sort each one into <b>Now</b>, <b>Later</b>, <b>Delegate</b> or <b>Delete</b> before it hits the floor. Jev, a System One model by TypeSafe, sorts the same twelve cards at the same time. At the end you see who was faster and who was right.</span>
+            <span class="tr">Sabah gelen kutundan kartlar düşer. Her birini yere varmadan <b>Şimdi</b>, <b>Sonra</b>, <b>Devret</b> ya da <b>Sil</b> kutusuna at. TypeSafe'in System One modeli Jev aynı on iki kartı aynı anda ayırır. Sonunda kim daha hızlı, kim daha doğru görürsün.</span>
+          </p>
+          <p class="sel-hint">
+            <span class="en">Keys <kbd>1</kbd>–<kbd>4</kbd> or tap a bin. Answers are checked against a fixed key; Jev's time is measured on the server, network included.</span>
+            <span class="tr"><kbd>1</kbd>–<kbd>4</kbd> tuşları ya da kutuya dokun. Cevaplar sabit bir anahtara göre puanlanır; Jev'in süresi sunucuda, ağ dahil ölçülür.</span>
+          </p>
+          <button type="button" class="btn btn-primary" id="sel-start"><span class="en">Start</span><span class="tr">Başla</span></button>
+          <p class="sel-status" id="sel-status" aria-live="polite"></p>
+        </div>
+      </div>
+      <div class="sel-overlay" id="sel-end" hidden>
+        <div class="sel-panel sel-panel-end" id="sel-end-body"></div>
+      </div>
+    </div>
+  </dialog>
+
   <!-- Magic-link gate: the Masterclass opens through a link sent by e-mail -->
   <dialog class="video-modal gate-modal" id="gate-modal" aria-labelledby="gate-title">
     <button type="button" class="video-close" id="gate-close" aria-label="Close">
@@ -819,6 +901,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 
   <script src="config.php"></script>
   <script src="script.js?v=33"></script>
+  <script src="sel.js?v=2"></script>
+  <script src="yon.js?v=1"></script>
   <script src="skills.js?v=5"></script>
 </body>
 </html>

@@ -25,4 +25,11 @@ return [
 
     // How long the session lasts after the link was used (seconds)
     'token_ttl' => 43200,
+
+    // 4. TypeSafe (Jev) for the "Sel" decision duel. The key is read from
+    //    private/typesafe.key (upload by hand; the file is git-ignored) or
+    //    from the TYPESAFE_API_KEY environment variable. Empty = Jev offline,
+    //    the game still runs solo.
+    'typesafe_key_file' => __DIR__ . '/private/typesafe.key',
+    'typesafe_model'    => 'jev-latest',
 ];

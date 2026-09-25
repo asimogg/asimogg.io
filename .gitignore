@@ -8,3 +8,6 @@ production/
 # TypeSafe (Jev) API key for /fikir-kapisi — uploaded to the server by hand, never committed
 private/typesafe.key
 .asimogg-typesafe.key
+
+# TypeSafe (Jev) API key for the Sel game: uploaded by hand, never committed
+private/typesafe.key

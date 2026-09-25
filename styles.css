@@ -2053,3 +2053,188 @@ select:invalid {
 .stickman-controls .stickman-sound {
   flex: 0 0 auto;
 }
+
+/* ---------- "The Flood": decision duel (Concept Works) ---------- */
+.sel-modal {
+  width: min(96vw, 66rem);
+}
+
+.sel-stage {
+  position: relative;
+  aspect-ratio: 1000 / 620;
+  background: #000;
+}
+
+.sel-stage canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.sel-overlay[hidden] {
+  display: none;
+}
+
+.sel-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  place-content: safe center;
+  padding: clamp(1rem, 4vw, 2.5rem);
+  background: rgba(10, 10, 9, 0.9);
+  overflow: auto;
+}
+
+.sel-panel {
+  max-width: 34rem;
+  text-align: center;
+}
+
+.sel-panel-end {
+  max-width: 40rem;
+  width: 100%;
+}
+
+.sel-eyebrow {
+  margin: 0 0 0.6rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.sel-title {
+  margin: 0 0 0.8rem;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 640;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  font-variation-settings: "wdth" 122;
+}
+
+.sel-text {
+  margin: 0 0 0.9rem;
+  color: var(--ink);
+  line-height: 1.55;
+}
+
+.sel-text b {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.sel-hint {
+  margin: 0 0 1.4rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--ink-muted);
+}
+
+.sel-hint kbd {
+  display: inline-block;
+  min-width: 1.4em;
+  padding: 0 0.3em;
+  border: 1px solid var(--line);
+  border-radius: 0.3em;
+  font: inherit;
+  font-size: 0.875em;
+  color: var(--ink);
+}
+
+.sel-status {
+  min-height: 1.4em;
+  margin: 0.9rem 0 0;
+  font-size: 0.875rem;
+  color: var(--ink-muted);
+}
+
+.sel-status[data-state="error"] {
+  color: var(--accent);
+}
+
+.sel-result {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.5rem 1rem;
+  align-items: center;
+  margin: 1.2rem 0;
+  padding: 1rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  font-variant-numeric: tabular-nums;
+}
+
+.sel-result .who {
+  font-weight: 640;
+  font-size: 1.0625rem;
+  font-variation-settings: "wdth" 116;
+}
+
+.sel-result .who-jev {
+  color: var(--accent);
+}
+
+.sel-result .big {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 640;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.sel-result .lbl {
+  font-size: 0.8125rem;
+  color: var(--ink-muted);
+}
+
+.sel-verdict {
+  margin: 0 0 0.6rem;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+}
+
+.sel-agg {
+  margin: 0 0 1.2rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--ink-muted);
+}
+
+.sel-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  justify-content: center;
+}
+
+.sel-actions .btn-ghost {
+  display: inline-block;
+  padding: 0.85rem 1.6rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink);
+  background: transparent;
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.sel-actions .btn-ghost:hover {
+  border-color: var(--ink);
+}
+
+@media (max-width: 700px) {
+  .sel-modal {
+    width: 100vw;
+    max-width: none;
+    border-radius: 0;
+  }
+  .sel-result {
+    gap: 0.4rem 0.6rem;
+  }
+}

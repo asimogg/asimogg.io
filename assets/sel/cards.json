@@ -1,0 +1,266 @@
+{
+ "bins": {
+  "now": {
+   "en": "Now",
+   "tr": "Şimdi",
+   "desc": "Needs the manager's own decision, answer or signature today; it cannot wait and nobody else can do it."
+  },
+  "later": {
+   "en": "Later",
+   "tr": "Sonra",
+   "desc": "Worth doing, but not today; schedule it for the coming days or weeks."
+  },
+  "delegate": {
+   "en": "Delegate",
+   "tr": "Devret",
+   "desc": "A routine request, lookup or re-send that the assistant or the team can handle without the manager; pass it on."
+  },
+  "delete": {
+   "en": "Delete",
+   "tr": "Sil",
+   "desc": "No action needed: noise, spam, a notification or purely informational."
+  }
+ },
+ "cards": [
+  {
+   "id": "c01",
+   "label": "now",
+   "en": "Boss: need the Q3 numbers before the 14:00 meeting.",
+   "tr": "Patron: Q3 rakamları 14:00 toplantısından önce lazım."
+  },
+  {
+   "id": "c02",
+   "label": "now",
+   "en": "Automated alert: line 2 stopped, the operator is waiting for a decision.",
+   "tr": "Otomatik uyarı: 2. hat durdu, operatör karar bekliyor."
+  },
+  {
+   "id": "c03",
+   "label": "now",
+   "en": "Customer: the delivery arrived damaged, wants a replacement today.",
+   "tr": "Müşteri: teslimat hasarlı geldi, bugün değişim istiyor."
+  },
+  {
+   "id": "c04",
+   "label": "now",
+   "en": "Bank: the supplier payment bounced, the retry needs your approval by 16:00.",
+   "tr": "Banka: tedarikçi ödemesi geri döndü, yeniden deneme için 16:00'a kadar onayın gerekli."
+  },
+  {
+   "id": "c05",
+   "label": "now",
+   "en": "Legal: the contract expires tonight, sign the extension or it lapses.",
+   "tr": "Hukuk: sözleşme bu gece bitiyor, uzatmayı imzala yoksa düşer."
+  },
+  {
+   "id": "c06",
+   "label": "now",
+   "en": "Key client on the phone right now, asking for you by name.",
+   "tr": "Kilit müşteri şu an hatta, seni ismen istiyor."
+  },
+  {
+   "id": "c07",
+   "label": "now",
+   "en": "Server certificate expires in 3 hours; renewal is waiting for your confirmation.",
+   "tr": "Sunucu sertifikası 3 saat içinde doluyor; yenileme onayını bekliyor."
+  },
+  {
+   "id": "c08",
+   "label": "now",
+   "en": "Candidate accepted the offer but needs the start date confirmed today.",
+   "tr": "Aday teklifi kabul etti, işe başlama tarihini bugün onaylaman gerekiyor."
+  },
+  {
+   "id": "c09",
+   "label": "now",
+   "en": "Warehouse: two orders, one truck at noon. Which one ships first?",
+   "tr": "Depo: iki sipariş, öğlen tek kamyon. Hangisi önce çıkıyor?"
+  },
+  {
+   "id": "c10",
+   "label": "now",
+   "en": "Journalist wants a one-line comment before her 17:00 deadline.",
+   "tr": "Gazeteci 17:00 teslim saatinden önce tek cümlelik yorum istiyor."
+  },
+  {
+   "id": "c11",
+   "label": "later",
+   "en": "Colleague: can you review my slides sometime next week?",
+   "tr": "Meslektaş: gelecek hafta bir ara sunumuma bakar mısın?"
+  },
+  {
+   "id": "c12",
+   "label": "later",
+   "en": "HR: complete the annual training by the end of the quarter.",
+   "tr": "İK: yıllık eğitimi çeyrek sonuna kadar tamamla."
+  },
+  {
+   "id": "c13",
+   "label": "later",
+   "en": "Reminder: passport renewal is due in four months.",
+   "tr": "Hatırlatma: pasaport yenileme dört ay sonra."
+  },
+  {
+   "id": "c14",
+   "label": "later",
+   "en": "Conference call for papers, deadline in six weeks.",
+   "tr": "Konferans bildiri çağrısı, son gün altı hafta sonra."
+  },
+  {
+   "id": "c15",
+   "label": "later",
+   "en": "Accounting: send last month's receipts whenever convenient.",
+   "tr": "Muhasebe: geçen ayın fişlerini uygun olduğunda gönder."
+  },
+  {
+   "id": "c16",
+   "label": "later",
+   "en": "Mentor: let's have a coffee sometime in October.",
+   "tr": "Mentor: ekimde bir ara kahve içelim."
+  },
+  {
+   "id": "c17",
+   "label": "later",
+   "en": "Note to self: try a different layout for the dashboard.",
+   "tr": "Kendine not: panel için farklı bir düzen dene."
+  },
+  {
+   "id": "c18",
+   "label": "later",
+   "en": "Book recommendation from a friend, no rush.",
+   "tr": "Arkadaştan kitap önerisi, acelesi yok."
+  },
+  {
+   "id": "c19",
+   "label": "later",
+   "en": "Insurance: the policy renews in 60 days, review the options before then.",
+   "tr": "Sigorta: poliçe 60 gün sonra yenileniyor, öncesinde seçeneklere bak."
+  },
+  {
+   "id": "c20",
+   "label": "later",
+   "en": "Team: let's plan the summer offsite, ideas by the end of the month.",
+   "tr": "Ekip: yaz kampını planlayalım, ay sonuna kadar fikirler."
+  },
+  {
+   "id": "c21",
+   "label": "delegate",
+   "en": "Customer asks for the tracking number of order 4471.",
+   "tr": "Müşteri 4471 numaralı siparişin kargo takip numarasını soruyor."
+  },
+  {
+   "id": "c22",
+   "label": "delegate",
+   "en": "New intern needs a laptop and building access set up.",
+   "tr": "Yeni stajyerin laptop ve bina girişi ayarlanmalı."
+  },
+  {
+   "id": "c23",
+   "label": "delegate",
+   "en": "Vendor asks for the updated billing address.",
+   "tr": "Tedarikçi güncel fatura adresini soruyor."
+  },
+  {
+   "id": "c24",
+   "label": "delegate",
+   "en": "Website form: \"What are your opening hours?\"",
+   "tr": "Web formu: \"Çalışma saatleriniz nedir?\""
+  },
+  {
+   "id": "c25",
+   "label": "delegate",
+   "en": "Someone asks for the Wi-Fi password in the meeting room.",
+   "tr": "Toplantı odasındaki Wi-Fi şifresini soruyorlar."
+  },
+  {
+   "id": "c26",
+   "label": "delegate",
+   "en": "Supplier needs the signed delivery note sent again.",
+   "tr": "Tedarikçi imzalı irsaliyenin tekrar gönderilmesini istiyor."
+  },
+  {
+   "id": "c27",
+   "label": "delegate",
+   "en": "Sales team asks for last year's product photos.",
+   "tr": "Satış ekibi geçen yılın ürün fotoğraflarını istiyor."
+  },
+  {
+   "id": "c28",
+   "label": "delegate",
+   "en": "The printer on the 3rd floor is out of toner.",
+   "tr": "3. kattaki yazıcının toneri bitti."
+  },
+  {
+   "id": "c29",
+   "label": "delegate",
+   "en": "Applicant asks whether the job posting is still open.",
+   "tr": "Başvuran ilanın hâlâ açık olup olmadığını soruyor."
+  },
+  {
+   "id": "c30",
+   "label": "delegate",
+   "en": "Colleague needs Tuesday's meeting minutes typed up.",
+   "tr": "Meslektaş salı toplantısının notlarının yazıya dökülmesini istiyor."
+  },
+  {
+   "id": "c31",
+   "label": "delete",
+   "en": "Newsletter: 10 productivity hacks for busy managers.",
+   "tr": "Bülten: yoğun yöneticiler için 10 verimlilik tüyosu."
+  },
+  {
+   "id": "c32",
+   "label": "delete",
+   "en": "Spam: you have won a prize, click here.",
+   "tr": "Spam: ödül kazandınız, buraya tıklayın."
+  },
+  {
+   "id": "c33",
+   "label": "delete",
+   "en": "Facilities: parking lot repainting on Saturday, no action needed.",
+   "tr": "Bina yönetimi: otopark cumartesi boyanacak, işlem gerekmez."
+  },
+  {
+   "id": "c34",
+   "label": "delete",
+   "en": "Team member: I finished the report and filed it in the shared folder.",
+   "tr": "Ekip üyesi: raporu bitirdim, ortak klasöre koydum."
+  },
+  {
+   "id": "c35",
+   "label": "delete",
+   "en": "Auto-reply: I am out of office until Monday.",
+   "tr": "Otomatik yanıt: pazartesiye kadar ofis dışındayım."
+  },
+  {
+   "id": "c36",
+   "label": "delete",
+   "en": "Vendor pitch: new CRM software, free trial.",
+   "tr": "Tedarikçi teklifi: yeni CRM yazılımı, ücretsiz deneme."
+  },
+  {
+   "id": "c37",
+   "label": "delete",
+   "en": "Calendar: your 10:00 meeting was accepted by all attendees.",
+   "tr": "Takvim: 10:00 toplantısını tüm katılımcılar kabul etti."
+  },
+  {
+   "id": "c38",
+   "label": "delete",
+   "en": "Social network: 5 people viewed your profile this week.",
+   "tr": "Sosyal ağ: bu hafta 5 kişi profilini görüntüledi."
+  },
+  {
+   "id": "c39",
+   "label": "delete",
+   "en": "Duplicate of an e-mail you already answered yesterday.",
+   "tr": "Dün cevapladığın e-postanın kopyası."
+  },
+  {
+   "id": "c40",
+   "label": "delete",
+   "en": "Airline: your points balance summary for August.",
+   "tr": "Havayolu: ağustos puan bakiyesi özeti."
+  }
+ ]
+}
