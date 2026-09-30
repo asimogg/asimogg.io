@@ -1,6 +1,15 @@
 {
  "versions": [
   {
+   "version": "v2.1",
+   "date": "2026-09-30",
+   "items": [
+    "End-to-end test of the whole research chain (14 stages) with a Claude Science check at every stage — 11 pass, 3 partial; Science reproduced every number from Claude Code (Washburn depth, Pareto front, power n=7, response-surface R² 0.944)",
+    "Science skills: local drafts cannot be loaded by Science's skill tool, so every handoff brief tells Science to read the skill text directly — skills stay on this Mac",
+    "Fixes from the test: newton mass-balance limit on penetration + ageing-based durability claim, DOE power check, headless statistics CLI, DOI checks for non-CrossRef agencies, CORDIS FP7 + partner countries, patent pre-screen top-up"
+   ]
+  },
+  {
    "version": "v2.0",
    "date": "2026-09-30",
    "items": [

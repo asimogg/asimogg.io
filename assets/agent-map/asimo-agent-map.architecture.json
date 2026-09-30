@@ -2,7 +2,7 @@
  "schema_version": 1,
  "diagram_type": "architecture",
  "meta": {
-  "title": "Asimo Agent Map v2.0",
+  "title": "Asimo Agent Map v2.1",
   "output": "asimo-agent-map.html",
   "quality_profile": "standard",
   "visual_preset": "signal-flow",
@@ -1271,13 +1271,12 @@
  "cards": [
   {
    "dot": "violet",
-   "title": "v2.0 changes",
+   "title": "v2.1 changes",
    "items": [
-    "v2.0: Claude Science joins asimo-rd as the compute layer — Claude Code orchestrates (routing, newton, lens, DOE), Claude Science runs the heavy work in sandboxed Python/R kernels and returns verified notebooks + publication figures",
-    "One skill source: newton + K-Dense skills synced from ~/.claude/skills into Claude Science as local drafts (never published); asimo-* skills come from the claude.ai account in both",
-    "Science MCP tools registered in Claude Code too: PubChem/ChEBI, OpenAlex/arXiv, PubMed — generic queries only, no Kalekim codes or names",
-    "File-based handoff: rd-handoff/brief.md in → Science kernels → results/summary.md back to statistical-analysis and newton",
-    "v1.9: Jev pre-screen under lens-research · v1.8: manim ask-first · v1.7: K-Dense skills"
+    "v2.1: End-to-end test of the whole research chain (14 stages) with a Claude Science check at every stage — 11 pass, 3 partial; Science reproduced every number from Claude Code (Washburn depth, Pareto front, power n=7, response-surface R² 0.944)",
+    "Science skills: local drafts cannot be loaded by Science's skill tool, so every handoff brief tells Science to read the skill text directly — skills stay on this Mac",
+    "Fixes from the test: newton mass-balance limit on penetration + ageing-based durability claim, DOE power check, headless statistics CLI, DOI checks for non-CrossRef agencies, CORDIS FP7 + partner countries, patent pre-screen top-up",
+    "v2.0: Claude Science joins asimo-rd as the compute layer · v1.9: Jev pre-screen · v1.8: manim ask-first"
    ]
   },
   {
@@ -1299,9 +1298,9 @@
    "title": "Still open",
    "items": [
     "Figma, Notion, Slack MCPs need auth",
-    "Claude Science has no chat API → handoff is file-based (rd-handoff/brief.md in, results/ out)",
-    "lens-research in Science still reads the older claude.ai copy (no Jev) — publish or rename pending",
-    "Jev for Kalekim-internal text blocked by privacy rule → local model candidate"
+    "Claude Science has no chat API → handoff stays file-based (brief.md in, results/ out)",
+    "Science OpenAlex tool works only inside Science (key injected); from Claude Code use the direct OpenAlex route",
+    "Jev for internal text blocked by privacy rule → local model candidate"
    ]
   },
   {
