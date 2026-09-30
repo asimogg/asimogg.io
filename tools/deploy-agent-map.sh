@@ -28,9 +28,9 @@ if m:
             if "change" in str(card.get("title", "")).lower():
                 for it in card.get("items", []):
                     text = it if isinstance(it, str) else json.dumps(it, ensure_ascii=False)
+                    text = re.sub(r"^" + re.escape(ver) + r":\s*", "", text)
                     if re.match(r"^v\d+\.\d+:", text):  # recap lines of older versions
                         continue
-                    text = re.sub(r"^" + re.escape(ver) + r":\s*", "", text)
                     items.append(text)
         log["versions"].insert(0, {"version": ver, "date": datetime.date.today().isoformat(), "items": items})
         json.dump(log, open(path, "w"), indent=1, ensure_ascii=False)
