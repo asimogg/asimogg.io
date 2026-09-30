@@ -1,6 +1,14 @@
 {
  "versions": [
   {
+   "version": "v2.0",
+   "date": "2026-09-30",
+   "items": [
+    "One skill source: ~/.claude/skills → synced into Claude Science so both run the same asimo-rd / newton / lens versions",
+    "Science MCP tools (ChEMBL, PubChem, PubMed, Ketcher) registered in Claude Code too — generic queries only, no Kalekim codes or names"
+   ]
+  },
+  {
    "version": "v1.9",
    "date": "2026-09-22",
    "items": [
