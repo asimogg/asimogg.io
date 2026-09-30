@@ -4,14 +4,17 @@
    "version": "v2.0",
    "date": "2026-09-30",
    "items": [
-    "One skill source: ~/.claude/skills → synced into Claude Science so both run the same asimo-rd / newton / lens versions",
-    "Science MCP tools (ChEMBL, PubChem, PubMed, Ketcher) registered in Claude Code too — generic queries only, no Kalekim codes or names"
+    "Claude Science joins asimo-rd as the compute layer — Claude Code orchestrates (routing, newton, lens, DOE), Claude Science runs the heavy work in sandboxed Python/R kernels and returns verified notebooks + publication figures",
+    "One skill source: newton + K-Dense skills synced from ~/.claude/skills into Claude Science as local drafts (never published); asimo-* skills come from the claude.ai account in both",
+    "Science MCP tools registered in Claude Code too: PubChem/ChEBI, OpenAlex/arXiv, PubMed — generic queries only, no Kalekim codes or names",
+    "File-based handoff: rd-handoff/brief.md in → Science kernels → results/summary.md back to statistical-analysis and newton"
    ]
   },
   {
    "version": "v1.9",
    "date": "2026-09-22",
    "items": [
+    "Jev (TypeSafe System One) pre-screen under lens-research: every OpenAlex / PubMed / patent-list candidate gets a 0–4 relevance Score in ~0.8 s; Fable reads only the survivors (−82…86% reading load)",
     "Rule: public abstracts only — Asana, Gmail, Drive and any Kalekim document never go to Jev; those need a local model"
    ]
   },

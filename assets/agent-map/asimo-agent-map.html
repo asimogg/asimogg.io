@@ -5903,8 +5903,9 @@
         </div>
         <ul>
           <li>&bull; v2.0: Claude Science joins asimo-rd as the compute layer — Claude Code orchestrates (routing, newton, lens, DOE), Claude Science runs the heavy work in sandboxed Python/R kernels and returns verified notebooks + publication figures</li>
-          <li>&bull; One skill source: ~/.claude/skills → synced into Claude Science so both run the same asimo-rd / newton / lens versions</li>
-          <li>&bull; Science MCP tools (ChEMBL, PubChem, PubMed, Ketcher) registered in Claude Code too — generic queries only, no Kalekim codes or names</li>
+          <li>&bull; One skill source: newton + K-Dense skills synced from ~/.claude/skills into Claude Science as local drafts (never published); asimo-* skills come from the claude.ai account in both</li>
+          <li>&bull; Science MCP tools registered in Claude Code too: PubChem/ChEBI, OpenAlex/arXiv, PubMed — generic queries only, no Kalekim codes or names</li>
+          <li>&bull; File-based handoff: rd-handoff/brief.md in → Science kernels → results/summary.md back to statistical-analysis and newton</li>
           <li>&bull; v1.9: Jev pre-screen under lens-research · v1.8: manim ask-first · v1.7: K-Dense skills</li>
         </ul>
       </div>
