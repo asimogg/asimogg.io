@@ -1,6 +1,15 @@
 {
  "versions": [
   {
+   "version": "v2.2",
+   "date": "2026-10-05",
+   "items": [
+    "Marketing, Sales, Finance and HR rebuilt with 27 skills from Anthropic's Small Business pack (plus 5 chained helpers), installed in free / open-source mode — no paid connectors, CSV / XLSX exports and local files instead",
+    "asimo-marketing now has four branches — strategy & brand, content & social, video production (existing stack), paid & reputation",
+    "asimo-ceo stays the only router; the pack's own router is not installed"
+   ]
+  },
+  {
    "version": "v2.1",
    "date": "2026-09-30",
    "items": [
