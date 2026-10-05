@@ -1,6 +1,15 @@
 {
  "versions": [
   {
+   "version": "v2.3",
+   "date": "2026-10-05",
+   "items": [
+    "Scenario test of the whole business block — 32 skills, 4 independent arms, a fictional paint workshop, no connectors. Numbers agreed across arms and with pre-computed answers: 42/43 truth checks, 5/6 guardrails, 7/8 cross-arm checks",
+    "Connector-free verdict — 15 skills pass, 17 partial, 0 fail; partials need web search, Canva, calendar, PDF or owner approval gates",
+    "One real finding — pay-the-bills proposed a payment run larger than available cash without defining which total is the run"
+   ]
+  },
+  {
    "version": "v2.2",
    "date": "2026-10-05",
    "items": [

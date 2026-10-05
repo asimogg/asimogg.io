@@ -2,7 +2,7 @@
   "schema_version": 1,
   "diagram_type": "architecture",
   "meta": {
-    "title": "Asimo Agent Map v2.2",
+    "title": "Asimo Agent Map v2.3",
     "output": "asimo-agent-map.html",
     "quality_profile": "standard",
     "visual_preset": "signal-flow",
@@ -1869,12 +1869,12 @@
   "cards": [
     {
       "dot": "violet",
-      "title": "v2.2 changes",
+      "title": "v2.3 changes",
       "items": [
-        "v2.2: Marketing, Sales, Finance and HR rebuilt with 27 skills from Anthropic's Small Business pack (plus 5 chained helpers), installed in free / open-source mode — no paid connectors, CSV / XLSX exports and local files instead",
-        "v2.2: asimo-marketing now has four branches — strategy & brand, content & social, video production (existing stack), paid & reputation",
-        "v2.2: asimo-ceo stays the only router; the pack's own router is not installed",
-        "v2.1: end-to-end research chain test with Claude Science"
+        "v2.3: Scenario test of the whole business block — 32 skills, 4 independent arms, a fictional paint workshop, no connectors. Numbers agreed across arms and with pre-computed answers: 42/43 truth checks, 5/6 guardrails, 7/8 cross-arm checks",
+        "v2.3: Connector-free verdict — 15 skills pass, 17 partial, 0 fail; partials need web search, Canva, calendar, PDF or owner approval gates",
+        "v2.3: One real finding — pay-the-bills proposed a payment run larger than available cash without defining which total is the run",
+        "v2.2: Marketing, Sales, Finance and HR rebuilt from the Small Business pack in free / open-source mode"
       ]
     },
     {
