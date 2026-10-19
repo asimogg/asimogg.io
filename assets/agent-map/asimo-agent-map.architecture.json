@@ -2,7 +2,7 @@
   "schema_version": 1,
   "diagram_type": "architecture",
   "meta": {
-    "title": "Asimo Agent Map v2.3",
+    "title": "Asimo Agent Map v2.4",
     "output": "asimo-agent-map.html",
     "quality_profile": "standard",
     "visual_preset": "signal-flow",
@@ -61,9 +61,10 @@
           "ceo",
           "software",
           "gstack",
-          "cso"
+          "cso",
+          "reverse"
         ],
-        "note": "gstack engineering factory plus mandatory security pass."
+        "note": "gstack engineering factory, mandatory security pass, and the REA reverse-engineering lane (evidence first, clean-room spec for any clone)."
       },
       {
         "id": "marketing",
@@ -1076,6 +1077,20 @@
         160,
         56
       ]
+    },
+    {
+      "id": "reverse",
+      "type": "backend",
+      "label": "asimo-reverse",
+      "sublabel": "REA · how it works",
+      "pos": [
+        820,
+        1150
+      ],
+      "size": [
+        140,
+        60
+      ]
     }
   ],
   "boundaries": [
@@ -1107,7 +1122,8 @@
       "wraps": [
         "software",
         "gstack",
-        "cso"
+        "cso",
+        "reverse"
       ]
     },
     {
@@ -1864,17 +1880,45 @@
       "to": "videostack",
       "label": "scientific visual? ask first",
       "variant": "dashed"
+    },
+    {
+      "id": "software-reverse",
+      "from": "software",
+      "to": "reverse",
+      "label": "how does it work?",
+      "fromSide": "bottom",
+      "toSide": "bottom",
+      "via": [
+        [
+          490,
+          1240
+        ],
+        [
+          890,
+          1240
+        ]
+      ]
+    },
+    {
+      "id": "reverse-gstack",
+      "from": "reverse",
+      "to": "gstack",
+      "label": "clean-room spec.md",
+      "variant": "dashed",
+      "fromSide": "top",
+      "toSide": "right"
     }
   ],
   "cards": [
     {
       "dot": "violet",
-      "title": "v2.3 changes",
+      "title": "v2.4 changes",
       "items": [
+        "v2.4: asimo-reverse joins the Software subsystem — REA (morluto/rea) CLI 6.4.0 for evidence-backed reverse engineering of local apps, Electron/asar, Mach-O, .NET and web bundles",
+        "v2.4: Clone mode hands gstack only a clean-room spec.md, after asimo-software's 3-question strategic gate; no copied code or assets",
+        "v2.4: No native decompile provider yet (Ghidra/Hopper) and REA MCP not registered — CLI route only",
         "v2.3: Scenario test of the whole business block — 32 skills, 4 independent arms, a fictional paint workshop, no connectors. Numbers agreed across arms and with pre-computed answers: 42/43 truth checks, 5/6 guardrails, 7/8 cross-arm checks",
-        "v2.3: Connector-free verdict — 15 skills pass, 17 partial, 0 fail; partials need web search, Canva, calendar, PDF or owner approval gates",
-        "v2.3: One real finding — pay-the-bills proposed a payment run larger than available cash without defining which total is the run",
-        "v2.2: Marketing, Sales, Finance and HR rebuilt from the Small Business pack in free / open-source mode"
+        "v2.3: Connector-free verdict — 15 skills pass, 17 partial, 0 fail; partials need web search, Canva, calendar, PDF or owner approval gates"
       ]
     },
     {
@@ -1898,7 +1942,8 @@
         "Figma, Notion, Slack MCPs need auth",
         "Claude Science has no chat API → handoff stays file-based (brief.md in, results/ out)",
         "Science OpenAlex tool works only inside Science (key injected); from Claude Code use the direct OpenAlex route",
-        "Jev for internal text blocked by privacy rule → local model candidate"
+        "Jev for internal text blocked by privacy rule → local model candidate",
+        "REA MCP registration (rea setup --client claude_code) and claude.ai copy of asimo-software still need Asım"
       ]
     },
     {

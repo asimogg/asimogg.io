@@ -1,6 +1,15 @@
 {
  "versions": [
   {
+   "version": "v2.4",
+   "date": "2026-10-19",
+   "items": [
+    "asimo-reverse joins the Software subsystem — REA (morluto/rea) CLI 6.4.0 for evidence-backed reverse engineering of local apps, Electron/asar, Mach-O, .NET and web bundles",
+    "Clone mode hands gstack only a clean-room spec.md, after asimo-software's 3-question strategic gate; no copied code or assets",
+    "No native decompile provider yet (Ghidra/Hopper) and REA MCP not registered — CLI route only"
+   ]
+  },
+  {
    "version": "v2.3",
    "date": "2026-10-05",
    "items": [
