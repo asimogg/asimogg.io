@@ -1818,6 +1818,17 @@ select:invalid {
   background: var(--bg);
 }
 
+/* the English film is a 4:5 vertical cut with its captions burned in; the Turkish
+   language keeps the square film above until its own vertical cut ships */
+html[data-lang="en"] .stickman,
+html[data-lang="en"] .stickman-big {
+  aspect-ratio: 4 / 5;
+}
+
+html[data-lang="en"] .stickman-modal {
+  width: min(92vw, calc(86vh * 0.8));
+}
+
 /* enlarged film popup */
 .stickman-modal {
   width: min(92vw, 64rem);
@@ -1935,6 +1946,10 @@ select:invalid {
     max-width: 38rem;
     justify-self: end;
   }
+}
+
+html[data-lang="en"] .hero-video {
+  max-width: 27rem;
 }
 
 

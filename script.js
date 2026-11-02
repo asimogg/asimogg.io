@@ -378,11 +378,17 @@
     var soundBtn = document.getElementById("stickman-sound");
     var capEl = document.getElementById("stickman-cap");
     var CAPS = {
-      en: [[12, 19, "Distilled information"], [42, 49, "AI \u2194 real business"], [52, 59, "Allowed, not everything"]],
+      en: [], // the English film carries its own captions
       tr: [[12, 19, "Dam\u0131t\u0131lm\u0131\u015f bilgi"], [42, 49, "Yapay zek\u00e2 \u2194 ger\u00e7ek i\u015f"], [52, 59, "\u0130zinli olan, her \u015fey de\u011fil"]]
     };
     function stickSrc() { return stick.getAttribute("data-src-" + currentLang()); }
     function loadStick(keepTime) {
+      var poster = stick.getAttribute("data-poster-" + currentLang());
+      if (poster) {
+        stick.setAttribute("poster", poster);
+        var bigVideo = document.getElementById("stickman-big");
+        if (bigVideo) bigVideo.setAttribute("poster", poster);
+      }
       var want = stickSrc();
       if (stick.getAttribute("src") === want) return;
       var t = keepTime ? stick.currentTime : 0;

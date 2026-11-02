@@ -66,7 +66,7 @@
   </script>
   <link rel="preload" href="fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/archivo-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=43">
+  <link rel="stylesheet" href="styles.css?v=44">
 </head>
 <body class="entrance">
 <!--
@@ -187,9 +187,10 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 
       <div class="hero-video" id="hero-video">
         <div class="stickman-frame">
-          <video id="stickman" class="stickman" playsinline muted autoplay loop preload="metadata" poster="assets/stickman-poster.jpg" width="720" height="720"
-                 data-src-en="assets/stickman-en.mp4" data-src-tr="assets/stickman-tr.mp4"
-                 aria-label="Distilled, not diluted: a one-minute stick-figure film about the automations on this site"></video>
+          <video id="stickman" class="stickman" playsinline muted autoplay loop preload="metadata" poster="assets/fdab-poster.jpg" width="720" height="900"
+                 data-src-en="assets/fdab-en.mp4" data-src-tr="assets/stickman-tr.mp4"
+                 data-poster-en="assets/fdab-poster.jpg" data-poster-tr="assets/stickman-poster.jpg"
+                 aria-label="Forward-deployed AI builder: a two-minute film of real stories from the automations on this site"></video>
           <p class="stickman-cap" id="stickman-cap" aria-live="off"></p>
         </div>
         <div class="stickman-controls" role="group" aria-label="Player">
@@ -198,7 +199,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
             <svg class="ico-pause" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5h3v11H3zM8 1.5h3v11H8z" fill="currentColor"/></svg>
           </button>
           <input type="range" class="stickman-seek" id="stickman-seek" min="0" max="1000" value="0" step="1" aria-label="Position">
-          <span class="stickman-time" id="stickman-time">0:00 / 1:00</span>
+          <span class="stickman-time" id="stickman-time">0:00 / 2:00</span>
           <button type="button" class="stickman-btn" id="stickman-full" aria-label="Enlarge" title="Enlarge (opens in a popup)">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1.5 5V1.5H5M9 1.5h3.5V5M12.5 9v3.5H9M5 12.5H1.5V9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
@@ -208,7 +209,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
           </button>
         </div>
         <p class="stickman-line">
-          <span class="en"><span class="brush">Distilled</span>, not diluted — sixty seconds on what I build and why I teach it.</span>
+          <span class="en"><span class="brush">Forward-deployed</span> AI builder — two minutes of real stories, not slides.</span>
           <span class="tr"><span class="brush">Damıtılmış</span>, sulandırılmamış — ne kurduğumu ve neden öğrettiğimi altmış saniyede anlatıyor.</span>
         </p>
         <div class="stickman-actions">
@@ -900,7 +901,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   </div>
 
   <script src="config.php"></script>
-  <script src="script.js?v=33"></script>
+  <script src="script.js?v=34"></script>
   <script src="sel.js?v=2"></script>
   <script src="yon.js?v=1"></script>
   <script src="skills.js?v=5"></script>
