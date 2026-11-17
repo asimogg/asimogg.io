@@ -17,33 +17,17 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
 }
 
 // --- same-origin check: the form only ever posts from this site ---------------
-$host   = strtolower((string) preg_replace('/:\d+$/', '', $_SERVER['HTTP_HOST'] ?? ''));
-$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-$source = $origin !== '' ? $origin : ($_SERVER['HTTP_REFERER'] ?? '');
-$srcHost = strtolower((string) parse_url($source, PHP_URL_HOST));
-if ($host === '' || $srcHost === '' || $srcHost !== $host) {
-    respond(403, ['ok' => false, 'error' => 'origin']);
-}
+require __DIR__ . '/lib.php';   // also turns off display_errors
+same_origin_or_die();
 
 // --- honeypot: real visitors never fill this hidden field --------------------
 if (!empty($_POST['_gotcha'])) {
     respond(200, ['ok' => true]);
 }
 
-// --- rate limit: at most 5 submissions per IP per hour -----------------------
-$ip      = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
-$bucket  = sys_get_temp_dir() . '/asimogg-form-' . hash('sha256', $ip . '|' . $host) . '.json';
-$now     = time();
-$window  = 3600;
-$limit   = 5;
-$hits    = [];
-if (is_file($bucket)) {
-    $hits = json_decode((string) file_get_contents($bucket), true) ?: [];
-    $hits = array_values(array_filter($hits, fn($t) => is_int($t) && $t > $now - $window));
-}
-if (count($hits) >= $limit) {
-    respond(429, ['ok' => false, 'error' => 'rate']);
-}
+// --- rate limit: at most 5 submissions per IP per hour (atomic, IP-only key) ---
+$ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
+rate_limit('form', 5, 3600);
 
 // --- input ---------------------------------------------------------------------
 $clean = static function (string $v, int $max): string {
@@ -98,8 +82,6 @@ $headers = [
 $sent = mail($to, $subject, $body, implode("\r\n", $headers), '-fhello@asimogg.io');
 
 if ($sent) {
-    $hits[] = $now;
-    @file_put_contents($bucket, json_encode($hits), LOCK_EX);
     respond(200, ['ok' => true]);
 }
 

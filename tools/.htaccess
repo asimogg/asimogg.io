@@ -1,0 +1,2 @@
+# Never served directly (gated originals / server tooling). Independent of mod_rewrite.
+Require all denied

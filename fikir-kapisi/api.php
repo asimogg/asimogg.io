@@ -57,6 +57,7 @@ foreach ($dims as $d => $levels) {
 foreach ($nouls as $n => $t) $qs[$n] = ['type' => 'noul', 'instructions' => $t];
 $body = json_encode(['state' => $state, 'model' => 'jev-latest', 'questions' => $qs], JSON_UNESCAPED_UNICODE);
 
+paid_budget(1);   // site-wide ceiling on paid Jev calls
 $t0 = microtime(true);
 $ch = curl_init('https://api.typesafe.ai/v1/systemone');
 curl_setopt_array($ch, [CURLOPT_POST => true, CURLOPT_POSTFIELDS => $body, CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 30,
@@ -64,7 +65,7 @@ curl_setopt_array($ch, [CURLOPT_POST => true, CURLOPT_POSTFIELDS => $body, CURLO
 $raw = curl_exec($ch); $code = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE); curl_close($ch);
 $r = json_decode((string) $raw, true);
 if ($code !== 200 || !isset($r['answers'])) json_out(502, ['ok' => false, 'error' => 'jev', 'status' => $code]);
-$a = $r['answers']; $out = ['ok' => true, 'dims' => [], 'flags' => [], 'latency_s' => round(microtime(true) - $t0, 2), 'usage' => $r['usage'] ?? null, 'model' => $r['model'] ?? null];
+$a = $r['answers']; $out = ['ok' => true, 'dims' => [], 'flags' => [], 'latency_s' => round(microtime(true) - $t0, 2), 'usage' => ['input_tokens' => (int) ($r['usage']['input_tokens'] ?? 0), 'output_tokens' => (int) ($r['usage']['output_tokens'] ?? 0)], 'model' => $r['model'] ?? null];
 foreach ($dims as $d => $_) $out['dims'][$d] = ['score' => round((float) $a["dim_$d"]['score'], 2), 'conf' => round((float) $a["dim_$d"]['confidence'], 2)];
 foreach ($nouls as $n => $_) $out['flags'][$n] = round((float) $a[$n]['noul'], 2);
 json_out(200, $out);

@@ -83,18 +83,21 @@
 
   const KIND={ayni_cozum:["same solution","aynı çözüm"],kismi_ortusme:["partial overlap","kısmi örtüşme"],yakin_alan:["adjacent","yakın alan"],alakasiz:["unrelated","alakasız"]};
   const SRC={patent:["Patents","Patentler"],makale:["Papers","Makaleler"],ab_projesi:["EU projects","AB projeleri"]};
+  // everything from the search engines / the server is text, never markup
+  const esc=v=>String(v==null?"":v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const safeUrl=u=>/^https:\/\//i.test(String(u||""))?esc(u):"#";
   function landsPanel(){
     const l=S.landscape; if(!l) return "";
     const head=`<p class="fk-q">${T("What already exists","Karşındakiler")}</p>`;
     if(l==="loading") return `<div class="fk-card" id="lands">${head}<p class="fk-hint">${T("Searching patents, papers and EU projects; Jev is matching…","Patent, makale ve AB projeleri taranıyor, Jev eşleştiriyor…")}</p></div>`;
-    if(l.error){ const m={no_key:T("The judge is not configured yet.","Hakem henüz yapılandırılmamış."),rate:T("Search limit reached, try later.","Arama sınırı doldu, sonra dene.")}; return `<div class="fk-card" id="lands">${head}<p class="fk-hint">${m[l.error]||(T("Search failed: ","Arama başarısız: ")+l.error)}</p></div>`; }
-    let h=`<div class="fk-card" id="lands">${head}<p class="fk-hint">${T("Query","Sorgu")}: “${l.query}” · ${l.counts.patent} ${T("patents","patent")}, ${l.counts.makale} ${T("papers","makale")}, ${l.counts.ab_projesi} ${T("EU projects scanned","AB projesi tarandı")} · ${l.same_solution} ${T("marked “same solution”","tanesi “aynı çözüm”")} · ${(l.timing.fetch_s+l.timing.jev_s).toFixed(1)} s</p>`;
+    if(l.error){ const m={no_key:T("The judge is not configured yet.","Hakem henüz yapılandırılmamış."),rate:T("Search limit reached, try later.","Arama sınırı doldu, sonra dene.")}; return `<div class="fk-card" id="lands">${head}<p class="fk-hint">${m[l.error]||(T("Search failed: ","Arama başarısız: ")+esc(l.error))}</p></div>`; }
+    let h=`<div class="fk-card" id="lands">${head}<p class="fk-hint">${T("Query","Sorgu")}: “${esc(l.query)}” · ${l.counts.patent} ${T("patents","patent")}, ${l.counts.makale} ${T("papers","makale")}, ${l.counts.ab_projesi} ${T("EU projects scanned","AB projesi tarandı")} · ${l.same_solution} ${T("marked “same solution”","tanesi “aynı çözüm”")} · ${(l.timing.fetch_s+l.timing.jev_s).toFixed(1)} s</p>`;
     for(const k of ["patent","makale","ab_projesi"]){
       const rows=l.top[k]||[];
       h+=`<p style="margin:.75rem 0 .25rem"><b>${T(...SRC[k])}</b>${rows.length?"":T(" — no match above threshold"," — eşik üstü eşleşme yok")}</p>`;
-      for(const r of rows){ h+=`<div class="fk-step ${r.kind==='ayni_cozum'?'fk-same':''}"><a href="${r.url}" target="_blank" rel="noopener">${r.title}</a><div class="fk-meta">${r.year||""} · ${r.who||""} · ${T(...(KIND[r.kind]||[r.kind,r.kind]))} · ${T("match","uyum")} ${r.rel}/4</div></div>`; }
+      for(const r of rows){ h+=`<div class="fk-step ${r.kind==='ayni_cozum'?'fk-same':''}"><a href="${safeUrl(r.url)}" target="_blank" rel="noopener">${esc(r.title)}</a><div class="fk-meta">${esc(r.year)} · ${esc(r.who)} · ${esc(T(...(KIND[r.kind]||[r.kind,r.kind])))} · ${T("match","uyum")} ${esc(r.rel)}/4</div></div>`; }
     }
-    if(l.errors&&Object.keys(l.errors).length) h+=`<div class="fk-meta">${T("Source error","Kaynak hatası")}: ${Object.keys(l.errors).join(", ")}</div>`;
+    if(l.errors&&Object.keys(l.errors).length) h+=`<div class="fk-meta">${T("Source error","Kaynak hatası")}: ${esc(Object.keys(l.errors).join(", "))}</div>`;
     return h+"</div>";
   }
   const badge=(t,p)=>`<span class="fk-badge ${p>0.5?'on':''}">${t} ${Math.round(p*100)}%</span>`;
@@ -121,7 +124,7 @@
     const lvl = s => s<1.5?0:s<3?1:2;
     const steps = order.slice(0,3).map((k,i)=>{const [t,body]=ROADMAP[k][lvl(d[k].score)]; return `<div class="fk-step"><b>${i+1}. ${lab(k)} (${d[k].score.toFixed(1)}/4): ${T(...t)}</b>${T(...body)}</div>`;}).join("");
     const weakest = order[0]; const gname=(GATES.find(g=>g.dim===weakest)||{}).id; const mine = S.answers.find(a=>a.gate===gname);
-    const quote = mine ? `<div class="fk-meta">${T("Your words","Senin sözlerin")}: “${mine.answer.slice(0,160)}${mine.answer.length>160?'…':''}”</div>` : "";
+    const quote = mine ? `<div class="fk-meta">${T("Your words","Senin sözlerin")}: “${esc(mine.answer.slice(0,160))}${mine.answer.length>160?'…':''}”</div>` : "";
     const avg = DIMS.reduce((s,k)=>s+d[k].score,0)/5;
     const verdict = avg>=3?T("Looks ready for the board","Kurul'a gitmeye hazır görünüyor"):avg>=2?T("Between gate 2 and 3, gather evidence","Kapı 2 ile 3 arasında, kanıt topla"):T("Still an idea, validate the problem first","Henüz fikir aşamasında, önce problemi doğrula");
     const tokens = S.turns.reduce((s,t)=>s+(t.usage?t.usage.input_tokens+t.usage.output_tokens:0),0);

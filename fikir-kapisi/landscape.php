@@ -27,8 +27,12 @@ $kw = preg_replace('/[^\p{L}\p{N}\s\-]/u', ' ', $kw);
 $q = trim($kw !== '' ? $kw : implode(' ', array_slice(preg_split('/\s+/', $idea), 0, 10)));
 if ($q === '' || $idea === '') json_out(400, ['ok' => false, 'error' => 'empty']);
 
-$cacheFile = sys_get_temp_dir() . '/asimogg-landscape-' . sha1($q . '|' . mb_substr($idea, 0, 300)) . '.json';
-if (is_file($cacheFile) && filemtime($cacheFile) > time() - 86400) { echo file_get_contents($cacheFile); exit; }
+// cache in the private, owner-checked state dir; a hit is re-validated as JSON
+$cacheFile = state_dir() . '/landscape-' . sha1($q . '|' . $idea) . '.json';
+if (is_file($cacheFile) && filemtime($cacheFile) > time() - 86400 && filemtime($cacheFile) <= time()
+    && is_array($cached = json_decode((string) state_read($cacheFile), true))) {
+    json_out(200, $cached);
+}
 
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36';
 $LAST_HTTP = 0;
@@ -89,6 +93,14 @@ foreach (['makale' => 'src_openalex', 'patent' => 'src_patents', 'ab_projesi' =>
 }
 $tFetch = round(microtime(true) - $t0, 1);
 
+// bound paid work per request: score at most 8 candidates per source (in the
+// sources' own rank order; the panel shows the top 5), charged to the
+// site-wide paid budget before any Jev call
+$bySrc = [];
+foreach ($cands as $c) if (count($bySrc[$c['src']] ?? []) < 8) $bySrc[$c['src']][] = $c;
+$cands = $bySrc ? array_merge(...array_values($bySrc)) : [];
+if ($cands) paid_budget(count($cands));
+
 $LQS = [
     'rel' => ['type' => 'score', 'instructions' => "How closely does `item` (a paper, patent or funded project) correspond to the player's `idea`?", 'criteria' => [
         'Unrelated', 'Same broad field, different problem', 'Same problem, clearly different solution', 'Similar solution or mechanism, partial overlap with the idea', 'Essentially the same idea: same problem, same solution principle']],
@@ -112,7 +124,9 @@ foreach (array_chunk($cands, 8) as $chunk) {
         $r = json_decode((string) curl_multi_getcontent($h), true); curl_multi_remove_handle($mh, $h); curl_close($h);
         if (!isset($r['answers'])) continue;
         $a = $r['answers']; $tokens += ($r['usage']['input_tokens'] ?? 0) + ($r['usage']['output_tokens'] ?? 0);
-        $scored[] = $chunk[$i] + ['rel' => round((float) $a['rel']['score'], 2), 'kind' => (string) $a['kind']['choice'], 'conf' => round((float) $a['kind']['confidence'], 2)];
+        $kind = (string) ($a['kind']['choice'] ?? '');
+        if (!in_array($kind, ['ayni_cozum', 'kismi_ortusme', 'yakin_alan', 'alakasiz'], true)) $kind = 'alakasiz';
+        $scored[] = $chunk[$i] + ['rel' => round((float) $a['rel']['score'], 2), 'kind' => $kind, 'conf' => round((float) $a['kind']['confidence'], 2)];
     }
     curl_multi_close($mh);
 }
@@ -121,7 +135,9 @@ foreach (['patent', 'makale', 'ab_projesi'] as $s) {
     $thr = $s === 'ab_projesi' ? 2.0 : 2.5;
     $rows = array_values(array_filter($scored, fn($x) => $x['src'] === $s && $x['rel'] >= $thr));
     usort($rows, fn($a, $b) => $b['rel'] <=> $a['rel']);
-    $top[$s] = array_map(fn($x) => ['title' => $x['title'], 'year' => $x['year'], 'who' => $x['who'], 'url' => $x['url'], 'rel' => $x['rel'], 'kind' => $x['kind']], array_slice($rows, 0, 5));
+    // only https links reach the page
+    $top[$s] = array_map(fn($x) => ['title' => $x['title'], 'year' => $x['year'], 'who' => $x['who'],
+        'url' => preg_match('#^https://#i', (string) $x['url']) ? $x['url'] : '', 'rel' => $x['rel'], 'kind' => $x['kind']], array_slice($rows, 0, 5));
     $counts[$s] = count(array_filter($scored, fn($x) => $x['src'] === $s));
 }
 $out = ['ok' => true, 'query' => $q, 'counts' => $counts, 'top' => $top, 'same_solution' => count(array_filter($scored, fn($x) => $x['kind'] === 'ayni_cozum')),

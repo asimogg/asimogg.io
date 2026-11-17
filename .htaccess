@@ -11,7 +11,7 @@ ServerSignature Off
 <FilesMatch "^\.">
   Require all denied
 </FilesMatch>
-<FilesMatch "\.(md|json|lock|log|sh|bak|orig|sql|env|yml|yaml|gs)$">
+<FilesMatch "\.(md|json|lock|log|sh|bak|orig|sql|env|yml|yaml|gs|key|pem)$">
   Require all denied
 </FilesMatch>
 
@@ -60,6 +60,7 @@ ErrorDocument 503 /404.html
 
   # Gated originals (decks, film) and server-side includes are never served directly
   RewriteRule ^(private|tools)/ - [F]
+  RewriteRule (^|/)\.git(/|$) - [F]
   RewriteRule ^(lib|settings)\.php$ - [F]
 
   # Media in /assets is playable only from pages on this site: direct URL
@@ -67,6 +68,12 @@ ErrorDocument 503 /404.html
   RewriteCond %{REQUEST_URI} ^/assets/.*\.(mp4|webm|m4v)$ [NC]
   RewriteCond %{HTTP_REFERER} !^https://(www\.)?asimogg\.io/ [NC]
   RewriteRule ^ - [F]
+</IfModule>
+
+# Module-independent backstops: private/ and tools/ carry their own
+# "Require all denied" .htaccess; the git metadata is never served.
+<IfModule mod_alias.c>
+  RedirectMatch 404 (^|/)\.git(/|$)
 </IfModule>
 
 # Public media in /assets (site animations): inline, cacheable. The gated film

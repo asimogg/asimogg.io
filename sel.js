@@ -177,7 +177,7 @@
     startBtn.disabled = true; say("", "loading");
     fetch("sel.php?op=start&lang=" + lang(), { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (d) {
       if (!d || !d.ok) throw new Error("start");
-      G = newGame(d);
+      G = newGame(d); G.round = d.round || "";
       intro.hidden = true; endWrap.hidden = true; say("", null);
       if (!G.jev) say("error", "offline");
       ga("sel_start", { lang: lang(), jev: !!G.jev });
@@ -191,7 +191,7 @@
     var answered = G.human.filter(function (h) { return h.ms !== null; });
     var hOk = G.human.filter(function (h) { return h.ok; }).length;
     var hAvg = answered.length ? Math.round(answered.reduce(function (s, h) { return s + h.ms; }, 0) / answered.length) : 0;
-    var payload = { cards: CARDS, human_correct: hOk, human_ms: hAvg * answered.length, human_n: answered.length };
+    var payload = { cards: CARDS, human_correct: hOk, human_ms: hAvg * answered.length, human_n: answered.length, round: G.round };
     if (G.jev) { payload.jev_correct = G.jevOk; payload.jev_ms = G.jev.ms; }
     ga("sel_finish", { lang: lang(), human_correct: hOk, jev_correct: G.jev ? G.jevOk : -1 });
     fetch("sel.php?op=result", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })

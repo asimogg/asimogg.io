@@ -21,9 +21,10 @@ $name    = (string) ($claims['n'] ?? '');
 $lang    = ($claims['l'] ?? 'en') === 'tr' ? 'tr' : 'en';
 
 // one notification per link: remember the link's signature for its lifetime
-$seen = sys_get_temp_dir() . '/asimogg-seen-' . hash('sha256', $token) . '.flag';
-if (!is_file($seen)) {
-    @file_put_contents($seen, (string) time());
+$seen = state_dir() . '/seen-' . hash('sha256', $token) . '.flag';
+$fh = @fopen($seen, 'x');   // exclusive create: exactly one notification per link
+if ($fh) {
+    fwrite($fh, (string) time()); fclose($fh);
     $ip    = $_SERVER['REMOTE_ADDR'] ?? '';
     $when  = date('Y-m-d H:i:s');
     $label = $content === 'masterclass' ? 'Masterclass' : 'Saphire film';
@@ -42,7 +43,9 @@ if (!is_file($seen)) {
     if ($cfg['sheets_webhook'] !== '') {
         http_post_json($cfg['sheets_webhook'], [
             'key' => $cfg['sheets_key'],
-            'row' => [$when, $name, $email, $label, $lang, $ip],
+            // neutralise spreadsheet formulas: a leading = + - @ is stored as text
+            'row' => array_map(fn($v) => preg_match('/^[=+\-@\t\r]/', (string) $v) ? "'" . $v : $v,
+                               [$when, $name, $email, $label, $lang, $ip]),
         ]);
     }
 }

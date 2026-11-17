@@ -32,4 +32,10 @@ return [
     //    the game still runs solo.
     'typesafe_key_file' => __DIR__ . '/private/typesafe.key',
     'typesafe_model'    => 'jev-latest',
+
+    // 5. Security: canonical site address used in e-mailed links and origin
+    //    checks, and the site-wide daily ceiling on paid Jev calls (all games).
+    'site_url'          => 'https://asimogg.io',
+    'paid_daily_budget' => 1500,
+    'paid_ip_daily'     => 150,    // one visitor's share of that budget per day
 ];

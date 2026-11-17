@@ -16,7 +16,8 @@ function doPost(e) {
       return ContentService.createTextOutput('forbidden').setMimeType(ContentService.MimeType.TEXT);
     }
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
-    sheet.appendRow(data.row.map(function (v) { return String(v).slice(0, 500); }));
+    // a leading = + - @ would be evaluated as a formula: store it as text
+    sheet.appendRow(data.row.map(function (v) { v = String(v).slice(0, 500); return /^[=+\-@\t\r]/.test(v) ? "'" + v : v; }));
     return ContentService.createTextOutput('ok').setMimeType(ContentService.MimeType.TEXT);
   } catch (err) {
     return ContentService.createTextOutput('error').setMimeType(ContentService.MimeType.TEXT);

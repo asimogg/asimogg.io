@@ -19,18 +19,21 @@ function typesafe_key(array $cfg): string {
     return ($f && is_file($f)) ? trim((string) file_get_contents($f)) : '';
 }
 
+// Stats live outside the web root or in the owner-checked state dir; an
+// older private/ copy is migrated once, the shared temp dir is never trusted.
 function stats_file(): string {
     $name = 'asimogg-sel-stats.json';
-    foreach ([dirname(__DIR__) . '/.' . $name, __DIR__ . '/private/' . $name, sys_get_temp_dir() . '/' . $name] as $f) {
-        if (is_file($f) && is_writable($f)) return $f;
-        if (!is_file($f) && is_writable(dirname($f))) return $f;
-    }
-    return sys_get_temp_dir() . '/' . $name;
+    $above = dirname(__DIR__) . '/.' . $name;
+    if ((is_file($above) && is_writable($above)) || (!is_file($above) && is_writable(dirname($above)))) return $above;
+    $f = state_dir() . '/' . $name;
+    $legacy = __DIR__ . '/private/' . $name;
+    if (!is_file($f) && ($old = state_read($legacy)) !== null) @file_put_contents($f, $old, LOCK_EX);
+    return $f;
 }
 
 function stats_read(): array {
     $f = stats_file();
-    $d = is_file($f) ? json_decode((string) file_get_contents($f), true) : null;
+    $d = json_decode((string) state_read($f), true);
     return is_array($d) ? $d : ['games' => 0, 'h_correct' => 0, 'h_cards' => 0, 'h_ms' => 0, 'h_n' => 0, 'j_correct' => 0, 'j_cards' => 0, 'j_ms' => 0, 'j_n' => 0];
 }
 
@@ -82,6 +85,8 @@ function jev_ask(array $cards, array $bins, string $lang, array $cfg): ?array {
     return ['ms' => $ms, 'model' => $res['model'] ?? null, 'picks' => $picks];
 }
 
+if ($op === 'start' || $op === 'result') same_origin_or_die();
+
 if ($op === 'start') {
     rate_limit('sel-start', 40, 3600);
     $byLabel = [];
@@ -92,10 +97,18 @@ if ($op === 'start') {
         $round = array_merge($round, array_slice($list, 0, 3));
     }
     shuffle($round);
-    $jev = jev_ask($round, $deck['bins'], $lang, $cfg);
+    // one paid call per round, charged to the site-wide budget; when it is
+    // spent the round still runs solo (no Jev picks)
+    $jev = (typesafe_key($cfg) !== '' && paid_budget(1, true)) ? jev_ask($round, $deck['bins'], $lang, $cfg) : null;
     $out = [];
     foreach ($round as $c) $out[] = ['id' => $c['id'], 'text' => $c[$lang], 'label' => $c['label']];
-    json_out(200, ['ok' => true, 'lang' => $lang, 'bins' => $deck['bins'], 'cards' => $out, 'jev' => $jev, 'stats' => stats_summary(stats_read())]);
+    // signed round: op=result is counted once per issued round, and Jev's score
+    // is computed here from its own picks, never taken from the client
+    $jc = null;
+    if ($jev) { $jc = 0; foreach ($round as $c) if (($jev['picks'][$c['id']]['choice'] ?? '') === $c['label']) $jc++; }
+    $rb = b64url(json_encode(['n' => bin2hex(random_bytes(8)), 'iat' => time(), 'cards' => count($round), 'jc' => $jc, 'jms' => $jev['ms'] ?? null]));
+    $roundToken = $rb . '.' . b64url(hash_hmac('sha256', 'sel|' . $rb, secret(), true));
+    json_out(200, ['ok' => true, 'lang' => $lang, 'bins' => $deck['bins'], 'cards' => $out, 'jev' => $jev, 'round' => $roundToken, 'stats' => stats_summary(stats_read())]);
 }
 
 if ($op === 'result') {
@@ -108,8 +121,21 @@ if ($op === 'result') {
     if ($cards < 1 || $cards > 12 || $hc < 0 || $hc > $cards || $hn < 0 || $hn > $cards || $hms < 0 || $hms > 60000 * 12) json_out(400, ['ok' => false, 'error' => 'range']);
     if ($jc !== null && ($jc < 0 || $jc > $cards || $jms < 0 || $jms > 60000)) json_out(400, ['ok' => false, 'error' => 'range']);
     // rounds that no human hand can produce stay out of the running averages
+    if ($hn === 0 && ($hc !== 0 || $hms !== 0)) json_out(400, ['ok' => false, 'error' => 'range']);
+    $notCounted = fn() => json_out(200, ['ok' => true, 'stats' => stats_summary(stats_read()), 'counted' => false]);
+    // only rounds this server issued, once each, within 30 minutes
+    [$rb, $rs] = array_pad(explode('.', (string) ($in['round'] ?? ''), 2), 2, '');
+    $rc = json_decode(b64url_decode($rb), true);
+    if ($rb === '' || !hash_equals(b64url(hash_hmac('sha256', 'sel|' . $rb, secret(), true)), $rs)
+        || !is_array($rc) || (int) ($rc['iat'] ?? 0) < time() - 1800 || (int) ($rc['cards'] ?? 0) !== $cards) $notCounted();
+    $once = @fopen(state_dir() . '/sel-round-' . hash('sha256', (string) ($rc['n'] ?? '')) . '.flag', 'x');
+    if (!$once) $notCounted();
+    fclose($once);
+    if ($hn === 0) $notCounted();   // nobody answered: nothing to average
+    $jc  = isset($rc['jc']) ? (int) $rc['jc'] : null;
+    $jms = (int) ($rc['jms'] ?? 0);
     $avg = $hn ? $hms / $hn : 0;
-    if ($hn > 0 && ($avg < 350 || ($hc === $cards && $avg < 600))) json_out(200, ['ok' => true, 'stats' => stats_summary(stats_read()), 'counted' => false]);
+    if ($hn > 0 && ($avg < 350 || $avg > 60000 || ($hc === $cards && $avg < 600))) json_out(200, ['ok' => true, 'stats' => stats_summary(stats_read()), 'counted' => false]);
     $f = stats_file();
     $fh = fopen($f, 'c+');
     if ($fh && flock($fh, LOCK_EX)) {

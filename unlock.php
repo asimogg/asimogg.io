@@ -28,21 +28,28 @@ rate_limit('unlock', 5, 3600);
 
 $name  = trim(preg_replace('/\s+/u', ' ', preg_replace('/\p{C}/u', '', (string) ($_POST['name'] ?? ''))) ?? '');
 $name  = mb_substr($name, 0, 200);
+// mail to an unverified address carries no visitor-written text (the name is
+// kept in the token for the owner's lead mail only)
+$greet = '';
 $email = mb_substr(trim((string) ($_POST['email'] ?? '')), 0, 254);
 
 if (($_POST['consent'] ?? '') !== 'yes') json_out(422, ['ok' => false, 'error' => 'consent']);
-if ($name === '' || !filter_var($email, FILTER_VALIDATE_EMAIL) || preg_match('/[\r\n]/', $email)) {
+if ($name === '' || !filter_var($email, FILTER_VALIDATE_EMAIL) || preg_match('/[\r\n"]/', $email)) {
     json_out(422, ['ok' => false, 'error' => 'validation']);
 }
 
-// at most 3 links per address per hour, whatever the IP
-$bucket = sys_get_temp_dir() . '/asimogg-link-' . hash('sha256', strtolower($email)) . '.json';
-$now = time(); $hits = [];
-if (is_file($bucket)) {
-    $hits = json_decode((string) file_get_contents($bucket), true) ?: [];
-    $hits = array_values(array_filter($hits, fn($t) => is_int($t) && $t > $now - 3600));
+// at most 3 links per mailbox per hour, whatever the IP (+tags and gmail dots
+// count as the same mailbox), and at most 30 link mails per hour site-wide
+[$lp, $dom] = array_pad(explode('@', strtolower($email), 2), 2, '');
+$lp = preg_replace('/\+.*$/', '', $lp);
+if (in_array($dom, ['gmail.com', 'googlemail.com'], true)) { $lp = str_replace('.', '', $lp); $dom = 'gmail.com'; }
+$net = client_net();
+if (strpos($net, ':') === false) $net = preg_replace('/\.\d+$/', '', $net);   // IPv4: per /24
+if (!bucket_hit('link|' . $lp . '@' . $dom, 3, 3600) || !bucket_hit('link-net|' . $net, 10, 3600)
+    || !bucket_hit('link-all', 300, 3600)) {
+    json_out(429, ['ok' => false, 'error' => 'rate']);
 }
-if (count($hits) >= 3) json_out(429, ['ok' => false, 'error' => 'rate']);
+$now = time();
 
 $token = sign_token([
     'c' => $content, 'e' => $email, 'n' => $name, 'l' => $lang, 'm' => 'link',
@@ -54,14 +61,14 @@ $label = $content === 'masterclass' ? 'Masterclass' : ($lang === 'tr' ? 'Saphire
 
 if ($lang === 'tr') {
     $subject = "$label açılış bağlantın — asimogg.io";
-    $body = "Merhaba $name,\n\n"
+    $body = ($greet !== '' ? "Merhaba $greet,\n\n" : "Merhaba,\n\n")
           . "$label için açılış bağlantın aşağıda. Bağlantı $mins dakika geçerli; tıkladığında içerik tarayıcında açılır.\n\n"
           . "$link\n\n"
           . "Bu isteği sen yapmadıysan bu e-postayı yok sayabilirsin; bağlantı kullanılmadan kendiliğinden geçersiz olur.\n\n"
           . "asimogg.io\n";
 } else {
     $subject = "Your $label link — asimogg.io";
-    $body = "Hello $name,\n\n"
+    $body = ($greet !== '' ? "Hello $greet,\n\n" : "Hello,\n\n")
           . "Here is your link for the $label. It is valid for $mins minutes; the content opens in your browser when you click it.\n\n"
           . "$link\n\n"
           . "If you did not request this, ignore this e-mail; the link expires by itself.\n\n"
@@ -71,6 +78,4 @@ if ($lang === 'tr') {
 $sent = send_mail($email, $subject, $body);
 if (!$sent) json_out(500, ['ok' => false, 'error' => 'mail']);
 
-$hits[] = $now;
-@file_put_contents($bucket, json_encode($hits), LOCK_EX);
 json_out(200, ['ok' => true, 'mode' => 'magic', 'minutes' => $mins]);
